@@ -307,8 +307,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchNeededCount: 1
-  openSpeed: 10
-  autoClose: 5
+  openSpeed: 12
+  autoClose: 4
+  onDoorClose:
+    m_PersistentCalls:
+      m_Calls: []
+  onDoorOpen:
+    m_PersistentCalls:
+      m_Calls: []
   openPos: {fileID: 6744085854620840679}
   doorObject: {fileID: 3073226381254429674}
   isOpen: 0

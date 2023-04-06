@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Door : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Door : MonoBehaviour
 	[SerializeField] int switchNeededCount = 1;
 	[SerializeField] float openSpeed;
 	[SerializeField] float autoClose = 0f;
+	[SerializeField] UnityEvent onDoorClose;
+	[SerializeField] UnityEvent onDoorOpen;
 
 	[Header ("Lara Values")]
 	[SerializeField] Transform openPos;
@@ -28,6 +31,9 @@ public class Door : MonoBehaviour
 		{
 			autoCloseTimer = 0f;
 			ChangeState (true);
+
+			if (onDoorOpen != null)
+				onDoorOpen.Invoke();
 		}
 	}
 
@@ -37,7 +43,12 @@ public class Door : MonoBehaviour
 			--switchInputCount;
 
 		if (switchInputCount < switchNeededCount)
+		{
 			ChangeState (false);
+
+			if (onDoorClose != null)
+				onDoorClose.Invoke();
+		}
 	}
 
 	//Private functions
