@@ -306,11 +306,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc3351189ebf174d8cf1d454a9441e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openPos: {fileID: 6744085854620840679}
+  switchNeededCount: 1
   openSpeed: 10
+  autoClose: 5
+  openPos: {fileID: 6744085854620840679}
   doorObject: {fileID: 3073226381254429674}
   isOpen: 0
-  switchNeededCount: 1
 --- !u!1 &8094689718367958012
 GameObject:
   m_ObjectHideFlags: 0

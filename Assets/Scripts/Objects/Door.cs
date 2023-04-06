@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-	[SerializeField] Transform openPos;
+	[Range (1, 8)]
+	[SerializeField] int switchNeededCount = 1;
 	[SerializeField] float openSpeed;
+	[SerializeField] float autoClose = 0f;
+
+	[Header ("Lara Values")]
+	[SerializeField] Transform openPos;
 	[SerializeField] GameObject doorObject;
 	[SerializeField] bool isOpen = false;
 
-	[Range (1, 8)]
-	[SerializeField] int switchNeededCount = 1;
-
 	//Private Values
 	int switchInputCount = 0;
-	float timer;
+	float moveTimer;
+	float autoCloseTimer = 0f;
 
 	//public functions
 	public void OpenDoor()
@@ -22,7 +25,10 @@ public class Door : MonoBehaviour
 		++switchInputCount;
 
 		if (switchInputCount >= switchNeededCount)
+		{
+			autoCloseTimer = 0f;
 			ChangeState (true);
+		}
 	}
 
 	public void CloseDoor()
@@ -40,7 +46,7 @@ public class Door : MonoBehaviour
 		if (isOpen != open && doorObject != null)
 		{
 			isOpen = open;
-			timer = 0f;
+			moveTimer = 0f;
 		}
 	}
 
@@ -48,13 +54,13 @@ public class Door : MonoBehaviour
 	{
 		float distance = Vector3.Distance (startPos, destPos);
 
-		float distCovered = timer * openSpeed;
+		float distCovered = moveTimer * openSpeed;
 
 		float FractionOfJourney = distCovered / distance;
 
 		doorObject.transform.localPosition = Vector3.Lerp(startPos, destPos, FractionOfJourney);
 
-		timer += Time.fixedDeltaTime;
+		moveTimer += Time.fixedDeltaTime;
 	}
 
 	void FixedUpdate()
@@ -63,5 +69,13 @@ public class Door : MonoBehaviour
 			Move (Vector3.zero, openPos.localPosition);
 		else if (!isOpen && doorObject.transform.localPosition != Vector3.zero)
 			Move (openPos.localPosition, Vector3.zero);
+
+		if (isOpen && autoClose > 0f)
+		{
+			if (autoCloseTimer < autoClose)
+				autoCloseTimer += Time.fixedDeltaTime;
+			else
+				CloseDoor();
+		}
 	}
 }
