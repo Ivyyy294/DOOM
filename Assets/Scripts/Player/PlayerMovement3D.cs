@@ -12,11 +12,12 @@ public class PlayerMovement3D : MonoBehaviour
 	[Header("Jumping")]
 	[SerializeField] float gravity = 1f;
 	[SerializeField] float jumpHeight = 1f;
+	[SerializeField] int jumpNumber = 2;
 	Vector3 verticalMovement;
 
 	//private Values
 	private float currentSpeed;
-	private bool doubleJumpPossible = true;
+	private int jumpCounter = 0;
 	//Timer
 
 	//[SerializeField] AnimationCurve accelerationCurve;
@@ -54,19 +55,19 @@ public class PlayerMovement3D : MonoBehaviour
 
 	Vector3 GetVerticalMovement()
 	{
+		//Gravity
 		if (characterController.isGrounded)
 		{
-			if (!doubleJumpPossible)
-			doubleJumpPossible = true;
+			jumpCounter = 0;
 			verticalMovement.y = -2f;
-			
-			if (Input.GetKey (KeyCode.Space))
-				verticalMovement.y = Mathf.Sqrt (jumpHeight * gravity * 2f);
 		}
 		else
-		{
-		
 			verticalMovement.y -= gravity * Time.deltaTime;
+
+		if (Input.GetKeyDown(KeyCode.Space) && (characterController.isGrounded || jumpCounter < jumpNumber))
+		{
+			verticalMovement.y = Mathf.Sqrt(jumpHeight * gravity * 2f);
+			jumpCounter++;
 		}
 
 		return verticalMovement;
