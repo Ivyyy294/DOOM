@@ -20,15 +20,8 @@ public class Switch : MonoBehaviour
 	//Public
 	public void Lock () { SetLockState (true);}
 	public void Unlock () { SetLockState (false);}
-
-	//Private
-	void OnMouseDown()
-	{
-		if (!isLocked)
-			SetActiveState (!isToggled);
-	}
-
-	private void SetActiveState (bool val)
+	
+	public void SetActiveState (bool val)
 	{
 		isToggled = val;
 
@@ -39,6 +32,14 @@ public class Switch : MonoBehaviour
 	
 		SetMaterial();
 	}
+
+	//Private
+	void OnMouseDown()
+	{
+		if (!isLocked)
+			SetActiveState (!isToggled);
+	}
+
 
 	private void SetLockState (bool val)
 	{

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+	[SerializeField] Transform openPos;
+	[SerializeField] float openSpeed;
 	[SerializeField] GameObject doorObject;
 	[SerializeField] bool isOpen = false;
 
@@ -12,6 +14,7 @@ public class Door : MonoBehaviour
 
 	//Private Values
 	int switchInputCount = 0;
+	float timer;
 
 	//public functions
 	public void OpenDoor()
@@ -36,21 +39,29 @@ public class Door : MonoBehaviour
 	{
 		if (isOpen != open && doorObject != null)
 		{
-			doorObject.SetActive (!open);
 			isOpen = open;
+			timer = 0f;
 		}
 	}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private void Move (Vector3 startPos, Vector3 destPos)
+	{
+		float distance = Vector3.Distance (startPos, destPos);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		float distCovered = timer * openSpeed;
 
+		float FractionOfJourney = distCovered / distance;
+
+		doorObject.transform.localPosition = Vector3.Lerp(startPos, destPos, FractionOfJourney);
+
+		timer += Time.fixedDeltaTime;
+	}
+
+	void FixedUpdate()
+	{
+		if (isOpen && doorObject.transform.localPosition != openPos.localPosition)
+			Move (Vector3.zero, openPos.localPosition);
+		else if (!isOpen && doorObject.transform.localPosition != Vector3.zero)
+			Move (openPos.localPosition, Vector3.zero);
+	}
 }
