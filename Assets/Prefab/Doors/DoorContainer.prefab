@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchNeededCount: 1
-  openSpeed: 12
+  openSpeed: 16
   autoClose: 4
   onDoorClose:
     m_PersistentCalls:
