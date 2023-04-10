@@ -9,6 +9,10 @@ public class Switch : MonoBehaviour
 	[SerializeField] UnityEvent onToggled;
 	[SerializeField] UnityEvent onUntoggled;
 
+	[Header ("Sounds")]
+	[SerializeField] AudioClip aToggle;
+	[SerializeField] AudioClip aLocked;
+
 	[Header ("Lara Values")]
 	[SerializeField] Material mToggled;
 	[SerializeField] Material mUntoggled;
@@ -16,6 +20,7 @@ public class Switch : MonoBehaviour
 
 	bool isToggled = false;
 	private MeshRenderer meshRenderer;
+	private AudioSource audioSource;
 
 	//Public
 	public void Lock () { SetLockState (true);}
@@ -43,7 +48,12 @@ public class Switch : MonoBehaviour
 	void OnMouseDown()
 	{
 		if (!isLocked)
+		{
 			SetActiveState (!isToggled);
+			audioSource?.PlayOneShot (aToggle);
+		}
+		else
+			audioSource?.PlayOneShot (aLocked);
 	}
 
 
@@ -57,6 +67,8 @@ public class Switch : MonoBehaviour
 	void Start()
     {
         meshRenderer = GetComponent <MeshRenderer>();
+		audioSource = GetComponent <AudioSource>();
+
 		SetMaterial();
     }
 

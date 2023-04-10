@@ -11,6 +11,7 @@ public class Door : MonoBehaviour
 	[SerializeField] float autoClose = 0f;
 	[SerializeField] UnityEvent onDoorClose;
 	[SerializeField] UnityEvent onDoorOpen;
+	[SerializeField] AudioClip audioDoor;
 
 	[Header ("Lara Values")]
 	[SerializeField] Transform openPos;
@@ -21,6 +22,7 @@ public class Door : MonoBehaviour
 	int switchInputCount = 0;
 	float moveTimer;
 	float autoCloseTimer = 0f;
+	private AudioSource audioSource;
 
 	//public functions
 	public void OpenDoor()
@@ -52,12 +54,18 @@ public class Door : MonoBehaviour
 	}
 
 	//Private functions
+	private void Start()
+	{
+		audioSource = GetComponent <AudioSource>();
+	}
+
 	void ChangeState (bool open)
 	{
 		if (isOpen != open && doorObject != null)
 		{
 			isOpen = open;
 			moveTimer = 0f;
+			audioSource?.PlayOneShot (audioDoor);
 		}
 	}
 

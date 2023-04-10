@@ -43,7 +43,7 @@ public class Elevator : MonoBehaviour
 	}
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 		Vector3 tmpPos = active ? destPos.position : startPos.position;
 

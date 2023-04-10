@@ -13,11 +13,16 @@ public class PlayerMovement3D : MonoBehaviour
 	[SerializeField] float gravity = 1f;
 	[SerializeField] float jumpHeight = 1f;
 	[SerializeField] int jumpNumber = 2;
+
+	[SerializeField] List <AudioClip> aJump;
+
 	Vector3 verticalMovement;
 
 	//private Values
 	private float currentSpeed;
 	private int jumpCounter = 0;
+	private AudioSource audioSource;
+	
 	//Timer
 
 	//[SerializeField] AnimationCurve accelerationCurve;
@@ -28,6 +33,7 @@ public class PlayerMovement3D : MonoBehaviour
     void Start()
     {
         characterController = GetComponent <CharacterController>();
+		audioSource = GetComponent <AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,7 +44,10 @@ public class PlayerMovement3D : MonoBehaviour
 
 	Vector3 GetHorizontalMovement()
 	{
-		currentSpeed = (Input.GetKey (KeyCode.LeftShift) ? sprintSpeed : baseSpeed) * Time.deltaTime;
+		bool isSprinting = Input.GetKey (KeyCode.LeftShift);
+		currentSpeed = ((isSprinting) ? sprintSpeed : baseSpeed) * Time.deltaTime;
+
+		//Camera.main.fieldOfView = isSprinting ? 70f : 60f;
 
         float xInput = Input.GetAxis ("Horizontal");
 		float yInput = Input.GetAxis ("Vertical");
@@ -68,6 +77,12 @@ public class PlayerMovement3D : MonoBehaviour
 		{
 			verticalMovement.y = Mathf.Sqrt(jumpHeight * gravity * 2f);
 			jumpCounter++;
+
+			if (aJump != null && aJump.Count > 0)
+			{
+				int index = Random.Range (0, aJump.Count);
+				audioSource?.PlayOneShot (aJump[index]);
+			}
 		}
 
 		return verticalMovement;
