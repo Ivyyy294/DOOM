@@ -16,6 +16,13 @@ public class Elevator : MonoBehaviour
 	[SerializeField] Transform destPos;
 
 	bool active = false;
+	Rigidbody myRigidbody;
+
+	public void Start()
+	{
+		myRigidbody = GetComponent <Rigidbody>();
+		transform.position = startPos.position;
+	}
 
 	public void Activate()
 	{
@@ -37,9 +44,10 @@ public class Elevator : MonoBehaviour
 
 	void Move (Vector3 pos)
 	{
-		float minDis = Mathf.Min (speed * Time.deltaTime, Vector3.Distance (platform.position, pos));
+		float minDis = Mathf.Min (speed * Time.fixedDeltaTime, Vector3.Distance (platform.position, pos));
 		Vector3 movementVec = (pos - platform.position).normalized * minDis;
-		platform.position += movementVec;
+
+		myRigidbody?.MovePosition (platform.position + movementVec);
 	}
 
     // Update is called once per frame
@@ -50,4 +58,14 @@ public class Elevator : MonoBehaviour
 		if (platform.position != tmpPos)
 			Move (tmpPos);
     }
+
+	private void OnTriggerEnter(Collider other)
+	{
+		other.transform.SetParent (transform);
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		other.transform.SetParent (null);
+	}
 }

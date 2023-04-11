@@ -4069,7 +4069,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398840762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -70.1342, y: 5.02, z: 19.064}
+  m_LocalPosition: {x: -70.1342, y: 5.13, z: 19.064}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5630,7 +5630,6 @@ GameObject:
   - component: {fileID: 1870640357}
   - component: {fileID: 1870640358}
   - component: {fileID: 1870640359}
-  - component: {fileID: 1870640360}
   m_Layer: 0
   m_Name: DoomGuy
   m_TagString: Player
@@ -5853,19 +5852,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!65 &1870640360
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870640350}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &1905240315
 GameObject:
   m_ObjectHideFlags: 0
@@ -7576,7 +7562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4372300917662563929, guid: 090481a36551ffc45b5fda4f69036eeb, type: 3}
       propertyPath: speed
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7535683856081561375, guid: 090481a36551ffc45b5fda4f69036eeb, type: 3}
       propertyPath: m_Name
