@@ -72,13 +72,9 @@ public class Door : MonoBehaviour
 	private void Move (Vector3 startPos, Vector3 destPos)
 	{
 		float distance = Vector3.Distance (startPos, destPos);
-
 		float distCovered = moveTimer * openSpeed;
-
 		float FractionOfJourney = distCovered / distance;
-
 		doorObject.transform.localPosition = Vector3.Lerp(startPos, destPos, FractionOfJourney);
-
 		moveTimer += Time.fixedDeltaTime;
 	}
 
