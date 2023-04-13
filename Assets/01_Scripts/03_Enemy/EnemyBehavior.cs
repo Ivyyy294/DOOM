@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.Assertions;
 
 public class EnemyBehavior : MonoBehaviour
 {
+	//Public Values
 	public enum EnemyState
 	{
 		IDLE,
@@ -16,16 +18,17 @@ public class EnemyBehavior : MonoBehaviour
 	}
 
 	public EnemyState currentState = EnemyState.IDLE;
-	[SerializeField] float sightRange = 25f;
+
+	[Header ("Spotting Setting")]
+	[SerializeField] Transform rayOrigin;
+	[SerializeField] float rayRange = 25f;
+
+	[Header ("Attack Settings")]
 	[SerializeField] float attackDelay = 2f;
 
+	//Private Values
 	bool playerInSight = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	float attackDelayTimer = 0f;
 
     // Update is called once per frame
     void Update()
@@ -53,14 +56,13 @@ public class EnemyBehavior : MonoBehaviour
 			currentState = EnemyState.IDLE;
 		else
 		{
-			attackDelay -= Time.deltaTime;
+			attackDelayTimer -= Time.deltaTime;
 
-			if (attackDelay < 0f)
+			if (attackDelayTimer < 0f)
 			{
 				GetComponent<Animator>()?.SetTrigger("Attack");
-				attackDelay = 2f;
+				attackDelayTimer = attackDelay;
 			}
-
 		}
 	}
 
@@ -72,15 +74,18 @@ public class EnemyBehavior : MonoBehaviour
 
 	bool IsPlayerInSight()
 	{
-		Ray ray = new Ray(transform.position, (Camera.main.transform.position - transform.position).normalized);
-		
-		RaycastHit hit;
 		bool inRange = false;
 
-		if (Physics.Raycast(ray, out hit, sightRange))
+		Assert.IsNotNull (rayOrigin, "Enemies rayOrigin not set!");
+
+		Ray ray = new Ray(rayOrigin.position, (Camera.main.transform.position - rayOrigin.position).normalized);
+		
+		RaycastHit hit;
+
+		if (Physics.Raycast(ray, out hit, rayRange))
 			inRange = hit.collider.CompareTag ("Player");
 
-		Debug.DrawRay (ray.origin, ray.direction * sightRange, inRange ? Color.green : Color.red);
+		Debug.DrawRay (ray.origin, ray.direction * rayRange, inRange ? Color.green : Color.red);
 
 		return inRange;
 	}
