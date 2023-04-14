@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,25 +8,34 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 {
 	[SerializeField] Light lightRef;
 	[SerializeField] Transform rayOrigin;
-	[SerializeField] float idleSpeed;
-	[SerializeField] float trackingSpeed;
+	[SerializeField] float speed;
 	[SerializeField] float maxAngleLeft;
 	[SerializeField] float maxAngleRight;
 	[SerializeField] UnityEvent OnInteract;
 	[SerializeField] bool moveBack = false;
 
-	private float currentRotation = 0f;
+	enum State
+	{
+		IDLE,
+		TRACKING,
+		RESET
+	}
+
+	float currentRotation;
+	private Quaternion resetPos;
 	float range;
-	bool tracking = false;
+	State currentState = State.IDLE;
 
 	public void Interact()
 	{
-		if (tracking)
-			tracking = false;
+		if (currentState == State.TRACKING)
+			currentState = State.RESET;
 	}
 
 	private void Start()
 	{
+		resetPos = transform.rotation;
+
 		if (lightRef != null)
 			range = lightRef.range;
 	}
@@ -33,47 +43,58 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 	// Update is called once per frame
 	void Update()
     {
-		if (!tracking)
+		if (currentState == State.IDLE)
 			Idle();
-		else
+		else if (currentState == State.TRACKING)
 			Tracking();
+		else
+			Reset();
     }
+
+	private void Reset()
+	{
+		Rotate (resetPos);
+
+		if (transform.rotation == resetPos)
+		{
+			currentRotation = 0f;
+			currentState = State.IDLE;
+		}
+	}
+
+	void Rotate (Quaternion target)
+	{
+		transform.rotation = Quaternion.RotateTowards (transform.rotation, target, speed * Time.deltaTime);
+	}
 
 	void Tracking()
 	{
 		Vector3 targetDir = Camera.main.transform.position - transform.position;
-		Vector3 forward = transform.forward;
-		float angle = Vector3.SignedAngle (targetDir, forward, Vector3.up);
+		transform.forward = targetDir;
 
-		if (angle > 0f)
-			MoveLeft(trackingSpeed);
-		else if (angle < 0f)
-			MoveRight(trackingSpeed);
-
-		if (Search(Camera.main.transform.position - rayOrigin.position))
+		if (Search(rayOrigin.forward))
 			OnInteract.Invoke();
-
 	}
 
 	void Idle()
 	{
 		if (!moveBack)
-			MoveRight(idleSpeed);
+			MoveRight(speed);
 		else
-			MoveLeft(idleSpeed);
+			MoveLeft(speed);
 
         if (Search(rayOrigin.forward))
 		{
 			OnInteract?.Invoke();
-			tracking = true;
+			currentState = State.TRACKING;
 		}
 	}
 
 	void MoveRight(float speed)
 	{
-		float rotVal = Mathf.Min (speed * Time.deltaTime, maxAngleRight - currentRotation);
+		float rotVal = Mathf.Min(speed * Time.deltaTime, maxAngleRight - currentRotation);
 		currentRotation += rotVal;
-		transform.Rotate (Vector3.up, rotVal);
+		transform.Rotate(Vector3.up, rotVal);
 
 		if (currentRotation == maxAngleRight)
 			moveBack = true;
