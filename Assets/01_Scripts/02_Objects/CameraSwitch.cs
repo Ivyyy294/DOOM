@@ -6,13 +6,15 @@ using UnityEngine.Events;
 
 public class CameraSwitch : MonoBehaviour, InteractableObject
 {
-	[SerializeField] Light lightRef;
-	[SerializeField] Transform rayOrigin;
 	[SerializeField] float speed;
 	[SerializeField] float maxAngleLeft;
 	[SerializeField] float maxAngleRight;
 	[SerializeField] UnityEvent OnInteract;
 	[SerializeField] bool moveBack = false;
+
+	[Header ("Lara Values")]
+	[SerializeField] Light lightRef;
+	[SerializeField] Transform rayOrigin;
 
 	enum State
 	{
@@ -21,7 +23,6 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 		RESET
 	}
 
-	float currentRotation;
 	private Quaternion resetPos;
 	float range;
 	State currentState = State.IDLE;
@@ -34,7 +35,7 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 
 	private void Start()
 	{
-		resetPos = transform.rotation;
+		resetPos = transform.localRotation;
 
 		if (lightRef != null)
 			range = lightRef.range;
@@ -55,16 +56,13 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 	{
 		Rotate (resetPos);
 
-		if (transform.rotation == resetPos)
-		{
-			currentRotation = 0f;
+		if (transform.localRotation == resetPos)
 			currentState = State.IDLE;
-		}
 	}
 
 	void Rotate (Quaternion target)
 	{
-		transform.rotation = Quaternion.RotateTowards (transform.rotation, target, speed * Time.deltaTime);
+		transform.localRotation = Quaternion.RotateTowards (transform.localRotation, target, speed * Time.deltaTime);
 	}
 
 	void Tracking()
@@ -92,21 +90,19 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 
 	void MoveRight(float speed)
 	{
-		float rotVal = Mathf.Min(speed * Time.deltaTime, maxAngleRight - currentRotation);
-		currentRotation += rotVal;
-		transform.Rotate(Vector3.up, rotVal);
+		Quaternion tmp = Quaternion.Euler (transform.eulerAngles.x, maxAngleRight, 0f);
+		Rotate (tmp);
 
-		if (currentRotation == maxAngleRight)
+		if (transform.localRotation == tmp)
 			moveBack = true;
 	}
 
 	void MoveLeft(float speed)
 	{
-		float rotVal = Mathf.Min (speed * Time.deltaTime, maxAngleLeft + currentRotation);
-		currentRotation -= rotVal;
-		transform.Rotate (Vector3.up, -rotVal);
+		Quaternion tmp = Quaternion.Euler (transform.eulerAngles.x, -maxAngleLeft, 0f);
+		Rotate (tmp);
 
-		if (currentRotation == -maxAngleLeft)
+		if (transform.localRotation == tmp)
 			moveBack = false;
 	}
 
