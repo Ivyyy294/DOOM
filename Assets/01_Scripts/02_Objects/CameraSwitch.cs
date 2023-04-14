@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CameraSwitch : MonoBehaviour
 {
@@ -9,27 +10,43 @@ public class CameraSwitch : MonoBehaviour
 	[SerializeField] float speed;
 	[SerializeField] float maxAngleLeft;
 	[SerializeField] float maxAngleRight;
+	[SerializeField] UnityEvent OnInteract;
 
 	private float currentRotation = 0f;
 	bool moveBack = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	bool tracking = false;
 
     // Update is called once per frame
     void Update()
     {
+		if (!tracking)
+			Idle();
+		else
+			Tracking();
+    }
+
+	void Tracking()
+	{
+		//tracking = false;
+		//rotVal = Mathf.Clamp (rotVal, -maxAngleLeft, maxAngleRight);
+		//rotVal = currentRotation - rotVal;		
+		//transform.Rotate (Vector3.up, rotVal);
+		//tracking = Search(Camera.main.transform.position - rayOrigin.position);
+	}
+
+	void Idle()
+	{
 		if (!moveBack)
 			MoveRight();
 		else
 			MoveLeft();
 
-        if (Search())
-			Debug.Log("Player detected!");
-    }
+        if (Search(rayOrigin.forward))
+		{
+			OnInteract?.Invoke();
+			tracking = true;
+		}
+	}
 
 	void MoveRight()
 	{
@@ -51,9 +68,9 @@ public class CameraSwitch : MonoBehaviour
 			moveBack = false;
 	}
 
-	bool Search ()
+	bool Search (Vector3 direction)
 	{
-		Ray ray = new Ray (rayOrigin.position, rayOrigin.forward);
+		Ray ray = new Ray (rayOrigin.position, direction);
 
 		RaycastHit hit;
 
