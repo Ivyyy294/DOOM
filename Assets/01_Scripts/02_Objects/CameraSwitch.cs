@@ -16,7 +16,6 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 
 	private float currentRotation = 0f;
 	float range;
-	float size;
 	bool tracking = false;
 
 	public void Interact()
@@ -28,10 +27,7 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 	private void Start()
 	{
 		if (lightRef != null)
-		{
 			range = lightRef.range;
-			size = lightRef.spotAngle;
-		}
 	}
 
 	// Update is called once per frame
