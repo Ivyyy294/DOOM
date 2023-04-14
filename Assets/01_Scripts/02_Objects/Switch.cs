@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Switch : MonoBehaviour
+public class Switch : MonoBehaviour , InteractableObject
 {
 	[SerializeField] bool isLocked = false;
 	[SerializeField] UnityEvent onToggled;
@@ -32,6 +32,17 @@ public class Switch : MonoBehaviour
 		SetMaterial();
 	}
 
+	public void Interact()
+	{
+		if (!isLocked)
+		{
+			SetActiveState (!isToggled);
+			audioSource?.PlayOneShot (aToggle);
+		}
+		else
+			audioSource?.PlayOneShot (aLocked);
+	}
+
 	//Private
 	private void SetActiveState (bool val)
 	{
@@ -45,16 +56,6 @@ public class Switch : MonoBehaviour
 		SetMaterial();
 	}
 
-	void OnMouseDown()
-	{
-		if (!isLocked)
-		{
-			SetActiveState (!isToggled);
-			audioSource?.PlayOneShot (aToggle);
-		}
-		else
-			audioSource?.PlayOneShot (aLocked);
-	}
 
 
 	private void SetLockState (bool val)
