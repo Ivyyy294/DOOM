@@ -3,21 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CameraSwitch : MonoBehaviour
+public class CameraSwitch : MonoBehaviour, InteractableObject
 {
+	[SerializeField] Light lightRef;
 	[SerializeField] Transform rayOrigin;
-	[SerializeField] float range;
-	[SerializeField] float speed;
+	[SerializeField] float idleSpeed;
+	[SerializeField] float trackingSpeed;
 	[SerializeField] float maxAngleLeft;
 	[SerializeField] float maxAngleRight;
 	[SerializeField] UnityEvent OnInteract;
+	[SerializeField] bool moveBack = false;
 
 	private float currentRotation = 0f;
-	bool moveBack = false;
+	float range;
+	float size;
 	bool tracking = false;
 
-    // Update is called once per frame
-    void Update()
+	public void Interact()
+	{
+		if (tracking)
+			tracking = false;
+	}
+
+	private void Start()
+	{
+		if (lightRef != null)
+		{
+			range = lightRef.range;
+			size = lightRef.spotAngle;
+		}
+	}
+
+	// Update is called once per frame
+	void Update()
     {
 		if (!tracking)
 			Idle();
@@ -27,19 +45,26 @@ public class CameraSwitch : MonoBehaviour
 
 	void Tracking()
 	{
-		//tracking = false;
-		//rotVal = Mathf.Clamp (rotVal, -maxAngleLeft, maxAngleRight);
-		//rotVal = currentRotation - rotVal;		
-		//transform.Rotate (Vector3.up, rotVal);
-		//tracking = Search(Camera.main.transform.position - rayOrigin.position);
+		Vector3 targetDir = Camera.main.transform.position - transform.position;
+		Vector3 forward = transform.forward;
+		float angle = Vector3.SignedAngle (targetDir, forward, Vector3.up);
+
+		if (angle > 0f)
+			MoveLeft(trackingSpeed);
+		else if (angle < 0f)
+			MoveRight(trackingSpeed);
+
+		if (Search(Camera.main.transform.position - rayOrigin.position))
+			OnInteract.Invoke();
+
 	}
 
 	void Idle()
 	{
 		if (!moveBack)
-			MoveRight();
+			MoveRight(idleSpeed);
 		else
-			MoveLeft();
+			MoveLeft(idleSpeed);
 
         if (Search(rayOrigin.forward))
 		{
@@ -48,7 +73,7 @@ public class CameraSwitch : MonoBehaviour
 		}
 	}
 
-	void MoveRight()
+	void MoveRight(float speed)
 	{
 		float rotVal = Mathf.Min (speed * Time.deltaTime, maxAngleRight - currentRotation);
 		currentRotation += rotVal;
@@ -58,7 +83,7 @@ public class CameraSwitch : MonoBehaviour
 			moveBack = true;
 	}
 
-	void MoveLeft()
+	void MoveLeft(float speed)
 	{
 		float rotVal = Mathf.Min (speed * Time.deltaTime, maxAngleLeft + currentRotation);
 		currentRotation -= rotVal;

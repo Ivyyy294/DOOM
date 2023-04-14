@@ -83,4 +83,12 @@ public class Switch : MonoBehaviour , InteractableObject
 				meshRenderer.material = isToggled ? mToggled : mUntoggled;
 		}
 	}
+
+
+	void Test()
+	{
+		SpriteRenderer spriteRenderer;
+
+		spriteRenderer = GetComponent<SpriteRenderer>();
+	}
 }
