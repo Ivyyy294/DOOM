@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f99ac79e0f3db4fb881d704f567665, type: 3}
+  m_Name: Shotgun
+  m_EditorClassIdentifier: 
+  displayName: Shotgun
+  idlSprite: {fileID: 275089209, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  shootSprites:
+  - {fileID: -492443307, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: -1405055174, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: -2039403743, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: 1788752223, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: -1626403193, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: 855464384, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  reloadSprites:
+  - {fileID: 1788752223, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: 1788752223, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: -1626403193, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: -1626403193, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: 855464384, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: 855464384, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  clipSize: 2
+  dmg: 0

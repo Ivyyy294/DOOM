@@ -6,23 +6,31 @@ public class PlayerInteraction : MonoBehaviour
 {
 	[SerializeField] float range;
 	[SerializeField] KeyCode interactKey;
+	[SerializeField] WeaponManager weaponManager;
 
 	private Transform cameraTrans;
 
-
+	//Private
 	private void Start()
 	{
 		cameraTrans = Camera.main.transform;
+		weaponManager = GetComponent <WeaponManager>();
 	}
 
 	// Update is called once per frame
 	void Update()
     {
 		if (Input.GetKeyDown (interactKey))
-			Interact();
+		{
+			//Shoot if no interaction is possible
+			if (!Interact())
+				weaponManager?.Shoot();
+		}
+		else if (Input.GetMouseButtonDown (1))
+			weaponManager?.Reload();
     }
 
-	void Interact()
+	bool Interact()
 	{
 		Ray ray = new Ray (cameraTrans.position, cameraTrans.forward);
 
@@ -42,5 +50,7 @@ public class PlayerInteraction : MonoBehaviour
 		}
 
 		Debug.DrawRay (ray.origin, ray.direction * range, inRange ? Color.green : Color.red);
+
+		return inRange;
 	}
 }
