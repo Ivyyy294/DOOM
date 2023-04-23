@@ -26,8 +26,6 @@ public class PlayerInteraction : MonoBehaviour
 			if (!Interact())
 				weaponManager?.Shoot();
 		}
-		else if (Input.GetMouseButtonDown (1))
-			weaponManager?.Reload();
     }
 
 	bool Interact()

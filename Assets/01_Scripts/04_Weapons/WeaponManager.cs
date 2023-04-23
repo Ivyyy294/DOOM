@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-class WeaponContainer
+public class WeaponContainer
 {
 	public Weapon weapon;
 	public int currentAmmo;
@@ -26,6 +26,7 @@ public class WeaponManager : MonoBehaviour
 	[SerializeField] Image weaponSprite;
 	[SerializeField] TextMeshProUGUI txtAmmoCounter;
 	[SerializeField] TextMeshProUGUI txtWeaponName;
+	[SerializeField] TextMeshProUGUI txtSwitchTimer;
 
 	enum State
 	{
@@ -42,6 +43,7 @@ public class WeaponManager : MonoBehaviour
 	private float shootTimer;
 	private float switchWeaponTimer;
 	private int currentWeaponIndex;
+	
 	//Public
 
 	public void Idle ()
@@ -53,7 +55,14 @@ public class WeaponManager : MonoBehaviour
 		}
 		else
 		{
+			//Check Switch weapon
 			SwitchWeapon();
+
+			float tmp = GetReloadTimeLeft();
+			txtSwitchTimer.text = (Mathf.Round(tmp * 100f) / 100f).ToString();
+
+			if (Input.GetMouseButtonDown (1))
+				Reload();
 		}
 	}
 
@@ -163,7 +172,7 @@ public class WeaponManager : MonoBehaviour
 			{
 				int newIndex = currentWeaponIndex;
 
-				if (mouseDelta > 0f)
+				if (mouseDelta < 0f)
 					newIndex++;
 				else
 					--newIndex;
@@ -210,5 +219,10 @@ public class WeaponManager : MonoBehaviour
 			txtAmmoCounter.text = currentWeapon.currentAmmo.ToString();
 			txtAmmoCounter.gameObject.SetActive (currentWeapon.weapon.clipSize > 0);
 		}
+	}
+
+	float GetReloadTimeLeft ()
+	{
+		return Mathf.Max (0f, switchWeaonDelay - switchWeaponTimer);
 	}
 }
