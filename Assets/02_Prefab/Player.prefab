@@ -337,6 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 5
   interactKey: 102
+  weaponManager: {fileID: 0}
 --- !u!114 &5393089973647689886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,4 +351,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons: []
+  sampleRate: 1
+  switchWeaonDelay: 0.5
   weaponSprite: {fileID: 0}
+  txtAmmoCounter: {fileID: 0}
+  txtWeaponName: {fileID: 0}

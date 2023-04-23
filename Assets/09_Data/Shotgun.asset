@@ -25,8 +25,10 @@ MonoBehaviour:
   - {fileID: 1788752223, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
   - {fileID: 1788752223, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
   - {fileID: -1626403193, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: 855464384, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: 855464384, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
   - {fileID: -1626403193, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
-  - {fileID: 855464384, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
-  - {fileID: 855464384, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: 1788752223, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
+  - {fileID: -2039403743, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
   clipSize: 2
   dmg: 0
