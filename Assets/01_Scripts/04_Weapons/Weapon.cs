@@ -12,4 +12,8 @@ public class Weapon : ScriptableObject
 
 	public int clipSize;
 	public int dmg;
+
+	[Header ("Sounds")]
+	public AudioClip shootSound;
+	public AudioClip reloadSound;
 }

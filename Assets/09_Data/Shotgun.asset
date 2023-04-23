@@ -31,3 +31,5 @@ MonoBehaviour:
   - {fileID: -2039403743, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
   clipSize: 2
   dmg: 0
+  shootSound: {fileID: 8300000, guid: f095083cf51f0234fbeab1dc0c8bd237, type: 3}
+  reloadSound: {fileID: 8300000, guid: 960c3f7e13fcf324682c30a905baf128, type: 3}

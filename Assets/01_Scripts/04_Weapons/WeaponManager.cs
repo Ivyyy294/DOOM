@@ -43,6 +43,7 @@ public class WeaponManager : MonoBehaviour
 	private float shootTimer;
 	private float switchWeaponTimer;
 	private int currentWeaponIndex;
+	private AudioSource audioSource;
 	
 	//Public
 
@@ -74,6 +75,7 @@ public class WeaponManager : MonoBehaviour
 			currentState = State.RELOADING;
 			reloadTimer = 0f;
 			txtAmmoCounter.text = currentWeapon.currentAmmo.ToString();
+			audioSource?.PlayOneShot (currentWeapon.weapon.reloadSound);
 		}
 
 		if (currentState == State.RELOADING)
@@ -104,6 +106,7 @@ public class WeaponManager : MonoBehaviour
 				txtAmmoCounter.text = currentWeapon.currentAmmo.ToString();
 			}
 
+			audioSource?.PlayOneShot (currentWeapon.weapon.shootSound);
 			currentState = State.SHOOTING;
 			Debug.Log ("B‰‰‰‰m");
 			shootTimer = 0f;
@@ -135,6 +138,7 @@ public class WeaponManager : MonoBehaviour
 		InitWeapons();
 		SwitchWeapon (0);
 		animationSpeed = 1f / sampleRate;
+		audioSource = GetComponent <AudioSource>();
     }
 
     // Update is called once per frame

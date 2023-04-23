@@ -24,3 +24,5 @@ MonoBehaviour:
   - {fileID: -433399645, guid: acaea8c3feba0fd46b7907a979cd5657, type: 3}
   clipSize: 6
   dmg: 1
+  shootSound: {fileID: 8300000, guid: 735626b01c6ca3d4280f0627e56c63fb, type: 3}
+  reloadSound: {fileID: 0}
