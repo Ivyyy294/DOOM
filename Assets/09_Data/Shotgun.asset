@@ -15,7 +15,40 @@ MonoBehaviour:
   displayName: Shotgun
   clipSize: 2
   dmg: 5
-  range: 10
+  range: 8
+  rangeMod:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.15
+      value: 1
+      inSlope: 0.004907722
+      outSlope: 0.004907722
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8205559
+      outWeight: 0.24678788
+    - serializedVersion: 3
+      time: 1
+      value: 0.1
+      inSlope: -2.3933468
+      outSlope: -2.3933468
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.0719813
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   idlSprite: {fileID: 275089209, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
   shootSprites:
   - {fileID: 275089209, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}

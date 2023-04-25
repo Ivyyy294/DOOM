@@ -14,8 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Fist
   clipSize: 0
-  dmg: 0
-  range: 1
+  dmg: 1
+  range: 2
+  rangeMod:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   idlSprite: {fileID: -173428288, guid: 43b33db6a2a4ca34c8ae81db3f4ca1a2, type: 3}
   shootSprites:
   - {fileID: -1030741688, guid: 43b33db6a2a4ca34c8ae81db3f4ca1a2, type: 3}

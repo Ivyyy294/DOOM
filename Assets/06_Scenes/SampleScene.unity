@@ -3756,6 +3756,7 @@ MonoBehaviour:
   rayOrigin: {fileID: 1447001376}
   rayRange: 10
   attackDelay: 2
+  maxHealth: 2
 --- !u!95 &891458729
 Animator:
   serializedVersion: 4

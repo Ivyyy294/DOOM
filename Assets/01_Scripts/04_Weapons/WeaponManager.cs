@@ -109,7 +109,6 @@ public class WeaponManager : MonoBehaviour
 
 			audioSource?.PlayOneShot (currentWeapon.weapon.shootSound);
 			currentState = State.SHOOTING;
-			Debug.Log ("B‰‰‰‰m");
 			shootTimer = 0f;
 
 			Transform cameraTrans = Camera.main.transform;
@@ -117,16 +116,12 @@ public class WeaponManager : MonoBehaviour
 
 			RaycastHit hit;
 
-			bool inRange = false;
-
 			if (Physics.Raycast(ray, out hit, currentWeapon.weapon.range))
 			{
+				float dmgMod = currentWeapon.weapon.rangeMod.Evaluate (hit.distance / currentWeapon.weapon.range);
 				Damageable tmp = hit.transform.gameObject.GetComponent<Damageable>();
-				tmp?.ApplyDamage (currentWeapon.weapon.dmg);
+				tmp?.ApplyDamage (currentWeapon.weapon.dmg * dmgMod);
 			}
-
-			Debug.DrawRay (ray.origin, ray.direction * currentWeapon.weapon.range, inRange ? Color.green : Color.red);
-
 		}
 
 		if (currentState == State.SHOOTING)

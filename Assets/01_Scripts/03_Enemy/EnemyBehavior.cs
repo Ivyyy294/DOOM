@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 		APPROACH,
 		ATTACK,
 		TAKEDAMAGE,
+		DYING,
 		DEAD
 	}
 
@@ -30,18 +32,34 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	bool playerInSight = false;
 	float attackDelayTimer = 0f;
 	float currentHealth;
-	float maxHealth;
+	public float maxHealth;
 
 	public void ApplyDamage (float dmg)
 	{
 		currentHealth -= dmg;
+		Debug.Log ("AUTSCH!!! DMG: " + dmg.ToString("0.00"));
 
-		if (currentHealth < 0f)
-			Dead();
+		currentState = EnemyState.TAKEDAMAGE;
 	}
 
-    // Update is called once per frame
-    void Update()
+	private void TakeDmg()
+	{
+		GetComponent<Animator>()?.SetTrigger("TakeDamage");
+
+		if (currentHealth <= 0f)
+			currentState = EnemyState.DYING;
+		else
+			currentState = EnemyState.IDLE;
+		//throw new NotImplementedException();
+	}
+
+	void Start()
+	{
+		currentHealth = maxHealth;
+	}
+
+	// Update is called once per frame
+	void Update()
     {
 		playerInSight = IsPlayerInSight();
 
@@ -54,6 +72,12 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 				break;
 			case EnemyState.ATTACK:
 				Attack();
+				break;
+			case EnemyState.TAKEDAMAGE:
+				TakeDmg();
+				break;
+			case EnemyState.DYING:
+				Dying();
 				break;
 			default:
 				break;
@@ -82,13 +106,20 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 			currentState = EnemyState.ATTACK;
 	}
 
+	void Dying()
+	{
+		GetComponent<Animator>()?.SetTrigger("Die");
+		Dead();
+	}
+
 	void Dead()
 	{
 		if (currentState != EnemyState.DEAD)
 		{
+			Debug.Log ("ME DEAD!!");
 			PlayerStats.Me().enemiesKilled++;
 			currentState = EnemyState.DEAD;
-			gameObject.SetActive (false);
+			//gameObject.SetActive (false);
 		}
 	}
 

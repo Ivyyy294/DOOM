@@ -9,6 +9,7 @@ public class Weapon : ScriptableObject
 	public int clipSize;
 	public int dmg;
 	public float range;
+	public AnimationCurve rangeMod;
 
 	[Header ("Sprite Settings")]
 	public Sprite idlSprite;
