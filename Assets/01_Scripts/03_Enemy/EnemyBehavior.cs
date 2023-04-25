@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Assertions;
 
-public class EnemyBehavior : MonoBehaviour
+public class EnemyBehavior : MonoBehaviour , Damageable
 {
 	//Public Values
 	public enum EnemyState
@@ -29,6 +29,16 @@ public class EnemyBehavior : MonoBehaviour
 	//Private Values
 	bool playerInSight = false;
 	float attackDelayTimer = 0f;
+	float currentHealth;
+	float maxHealth;
+
+	public void ApplyDamage (float dmg)
+	{
+		currentHealth -= dmg;
+
+		if (currentHealth < 0f)
+			Dead();
+	}
 
     // Update is called once per frame
     void Update()
@@ -70,6 +80,16 @@ public class EnemyBehavior : MonoBehaviour
 	{
 		if (playerInSight)
 			currentState = EnemyState.ATTACK;
+	}
+
+	void Dead()
+	{
+		if (currentState != EnemyState.DEAD)
+		{
+			PlayerStats.Me().enemiesKilled++;
+			currentState = EnemyState.DEAD;
+			gameObject.SetActive (false);
+		}
 	}
 
 	bool IsPlayerInSight()

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Shotgun
   clipSize: 2
-  dmg: 0
+  dmg: 5
+  range: 10
   idlSprite: {fileID: 275089209, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}
   shootSprites:
   - {fileID: 275089209, guid: 312fb8da61313ba4db39676ddab80dc8, type: 3}

@@ -104,12 +104,29 @@ public class WeaponManager : MonoBehaviour
 			{
 				currentWeapon.currentAmmo--;
 				txtAmmoCounter.text = currentWeapon.currentAmmo.ToString();
+				PlayerStats.Me().bullets++;
 			}
 
 			audioSource?.PlayOneShot (currentWeapon.weapon.shootSound);
 			currentState = State.SHOOTING;
 			Debug.Log ("B‰‰‰‰m");
 			shootTimer = 0f;
+
+			Transform cameraTrans = Camera.main.transform;
+			Ray ray = new Ray (cameraTrans.position, cameraTrans.forward);
+
+			RaycastHit hit;
+
+			bool inRange = false;
+
+			if (Physics.Raycast(ray, out hit, currentWeapon.weapon.range))
+			{
+				Damageable tmp = hit.transform.gameObject.GetComponent<Damageable>();
+				tmp?.ApplyDamage (currentWeapon.weapon.dmg);
+			}
+
+			Debug.DrawRay (ray.origin, ray.direction * currentWeapon.weapon.range, inRange ? Color.green : Color.red);
+
 		}
 
 		if (currentState == State.SHOOTING)

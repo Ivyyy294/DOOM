@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Fist
   m_EditorClassIdentifier: 
   displayName: Fist
+  clipSize: 0
+  dmg: 0
+  range: 1
   idlSprite: {fileID: -173428288, guid: 43b33db6a2a4ca34c8ae81db3f4ca1a2, type: 3}
   shootSprites:
   - {fileID: -1030741688, guid: 43b33db6a2a4ca34c8ae81db3f4ca1a2, type: 3}
   - {fileID: -185433853, guid: 43b33db6a2a4ca34c8ae81db3f4ca1a2, type: 3}
   - {fileID: 1210039860, guid: 43b33db6a2a4ca34c8ae81db3f4ca1a2, type: 3}
   reloadSprites: []
-  clipSize: 0
-  dmg: 0
+  xOffset: 0
   shootSound: {fileID: 8300000, guid: 5e2104ab7115115458e02eabf64c3b6f, type: 3}
   reloadSound: {fileID: 0}

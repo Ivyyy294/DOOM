@@ -8,6 +8,7 @@ public class Weapon : ScriptableObject
 	public string displayName;
 	public int clipSize;
 	public int dmg;
+	public float range;
 
 	[Header ("Sprite Settings")]
 	public Sprite idlSprite;

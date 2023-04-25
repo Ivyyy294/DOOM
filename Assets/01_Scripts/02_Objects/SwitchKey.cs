@@ -19,6 +19,8 @@ public class SwitchKey : MonoBehaviour
 	{
 		if (!collected)
 		{
+			PlayerStats.Me().keysFound++;
+			
 			collected = true;
 
 			if (OnCollected != null)

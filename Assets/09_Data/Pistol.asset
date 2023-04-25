@@ -15,6 +15,7 @@ MonoBehaviour:
   displayName: Pistol
   clipSize: 6
   dmg: 1
+  range: 50
   idlSprite: {fileID: 1437905925, guid: acaea8c3feba0fd46b7907a979cd5657, type: 3}
   shootSprites:
   - {fileID: 1937508517, guid: acaea8c3feba0fd46b7907a979cd5657, type: 3}
