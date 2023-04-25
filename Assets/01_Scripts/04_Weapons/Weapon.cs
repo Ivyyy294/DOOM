@@ -6,12 +6,14 @@ using UnityEngine;
 public class Weapon : ScriptableObject
 {
 	public string displayName;
+	public int clipSize;
+	public int dmg;
+
+	[Header ("Sprite Settings")]
 	public Sprite idlSprite;
 	public List <Sprite> shootSprites;
 	public List <Sprite> reloadSprites;
-
-	public int clipSize;
-	public int dmg;
+	public int xOffset;
 
 	[Header ("Sounds")]
 	public AudioClip shootSound;

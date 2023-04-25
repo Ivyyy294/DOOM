@@ -21,3 +21,5 @@ MonoBehaviour:
   reloadSprites: []
   clipSize: 0
   dmg: 0
+  shootSound: {fileID: 8300000, guid: 5e2104ab7115115458e02eabf64c3b6f, type: 3}
+  reloadSound: {fileID: 0}

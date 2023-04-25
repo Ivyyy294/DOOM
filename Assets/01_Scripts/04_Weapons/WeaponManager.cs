@@ -217,6 +217,7 @@ public class WeaponManager : MonoBehaviour
 			currentWeapon = weaponContainers[newWeapon];
 			weaponSprite.sprite = currentWeapon.weapon.idlSprite;
 			weaponSprite.SetNativeSize();
+			weaponSprite.transform.localPosition = Vector3.right * currentWeapon.weapon.xOffset;
 
 			txtWeaponName.text = currentWeapon.weapon.displayName;
 
