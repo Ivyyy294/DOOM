@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Shotgun
   clipSize: 2
   dmg: 5
-  range: 8
+  range: 10
   rangeMod:
     serializedVersion: 2
     m_Curve:

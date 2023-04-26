@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Pistol
   clipSize: 6
   dmg: 1
-  range: 20
+  range: 50
   rangeMod:
     serializedVersion: 2
     m_Curve:
