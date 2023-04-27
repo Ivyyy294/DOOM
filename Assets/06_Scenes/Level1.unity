@@ -1314,14 +1314,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8621979052653290843, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4667199c0684d5a449a1742d1c345f62, type: 2}
+    - target: {fileID: -6996701132939751008, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4667199c0684d5a449a1742d1c345f62, type: 2}
     - target: {fileID: -4780072770720950627, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 734aa03a3b4a04748b71cf3627746fef, type: 2}
+    - target: {fileID: -4371923586737778573, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4667199c0684d5a449a1742d1c345f62, type: 2}
+    - target: {fileID: -2156075225026226885, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a295f33cc7b3134f8a68012b19e0ee4, type: 2}
+    - target: {fileID: -1669913658646017443, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4667199c0684d5a449a1742d1c345f62, type: 2}
     - target: {fileID: 919132149155446097, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
       propertyPath: m_Name
       value: Map
       objectReference: {fileID: 0}
+    - target: {fileID: 2049876349244418072, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4667199c0684d5a449a1742d1c345f62, type: 2}
+    - target: {fileID: 7869120268283320135, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4667199c0684d5a449a1742d1c345f62, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
 --- !u!1 &1132149022 stripped
@@ -1531,6 +1559,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1201650045}
   m_CullTransparentMesh: 1
+--- !u!1 &1305945175 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3994835843468024462, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
+  m_PrefabInstance: {fileID: 1132149021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1305945179
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305945175}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3099183463934272234, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
 --- !u!1 &1319811347
 GameObject:
   m_ObjectHideFlags: 0
@@ -2302,6 +2349,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!1 &2074677082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7980000172330259365, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
+  m_PrefabInstance: {fileID: 1132149021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &2074677086
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074677082}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3914798656235243572, guid: 221e60ee8be02c445868c21c51e60806, type: 3}
 --- !u!1 &2136131283
 GameObject:
   m_ObjectHideFlags: 0
