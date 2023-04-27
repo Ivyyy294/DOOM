@@ -90,7 +90,7 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 
 	void MoveRight(float speed)
 	{
-		Quaternion tmp = Quaternion.Euler (transform.eulerAngles.x, maxAngleRight, 0f);
+		Quaternion tmp = Quaternion.Euler (transform.eulerAngles.x, resetPos.eulerAngles.y + maxAngleRight, 0f);
 		Rotate (tmp);
 
 		if (transform.localRotation == tmp)
@@ -99,7 +99,7 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 
 	void MoveLeft(float speed)
 	{
-		Quaternion tmp = Quaternion.Euler (transform.eulerAngles.x, -maxAngleLeft, 0f);
+		Quaternion tmp = Quaternion.Euler (transform.eulerAngles.x, resetPos.eulerAngles.y -maxAngleLeft, 0f);
 		Rotate (tmp);
 
 		if (transform.localRotation == tmp)

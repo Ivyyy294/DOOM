@@ -44,9 +44,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 1
+  m_Intensity: 5
   m_Range: 10
-  m_SpotAngle: 1
+  m_SpotAngle: 5
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
@@ -225,16 +225,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf0ff179af32564e98519faf9f77851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightRef: {fileID: 8140392706949762939}
-  rayOrigin: {fileID: 9154978311618199430}
-  idleSpeed: 10
-  trackingSpeed: 25
+  speed: 8
   maxAngleLeft: 40
   maxAngleRight: 40
   OnInteract:
     m_PersistentCalls:
       m_Calls: []
   moveBack: 0
+  lightRef: {fileID: 8140392706949762939}
+  rayOrigin: {fileID: 9154978311618199430}
 --- !u!1 &2641171343197760896
 GameObject:
   m_ObjectHideFlags: 0
