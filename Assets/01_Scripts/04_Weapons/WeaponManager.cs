@@ -69,8 +69,8 @@ public class WeaponManager : MonoBehaviour
 		{
 			if (inventory != null)
 			{
-				int available = inventory.GetAmmoForReloading (currentWeapon.weapon.ammoTyp, currentWeapon.weapon.clipSize);
-				currentWeapon.currentAmmo = available;
+				int available = inventory.GetAmmoForReloading (currentWeapon.weapon.ammoTyp, currentWeapon.weapon.clipSize - currentWeapon.currentAmmo);
+				currentWeapon.currentAmmo += available;
 			}
 			else
 				currentWeapon.currentAmmo = currentWeapon.weapon.clipSize;

@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f99ac79e0f3db4fb881d704f567665, type: 3}
+  m_Name: PlasmaRifle
+  m_EditorClassIdentifier: 
+  displayName: PlasmaRifle
+  dmg: 2
+  clipSize: 6
+  ammoTyp: 2
+  range: 50
+  rangeMod:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  idlSprite: {fileID: 575987099, guid: cbb8b0cdb747daa4b885dfeedcf6e0a4, type: 3}
+  shootSprites:
+  - {fileID: -1993344217, guid: cbb8b0cdb747daa4b885dfeedcf6e0a4, type: 3}
+  - {fileID: -736008472, guid: cbb8b0cdb747daa4b885dfeedcf6e0a4, type: 3}
+  - {fileID: 216810676, guid: cbb8b0cdb747daa4b885dfeedcf6e0a4, type: 3}
+  - {fileID: 216810676, guid: cbb8b0cdb747daa4b885dfeedcf6e0a4, type: 3}
+  reloadSprites:
+  - {fileID: 575987099, guid: cbb8b0cdb747daa4b885dfeedcf6e0a4, type: 3}
+  - {fileID: 216810676, guid: cbb8b0cdb747daa4b885dfeedcf6e0a4, type: 3}
+  - {fileID: 216810676, guid: cbb8b0cdb747daa4b885dfeedcf6e0a4, type: 3}
+  - {fileID: 216810676, guid: cbb8b0cdb747daa4b885dfeedcf6e0a4, type: 3}
+  - {fileID: 575987099, guid: cbb8b0cdb747daa4b885dfeedcf6e0a4, type: 3}
+  xOffset: 0
+  shootSound: {fileID: 8300000, guid: 24d00516f256ed74089fe8008eb4e070, type: 3}
+  reloadSound: {fileID: 0}

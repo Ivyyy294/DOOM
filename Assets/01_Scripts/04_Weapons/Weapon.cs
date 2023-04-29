@@ -8,7 +8,8 @@ public class Weapon : ScriptableObject
 	public enum AmmoTyp
 	{
 		BULLETS,
-		SHELLS
+		SHELLS,
+		CELLS
 	}
 
 	public string displayName;
