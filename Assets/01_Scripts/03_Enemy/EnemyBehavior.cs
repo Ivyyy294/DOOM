@@ -36,10 +36,13 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 
 	public void ApplyDamage (float dmg)
 	{
-		currentHealth -= dmg;
-		Debug.Log ("AUTSCH!!! DMG: " + dmg.ToString("0.00"));
+		if (currentHealth > 0)
+		{
+			currentHealth -= dmg;
+			Debug.Log ("AUTSCH!!! DMG: " + dmg.ToString("0.00"));
 
-		currentState = EnemyState.TAKEDAMAGE;
+			currentState = EnemyState.TAKEDAMAGE;
+		}
 	}
 
 	private void TakeDmg()

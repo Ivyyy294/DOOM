@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   displayName: Shotgun
-  clipSize: 2
   dmg: 5
+  clipSize: 2
+  ammoTyp: 1
   range: 10
   rangeMod:
     serializedVersion: 2

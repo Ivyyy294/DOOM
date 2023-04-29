@@ -5,9 +5,16 @@ using UnityEngine;
 [CreateAssetMenu (menuName = "Weapon")]
 public class Weapon : ScriptableObject
 {
+	public enum AmmoTyp
+	{
+		BULLETS,
+		SHELLS
+	}
+
 	public string displayName;
-	public int clipSize;
 	public int dmg;
+	public int clipSize;
+	public AmmoTyp ammoTyp;
 	public float range;
 	public AnimationCurve rangeMod;
 

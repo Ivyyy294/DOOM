@@ -230,6 +230,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PC Computer - Doom Doom II - HUD_6
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 255
+        width: 40
+        height: 32
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c669885e258fa834db743e101474e5cd
+      internalID: -1486446546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -241,6 +262,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      PC Computer - Doom Doom II - HUD_6: -1486446546
       PC Computer - Doom Doom II - HUD_0: 1910834122
       PC Computer - Doom Doom II - HUD_1: 84435051
       PC Computer - Doom Doom II - HUD_4: 1330658625

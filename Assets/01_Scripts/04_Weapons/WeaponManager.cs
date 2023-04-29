@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,8 +25,6 @@ public class WeaponManager : MonoBehaviour
 	[Header ("Lara Values")]
 	[SerializeField] Image weaponSprite;
 	[SerializeField] TextMeshProUGUI txtAmmoCounter;
-	[SerializeField] TextMeshProUGUI txtWeaponName;
-	[SerializeField] TextMeshProUGUI txtSwitchTimer;
 
 	enum State
 	{
@@ -44,6 +42,7 @@ public class WeaponManager : MonoBehaviour
 	private float switchWeaponTimer;
 	private int currentWeaponIndex;
 	private AudioSource audioSource;
+	private Inventory inventory;
 	
 	//Public
 
@@ -59,9 +58,6 @@ public class WeaponManager : MonoBehaviour
 			//Check Switch weapon
 			SwitchWeapon();
 
-			float tmp = GetReloadTimeLeft();
-			txtSwitchTimer.text = (Mathf.Round(tmp * 100f) / 100f).ToString();
-
 			if (Input.GetMouseButtonDown (1))
 				Reload();
 		}
@@ -71,11 +67,22 @@ public class WeaponManager : MonoBehaviour
 	{
 		if (currentState == State.IDLE)
 		{
-			currentWeapon.currentAmmo = currentWeapon.weapon.clipSize;
-			currentState = State.RELOADING;
-			reloadTimer = 0f;
+			if (inventory != null)
+			{
+				int available = inventory.GetAmmoForReloading (currentWeapon.weapon.ammoTyp, currentWeapon.weapon.clipSize);
+				currentWeapon.currentAmmo = available;
+			}
+			else
+				currentWeapon.currentAmmo = currentWeapon.weapon.clipSize;
+			
 			txtAmmoCounter.text = currentWeapon.currentAmmo.ToString();
-			audioSource?.PlayOneShot (currentWeapon.weapon.reloadSound);
+
+			if (currentWeapon.currentAmmo > 0)
+			{
+				currentState = State.RELOADING;
+				reloadTimer = 0f;
+				audioSource?.PlayOneShot (currentWeapon.weapon.reloadSound);
+			}
 		}
 
 		if (currentState == State.RELOADING)
@@ -103,7 +110,7 @@ public class WeaponManager : MonoBehaviour
 			if (currentWeapon.weapon.clipSize > 0)
 			{
 				currentWeapon.currentAmmo--;
-				txtAmmoCounter.text = currentWeapon.currentAmmo.ToString();
+				SetAmmoCounterText();
 				PlayerStats.Me().bullets++;
 			}
 
@@ -151,6 +158,7 @@ public class WeaponManager : MonoBehaviour
 		SwitchWeapon (0);
 		animationSpeed = 1f / sampleRate;
 		audioSource = GetComponent <AudioSource>();
+		inventory = GetComponent <Inventory>();
     }
 
     // Update is called once per frame
@@ -231,15 +239,15 @@ public class WeaponManager : MonoBehaviour
 			weaponSprite.SetNativeSize();
 			weaponSprite.transform.localPosition = Vector3.right * currentWeapon.weapon.xOffset;
 
-			txtWeaponName.text = currentWeapon.weapon.displayName;
-
-			txtAmmoCounter.text = currentWeapon.currentAmmo.ToString();
-			txtAmmoCounter.gameObject.SetActive (currentWeapon.weapon.clipSize > 0);
+			SetAmmoCounterText();
 		}
 	}
 
-	float GetReloadTimeLeft ()
+	void SetAmmoCounterText()
 	{
-		return Mathf.Max (0f, switchWeaonDelay - switchWeaponTimer);
+		if (currentWeapon.weapon.clipSize > 0)
+			txtAmmoCounter.text = currentWeapon.currentAmmo.ToString();
+		else
+			txtAmmoCounter.text = "∞";
 	}
 }
