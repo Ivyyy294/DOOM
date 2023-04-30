@@ -8,6 +8,7 @@ public class Alarm : MonoBehaviour, InteractableObject
 	[SerializeField] float speed = 0.5f;
 	[SerializeField] float alarmDuration;
 	[SerializeField] UnityEvent OnDeactivate;
+	[SerializeField] UnityEvent OnActivate;
 
 	[Header ("Lara values")]
 	[SerializeField] Material mOn;
@@ -24,6 +25,7 @@ public class Alarm : MonoBehaviour, InteractableObject
 	{
 		if (!active)
 		{
+			OnActivate?.Invoke();
 			audioSource?.Play();
 			active = true;
 			on = true;
