@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 5393089973647689886}
   - component: {fileID: 8199416375882072417}
   - component: {fileID: 3066227044284349524}
+  - component: {fileID: 4836272473042389110}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -141,7 +142,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8857616600520224690}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -357,8 +358,14 @@ MonoBehaviour:
   switchWeaonDelay: 0.5
   weaponSprite: {fileID: 0}
   txtAmmoCounter: {fileID: 0}
-  txtWeaponName: {fileID: 0}
-  txtSwitchTimer: {fileID: 0}
+  txtWIndex: []
+  wActive:
+    serializedVersion: 2
+    rgba: 0
+  wInactive:
+    serializedVersion: 2
+    rgba: 0
+  switchPos: {fileID: 0}
 --- !u!114 &8199416375882072417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,3 +395,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88583648d0dbed54997a8edd27396095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammoContainers: []
+--- !u!114 &4836272473042389110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8857616600520224690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d9cc387023338c44aaaf05ec82dc9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxMovement: 0.1
+  frequenzy: 4
