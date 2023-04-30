@@ -28,13 +28,15 @@ public class WeaponManager : MonoBehaviour
 	[SerializeField] TextMeshProUGUI[] txtWIndex;
 	[SerializeField] Color32 wActive;
 	[SerializeField] Color32 wInactive;
+	[SerializeField] RectTransform switchPos;
 
 	enum State
 	{
 		IDLE,
 		SHOOTING,
 		RELOADING,
-		SWITCH_WEAPON
+		SWITCH_WEAPON_DOWN,
+		SWITCH_WEAPON_UP,
 	}
 
 	private float animationSpeed;
@@ -43,10 +45,10 @@ public class WeaponManager : MonoBehaviour
 	private WeaponContainer currentWeapon;
 	private float reloadTimer;
 	private float shootTimer;
-	private float switchWeaponTimer;
 	private int currentWeaponIndex;
 	private AudioSource audioSource;
 	private Inventory inventory;
+	private int newWeaponIndex;
 	
 	//Public
 
@@ -60,7 +62,7 @@ public class WeaponManager : MonoBehaviour
 		else
 		{
 			//Check Switch weapon
-			SwitchWeapon();
+			CheckSwitchWeaponInput();
 
 			if (Input.GetMouseButtonDown (1))
 				Reload();
@@ -159,7 +161,7 @@ public class WeaponManager : MonoBehaviour
     void Start()
     {
 		InitWeapons();
-		SwitchWeapon (0);
+
 		animationSpeed = 1f / sampleRate;
 		audioSource = GetComponent <AudioSource>();
 		inventory = GetComponent <Inventory>();
@@ -179,8 +181,11 @@ public class WeaponManager : MonoBehaviour
 			case State.RELOADING:
 				Reload();
 				break;
-			case State.SWITCH_WEAPON:
-				SwitchWeapon();
+			case State.SWITCH_WEAPON_DOWN:
+				MoveWeaponDown();
+				break;
+			case State.SWITCH_WEAPON_UP:
+				MoveWeaponUp();
 				break;
 		}
     }
@@ -190,9 +195,13 @@ public class WeaponManager : MonoBehaviour
 		weaponContainers = new List<WeaponContainer>();
 		foreach (Weapon i in weapons)
 			weaponContainers.Add (new WeaponContainer (i));
+
+		currentWeaponIndex = -1;
+		SwitchWeapon (0);
+		weaponSprite.transform.localPosition = Vector3.right * currentWeapon.weapon.xOffset;
 	}
 
-	private void SwitchWeapon()
+	private void CheckSwitchWeaponInput()
 	{
 		if (currentState == State.IDLE)
 		{
@@ -213,7 +222,11 @@ public class WeaponManager : MonoBehaviour
 				else if (newIndex >= weaponContainers.Count)
 					newIndex = 0;
 
-				SwitchWeapon (newIndex);
+				if (currentWeaponIndex != newIndex)
+				{
+					newWeaponIndex = newIndex;
+					currentState = State.SWITCH_WEAPON_DOWN;
+				}
 			}
 			else
 			{
@@ -223,38 +236,73 @@ public class WeaponManager : MonoBehaviour
 
 					if (Input.GetKeyDown ((KeyCode) keycode))
 					{
-						SwitchWeapon (i);
+						if (currentWeaponIndex != i)
+						{
+							newWeaponIndex = i;
+							currentState = State.SWITCH_WEAPON_DOWN;
+						}
 						break;
 					}
 				}
 
 			}
 		}
-		else
-		{ 
-			switchWeaponTimer += Time.deltaTime;
+	}
 
-			if (switchWeaponTimer >= switchWeaonDelay)
-				currentState = State.IDLE;
-		}		
+	private void MoveWeaponDown()
+	{
+		Vector2 targetPos = switchPos.anchoredPosition;
+		MoveWeapon (Vector2.right * currentWeapon.weapon.xOffset, targetPos);
+
+		float distance = Vector2.Distance (weaponSprite.rectTransform.anchoredPosition, targetPos);
+
+		if (weaponSprite.rectTransform.anchoredPosition == targetPos)
+		{
+			currentState = State.SWITCH_WEAPON_UP;
+			SwitchWeapon (newWeaponIndex);
+		}
+	}
+
+	private void MoveWeaponUp()
+	{
+		Vector2 targetPos = Vector2.right * currentWeapon.weapon.xOffset;
+		MoveWeapon (switchPos.anchoredPosition, targetPos);
+
+		if (weaponSprite.rectTransform.anchoredPosition == targetPos)
+			currentState = State.IDLE;
+	}
+
+	private void MoveWeapon (Vector2 startPos, Vector2 targetPos)
+	{
+		//Base values
+		float animationTime = switchWeaonDelay * 0.5f;
+		float distance = Vector2.Distance (startPos, targetPos);
+		float speed = distance * (1f / animationTime) * Time.deltaTime;
+
+		distance = Vector2.Distance (weaponSprite.rectTransform.anchoredPosition, targetPos);
+
+		if (distance > speed)
+		{
+			Vector2 direction = (targetPos - weaponSprite.rectTransform.anchoredPosition).normalized;
+			weaponSprite.rectTransform.anchoredPosition += direction * speed;
+		}
+		else
+			weaponSprite.rectTransform.anchoredPosition = targetPos;
 	}
 
 	private void SwitchWeapon (int newWeapon)
 	{
-		SetTxtWIndexColor (currentWeaponIndex, false);
+		if (currentWeaponIndex != -1)
+			SetTxtWIndexColor (currentWeaponIndex, false);
 
 		if (newWeapon < weaponContainers.Count)
 		{
-			switchWeaponTimer = 0f;
 			currentWeaponIndex = newWeapon;
 			currentWeapon = weaponContainers[newWeapon];
 			weaponSprite.sprite = currentWeapon.weapon.idlSprite;
 			weaponSprite.SetNativeSize();
-			weaponSprite.transform.localPosition = Vector3.right * currentWeapon.weapon.xOffset;
-
 			SetAmmoCounterText();
 			SetTxtWIndexColor (newWeapon, true);
-			currentState = State.SWITCH_WEAPON;
 		}
 	}
 
