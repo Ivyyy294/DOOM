@@ -1125,6 +1125,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1954432471}
     - target: {fileID: 5393089973647689886, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: switchDestPos
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393089973647689886, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
       propertyPath: txtWeaponName
       value: 
       objectReference: {fileID: 0}
@@ -5431,7 +5435,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136131283}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

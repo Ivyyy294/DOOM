@@ -33,7 +33,8 @@ public class WeaponManager : MonoBehaviour
 	{
 		IDLE,
 		SHOOTING,
-		RELOADING
+		RELOADING,
+		SWITCH_WEAPON
 	}
 
 	private float animationSpeed;
@@ -178,6 +179,9 @@ public class WeaponManager : MonoBehaviour
 			case State.RELOADING:
 				Reload();
 				break;
+			case State.SWITCH_WEAPON:
+				SwitchWeapon();
+				break;
 		}
     }
 
@@ -190,7 +194,7 @@ public class WeaponManager : MonoBehaviour
 
 	private void SwitchWeapon()
 	{
-		if (switchWeaponTimer >= switchWeaonDelay)
+		if (currentState == State.IDLE)
 		{
 
 			float mouseDelta = Input.mouseScrollDelta.y;
@@ -227,8 +231,12 @@ public class WeaponManager : MonoBehaviour
 			}
 		}
 		else
+		{ 
 			switchWeaponTimer += Time.deltaTime;
-		
+
+			if (switchWeaponTimer >= switchWeaonDelay)
+				currentState = State.IDLE;
+		}		
 	}
 
 	private void SwitchWeapon (int newWeapon)
@@ -246,6 +254,7 @@ public class WeaponManager : MonoBehaviour
 
 			SetAmmoCounterText();
 			SetTxtWIndexColor (newWeapon, true);
+			currentState = State.SWITCH_WEAPON;
 		}
 	}
 
