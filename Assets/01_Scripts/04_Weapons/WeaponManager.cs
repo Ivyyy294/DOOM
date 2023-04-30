@@ -25,6 +25,9 @@ public class WeaponManager : MonoBehaviour
 	[Header ("Lara Values")]
 	[SerializeField] Image weaponSprite;
 	[SerializeField] TextMeshProUGUI txtAmmoCounter;
+	[SerializeField] TextMeshProUGUI[] txtWIndex;
+	[SerializeField] Color32 wActive;
+	[SerializeField] Color32 wInactive;
 
 	enum State
 	{
@@ -230,6 +233,8 @@ public class WeaponManager : MonoBehaviour
 
 	private void SwitchWeapon (int newWeapon)
 	{
+		SetTxtWIndexColor (currentWeaponIndex, false);
+
 		if (newWeapon < weaponContainers.Count)
 		{
 			switchWeaponTimer = 0f;
@@ -240,6 +245,7 @@ public class WeaponManager : MonoBehaviour
 			weaponSprite.transform.localPosition = Vector3.right * currentWeapon.weapon.xOffset;
 
 			SetAmmoCounterText();
+			SetTxtWIndexColor (newWeapon, true);
 		}
 	}
 
@@ -249,5 +255,11 @@ public class WeaponManager : MonoBehaviour
 			txtAmmoCounter.text = currentWeapon.currentAmmo.ToString();
 		else
 			txtAmmoCounter.text = "∞";
+	}
+
+	void SetTxtWIndexColor (int index, bool active)
+	{
+		if (index < txtWIndex.Length)
+			txtWIndex[index].color = active ? wActive : wInactive;
 	}
 }
