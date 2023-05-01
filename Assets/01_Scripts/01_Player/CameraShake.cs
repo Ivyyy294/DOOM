@@ -6,7 +6,7 @@ public class CameraShake : MonoBehaviour
 {
 	[SerializeField] float maxMovement;
 	[SerializeField] float frequenzy;
-	[SerializeField] AnimationCurve test;
+	[SerializeField] AnimationCurve animationCurve;
 
 	enum State
 	{
@@ -15,6 +15,7 @@ public class CameraShake : MonoBehaviour
 		IDLE
 	}
 	State currentState = State.IDLE;
+
     // Start is called before the first frame update
 	private GameObject cameraObject;
 	private Vector3 startPos;
@@ -36,8 +37,9 @@ public class CameraShake : MonoBehaviour
 		{
 			if (IsRunning())
 			{
-				cameraObject.transform.localPosition = startPos + (Vector3.up * Mathf.Sin(timeRunning * frequenzy) * maxMovement);
-				timeRunning += Time.deltaTime;
+				cameraObject.transform.localPosition = startPos + (Vector3.up * animationCurve.Evaluate (timeRunning) * maxMovement);
+				//cameraObject.transform.localPosition = startPos + (Vector3.up * Mathf.Sin (timeRunning) * maxMovement);
+				timeRunning += Time.deltaTime * frequenzy;
 			}
 			else
 			{
@@ -45,12 +47,19 @@ public class CameraShake : MonoBehaviour
 				currentState = State.RESET;
 			}
 		}
+		//Finish current arc
 		else if (currentState == State.RESET)
 		{
-			float speed = Time.deltaTime * frequenzy * maxMovement;
-			cameraObject.transform.localPosition = Vector3.MoveTowards (cameraObject.transform.localPosition, startPos, speed);
+			float distance = Vector3.Distance (startPos, cameraObject.transform.localPosition);
 
-			if (cameraObject.transform.localPosition == startPos)
+			if (distance > 0f)
+			{
+				//float speedNew = maxMovement * (1 / (animationCurve[animationCurve.length - 1].time) * 0.5f);
+				float speedAlt = maxMovement * frequenzy;
+				float stepSize = Mathf.Min (distance, speedAlt * Time.deltaTime);
+				cameraObject.transform.localPosition = Vector3.MoveTowards (cameraObject.transform.localPosition, startPos, stepSize);
+			}
+			else
 				currentState = State.IDLE;
 		}
 		else if (IsRunning())
@@ -59,8 +68,6 @@ public class CameraShake : MonoBehaviour
 
 	bool IsRunning ()
 	{
-		return (characterController.isGrounded &&
-				(Input.GetAxis ("Horizontal") != 0f
-				|| Input.GetAxis ("Vertical") != 0f));
+		return characterController.isGrounded && (Input.GetAxis ("Horizontal") != 0f || Input.GetAxis ("Vertical") != 0f);
 	}
 }
