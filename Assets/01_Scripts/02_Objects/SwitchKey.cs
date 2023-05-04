@@ -17,7 +17,7 @@ public class SwitchKey : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (!collected)
+		if (other.CompareTag ("Player") && !collected)
 		{
 			PlayerStats.Me().keysFound++;
 			

@@ -188,7 +188,8 @@ MonoBehaviour:
   attackRange: 2
   attackDelay: 2
   navMeshAgent: {fileID: 6449499810407692335}
-  maxHealth: 2
+  patrollingRoute: {fileID: 0}
+  maxHealth: 5
 --- !u!95 &885903676390774889
 Animator:
   serializedVersion: 4
