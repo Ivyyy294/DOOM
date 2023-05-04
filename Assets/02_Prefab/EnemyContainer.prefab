@@ -185,7 +185,7 @@ MonoBehaviour:
   currentState: 0
   rayOrigin: {fileID: 885903676976263648}
   rayRange: 15
-  attackRange: 2
+  attackRange: 3
   attackDelay: 2
   navMeshAgent: {fileID: 6449499810407692335}
   patrollingRoute: {fileID: 0}

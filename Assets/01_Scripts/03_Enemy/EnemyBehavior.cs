@@ -38,6 +38,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	[SerializeField] float idleDuration = 1f;
 	[SerializeField] float idleChance = 0.25f;
 	[SerializeField] float waypointAccuracy = 0.25f;
+	[SerializeField] float despawnDelay = 2f;
 
 	//Private Values
 	private Animator animator;
@@ -46,6 +47,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	float currentHealth;
 	public float maxHealth;
 	float idleTimer = 0f;
+	float despawnTimer = 0f;
 	Vector3 lastPlayerPos;
 
 	public void ApplyDamage (float dmg)
@@ -53,7 +55,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 		if (currentHealth > 0)
 		{
 			currentHealth -= dmg;
-			Debug.Log ("AUTSCH!!! DMG: " + dmg.ToString("0.00"));
+			Debug.Log("AUTSCH!!! DMG: " + dmg.ToString("0.00"));
 
 			currentState = EnemyState.TAKEDAMAGE;
 		}
@@ -67,7 +69,6 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 			currentState = EnemyState.DYING;
 		else
 			currentState = EnemyState.IDLE;
-		//throw new NotImplementedException();
 	}
 
 	void Start()
@@ -88,7 +89,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 		if (playerInSight)
 			lastPlayerPos = Camera.main.transform.position;
 
-        switch (currentState)
+		switch (currentState)
 		{
 			case EnemyState.IDLE:
 				Idle();
@@ -111,6 +112,9 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 			case EnemyState.DYING:
 				Dying();
 				break;
+			case EnemyState.DEAD:
+				Dead();
+				break;
 			case EnemyState.INVESTIGATE:
 				Investigate();
 				break;
@@ -127,25 +131,26 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 			currentState = EnemyState.APPROACH;
 		else
 		{
-			navMeshAgent.SetDestination (lastPlayerPos);
-
-			if (navMeshAgent.remainingDistance < waypointAccuracy)
+			if (navMeshAgent.hasPath && navMeshAgent.remainingDistance < waypointAccuracy)
 			{
-				currentState = EnemyState.IDLE;
-
 				//Return to nearest waypoint
 				if (patrollingRoute != null)
 				{
-					patrollingRoute.SetNearestWaypoint (transform);
+					patrollingRoute.SetNearestWaypoint(transform);
 					currentState = EnemyState.PATROL_PAUSE;
 				}
+				else
+					currentState = EnemyState.IDLE;
 			}
+
+			SetNavPosition (lastPlayerPos);
 		}
 	}
 
 	private void PatrolPause()
 	{
-		navMeshAgent.SetDestination (transform.position);
+		if (navMeshAgent.hasPath)
+			navMeshAgent.ResetPath();
 
 		if (playerInSight)
 			currentState = EnemyState.APPROACH;
@@ -184,19 +189,20 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 				}
 			}
 
-			navMeshAgent.SetDestination (patrollingRoute.GetCurrentWaypoint());
+			SetNavPosition (patrollingRoute.GetCurrentWaypoint());
 		}
 	}
 
 	void Attack()
 	{
+		if (navMeshAgent.hasPath)
+			navMeshAgent.ResetPath();
+
 		if (!playerInSight)
-			currentState = EnemyState.INVESTIGATE;
+			currentState = EnemyState.IDLE;
 		else
 		{
-			float distance = Vector3.Distance (transform.position, Camera.main.transform.position);
-
-			if (distance > attackRange)
+			if (DistToPlayer() > attackRange)
 			{
 				currentState = EnemyState.APPROACH;
 				return;
@@ -214,24 +220,30 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 
 	void Idle()
 	{
-		navMeshAgent.SetDestination (transform.position);
+		if (navMeshAgent.hasPath)
+			navMeshAgent.ResetPath();
 
 		if (playerInSight)
 			currentState = EnemyState.APPROACH;
 		else
-			currentState = EnemyState.PATROL;
+		{
+			if (patrollingRoute != null)
+				currentState = EnemyState.PATROL;
+			else
+				currentState = EnemyState.IDLE;
+		}
 	}
 
 	void Approach()
 	{
 		if (!playerInSight)
-			currentState = EnemyState.INVESTIGATE;
+			currentState = EnemyState.IDLE;
 		else
 		{
-			if (navMeshAgent.hasPath && navMeshAgent.remainingDistance <= attackRange)
+			if (DistToPlayer() <= attackRange)
 				currentState = EnemyState.ATTACK;
-
-			navMeshAgent.SetDestination (lastPlayerPos);
+			else
+				SetNavPosition (Camera.main.transform.position);
 		}
 	}
 
@@ -239,18 +251,17 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	{
 		navMeshAgent.isStopped = true;
 		animator?.SetTrigger("Die");
-		Dead();
+		despawnTimer = 0f;
+		PlayerStats.Me().enemiesKilled++;
+		currentState = EnemyState.DEAD;
 	}
 
 	void Dead()
 	{
-		if (currentState != EnemyState.DEAD)
-		{
-			Debug.Log ("ME DEAD!!");
-			PlayerStats.Me().enemiesKilled++;
-			currentState = EnemyState.DEAD;
-			//gameObject.SetActive (false);
-		}
+		if (despawnTimer <= despawnDelay)
+			despawnTimer += Time.deltaTime;
+		else
+			gameObject.SetActive (false);
 	}
 
 	bool IsPlayerInSight()
@@ -271,14 +282,14 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 		return inRange;
 	}
 
-	//void SetNavPosition(Vector3 pos)
-	//{
-	//	NavMeshPath path = new NavMeshPath();
-	//	navMeshAgent.CalculatePath(pos, path);
+	void SetNavPosition(Vector3 pos)
+	{
+		if (navMeshAgent.destination != pos)
+			navMeshAgent.SetDestination(pos);
+	}
 
-	//	if (path.status == NavMeshPathStatus.PathPartial)
-	//		pos = path.corners[path.corners.Length - 1];
-
-	//	navMeshAgent.SetDestination(pos);
-	//}
+	float DistToPlayer()
+	{
+		return Vector3.Distance(transform.position, Camera.main.transform.position);
+	}
 }
