@@ -100,15 +100,15 @@ public class DyingState : EnemyState
 
 public class DeadState : EnemyState
 {
-	//float despawnTimer = 0f;
-	public void Enter (EnemyStateMachine enemy) {}
+	float timer = 0f;
+	public void Enter (EnemyStateMachine enemy) {timer = 0f;}
 
 	public void Update (EnemyStateMachine enemy)
 	{
-		//if (despawnTimer <= despawnDelay)
-		//	despawnTimer += Time.deltaTime;
-		//else
-		//	gameObject.SetActive (false);
+		if (timer <= enemy.despawnDelay)
+			timer += Time.deltaTime;
+		else
+			enemy.gameObject.SetActive(false);
 	}
 }
 
@@ -184,6 +184,7 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	public float waypointAccuracy = 0.25f;
 	public float idleDuration = 1f;
 	public float idleChance = 0.25f;
+	public float despawnDelay = 2f;
 
 	public EnemyState currentState;
 	public static IdleState idle = new IdleState();

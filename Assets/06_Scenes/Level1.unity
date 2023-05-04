@@ -5123,6 +5123,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1361246879}
     m_Modifications:
+    - target: {fileID: 237891820850808873, guid: fe3336550d73105428becd477c90f23b, type: 3}
+      propertyPath: patrollingRoute
+      value: 
+      objectReference: {fileID: 360191288}
     - target: {fileID: 885903675832553433, guid: fe3336550d73105428becd477c90f23b, type: 3}
       propertyPath: m_Name
       value: EnemyContainer
@@ -5431,7 +5435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1361246879
 Transform:
   m_ObjectHideFlags: 0
