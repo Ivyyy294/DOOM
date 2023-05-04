@@ -35,6 +35,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	[SerializeField] PatrollingRoute patrollingRoute;
 
 	//Private Values
+	private Animator animator;
 	bool playerInSight = false;
 	float attackDelayTimer = 0f;
 	float currentHealth;
@@ -54,7 +55,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 
 	private void TakeDmg()
 	{
-		GetComponent<Animator>()?.SetTrigger("TakeDamage");
+		animator?.SetTrigger("TakeDamage");
 
 		if (currentHealth <= 0f)
 			currentState = EnemyState.DYING;
@@ -67,6 +68,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	{
 		currentHealth = maxHealth;
 		currentWaypoint = 0;
+		animator = GetComponent<Animator>();
 	}
 
 	// Update is called once per frame
@@ -97,6 +99,8 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 			default:
 				break;
 		}
+
+		animator.SetBool ("walking", (currentState == EnemyState.APPROACH || currentState == EnemyState.PATROL));
     }
 
 	private void Patrol()
@@ -131,7 +135,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 
 			if (attackDelayTimer < 0f)
 			{
-				GetComponent<Animator>()?.SetTrigger("Attack");
+				animator?.SetTrigger("Attack");
 				attackDelayTimer = attackDelay;
 			}
 		}
@@ -170,7 +174,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	void Dying()
 	{
 		navMeshAgent.isStopped = true;
-		GetComponent<Animator>()?.SetTrigger("Die");
+		animator?.SetTrigger("Die");
 		Dead();
 	}
 
