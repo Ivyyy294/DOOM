@@ -59,6 +59,18 @@ public class Inventory : MonoBehaviour
 		return 0;
 	}
 
+	public void AddAmmo (Weapon.AmmoTyp ammoTyp, int count)
+	{
+		for (int i = 0; i < ammoContainers.Length; ++i)
+		{
+			if (ammoContainers[i].ammoTyp == ammoTyp)
+			{
+				ammoContainers[i].count = Mathf.Min (ammoContainers[i].maxCount, ammoContainers[i].count + count);
+				return;
+			}
+		}
+	}
+
 	public void AddArmor (int val)
 	{
 		armor = Mathf.Min (100, armor + val);

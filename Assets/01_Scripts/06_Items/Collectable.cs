@@ -9,6 +9,7 @@ public class Collectable : MonoBehaviour
 		if (other.CompareTag ("Player"))
 		{
 			Inventory inventory = other.gameObject.GetComponent <Inventory>();
+			PlayerStats.Me().items++;
 			Action (inventory);
 		}
 	}

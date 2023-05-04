@@ -13,10 +13,12 @@ public class PlayerStats : MonoBehaviour
 	public int enemiesKilled;
 	public int deathCounts;
 	public int secretsFound;
+	public int items;
 
 	public int maxEnemy;
 	public int maxKeys;
 	public int maxSecrets;
+	public int maxItems;
 
 
     // Start is called before the first frame update
@@ -29,6 +31,7 @@ public class PlayerStats : MonoBehaviour
 
 			maxEnemy = FindObjectsOfType <EnemyStateMachine>().Length;
 			maxKeys = FindObjectsOfType <SwitchKey>().Length;
+			maxItems = FindObjectsOfType <Collectable>().Length;
 		}
     }
 }

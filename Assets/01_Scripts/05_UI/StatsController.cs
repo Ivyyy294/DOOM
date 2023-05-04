@@ -17,6 +17,9 @@ public class StatsController : MonoBehaviour
 	[SerializeField] TextMeshProUGUI hitsIst;
 	[SerializeField] TextMeshProUGUI hitsSoll;
 
+	[SerializeField] TextMeshProUGUI itemsIst;
+	[SerializeField] TextMeshProUGUI itemsSoll;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,5 +34,8 @@ public class StatsController : MonoBehaviour
 
 		hitsIst.text = PlayerStats.Me().hits.ToString();
 		hitsSoll.text = PlayerStats.Me().shotsFired.ToString();
+
+		itemsIst.text = PlayerStats.Me().items.ToString();
+		itemsSoll.text = PlayerStats.Me().maxItems.ToString();
     }
 }

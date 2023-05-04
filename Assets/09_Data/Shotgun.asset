@@ -16,7 +16,7 @@ MonoBehaviour:
   dmg: 5
   clipSize: 2
   ammoTyp: 1
-  range: 15
+  range: 25
   rangeMod:
     serializedVersion: 2
     m_Curve:
@@ -30,7 +30,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.15
+      time: 0.1
       value: 1
       inSlope: 0.004907722
       outSlope: 0.004907722
