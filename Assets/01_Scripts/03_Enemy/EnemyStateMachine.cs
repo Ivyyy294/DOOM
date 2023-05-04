@@ -13,6 +13,7 @@ public class IdleState : EnemyState
 {
 	public void Enter (EnemyStateMachine enemy)
 	{
+		enemy.patrollingRoute?.SetNearestWaypoint (enemy.transform);
 		enemy.navMeshAgent.ResetPath();
 	}
 
