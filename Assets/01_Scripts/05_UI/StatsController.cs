@@ -20,6 +20,9 @@ public class StatsController : MonoBehaviour
 	[SerializeField] TextMeshProUGUI itemsIst;
 	[SerializeField] TextMeshProUGUI itemsSoll;
 
+	[SerializeField] TextMeshProUGUI score;
+	[SerializeField] int anz;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,5 +40,18 @@ public class StatsController : MonoBehaviour
 
 		itemsIst.text = PlayerStats.Me().items.ToString();
 		itemsSoll.text = PlayerStats.Me().maxItems.ToString();
+
+		score.text = CalculateScore().ToString ("0.00");
     }
+
+	float CalculateScore()
+	{
+		float tmp = (PlayerStats.Me().maxEnemy / PlayerStats.Me().enemiesKilled)
+			+ (PlayerStats.Me().maxKeys / PlayerStats.Me().keysFound)
+			+ (PlayerStats.Me().maxSecrets / PlayerStats.Me().secretsFound)
+			+ (PlayerStats.Me().shotsFired / PlayerStats.Me().hits)
+			+ (PlayerStats.Me().maxItems / PlayerStats.Me().items);
+		
+		return tmp / anz;
+	}
 }
