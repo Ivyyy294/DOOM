@@ -13,9 +13,11 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	{
 		IDLE,
 		PATROL,
+		PATROL_PAUSE,
 		APPROACH,
 		ATTACK,
 		TAKEDAMAGE,
+		INVESTIGATE,
 		DYING,
 		DEAD
 	}
@@ -35,6 +37,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	[SerializeField] PatrollingRoute patrollingRoute;
 	[SerializeField] float idleDuration = 1f;
 	[SerializeField] float idleChance = 0.25f;
+	[SerializeField] float waypointAccuracy = 0.25f;
 
 	//Private Values
 	private Animator animator;
@@ -42,8 +45,8 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	float attackDelayTimer = 0f;
 	float currentHealth;
 	public float maxHealth;
-	int currentWaypoint = 0;
 	float idleTimer = 0f;
+	Vector3 lastPlayerPos;
 
 	public void ApplyDamage (float dmg)
 	{
@@ -70,7 +73,6 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	void Start()
 	{
 		currentHealth = maxHealth;
-		currentWaypoint = 0;
 		animator = GetComponent<Animator>();
 		idleTimer = idleDuration;
 	}
@@ -79,6 +81,9 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	void Update()
     {
 		playerInSight = IsPlayerInSight();
+
+		if (playerInSight)
+			lastPlayerPos = Camera.main.transform.position;
 
         switch (currentState)
 		{
@@ -91,6 +96,9 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 			case EnemyState.PATROL:
 				Patrol();
 				break;
+			case EnemyState.PATROL_PAUSE:
+				PatrolPause();
+				break;
 			case EnemyState.ATTACK:
 				Attack();
 				break;
@@ -100,6 +108,9 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 			case EnemyState.DYING:
 				Dying();
 				break;
+			case EnemyState.INVESTIGATE:
+				Investigate();
+				break;
 			default:
 				break;
 		}
@@ -107,51 +118,29 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 		animator.SetBool ("walking", (currentState == EnemyState.APPROACH || currentState == EnemyState.PATROL));
     }
 
-	private void Patrol()
+	private void Investigate()
 	{
 		if (playerInSight)
-		{
 			currentState = EnemyState.APPROACH;
-			return;
-		}
-
-		if (patrollingRoute != null)
-		{
-			if (navMeshAgent.hasPath && navMeshAgent.remainingDistance < 0.5f)
-			{
-				currentWaypoint++;
-
-				if (UnityEngine.Random.value <= idleChance)
-				{
-					currentState = EnemyState.IDLE;
-					return;
-				}
-			}
-
-			if (currentWaypoint >= patrollingRoute.waypoints.Length)
-				currentWaypoint = 0;
-
-			navMeshAgent.SetDestination (patrollingRoute.waypoints[currentWaypoint].position);
-		}
-	}
-
-	void Attack()
-	{
-		if (!playerInSight)
-			currentState = EnemyState.IDLE;
 		else
 		{
-			attackDelayTimer -= Time.deltaTime;
+			navMeshAgent.SetDestination (lastPlayerPos);
 
-			if (attackDelayTimer < 0f)
+			if (navMeshAgent.remainingDistance < waypointAccuracy)
 			{
-				animator?.SetTrigger("Attack");
-				attackDelayTimer = attackDelay;
+				currentState = EnemyState.IDLE;
+
+				//Return to nearest waypoint
+				if (patrollingRoute != null)
+				{
+					patrollingRoute.SetNearestWaypoint (transform);
+					currentState = EnemyState.PATROL_PAUSE;
+				}
 			}
 		}
 	}
 
-	void Idle()
+	private void PatrolPause()
 	{
 		navMeshAgent.SetDestination (transform.position);
 
@@ -171,18 +160,75 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 		}
 	}
 
-	void Approach()
+	private void Patrol()
+	{
+		if (playerInSight)
+		{
+			currentState = EnemyState.APPROACH;
+			return;
+		}
+
+		if (patrollingRoute != null)
+		{
+			if (navMeshAgent.hasPath && navMeshAgent.remainingDistance < waypointAccuracy)
+			{
+				patrollingRoute.Next();
+
+				if (UnityEngine.Random.value <= idleChance)
+				{
+					currentState = EnemyState.PATROL_PAUSE;
+					return;
+				}
+			}
+
+			navMeshAgent.SetDestination (patrollingRoute.GetCurrentWaypoint());
+		}
+	}
+
+	void Attack()
 	{
 		if (!playerInSight)
-			currentState = EnemyState.IDLE;
+			currentState = EnemyState.INVESTIGATE;
 		else
 		{
 			float distance = Vector3.Distance (transform.position, Camera.main.transform.position);
 
-			if (distance <= attackRange)
+			if (distance > attackRange)
+			{
+				currentState = EnemyState.APPROACH;
+				return;
+			}
+
+			attackDelayTimer -= Time.deltaTime;
+
+			if (attackDelayTimer < 0f)
+			{
+				animator?.SetTrigger("Attack");
+				attackDelayTimer = attackDelay;
+			}
+		}
+	}
+
+	void Idle()
+	{
+		navMeshAgent.SetDestination (transform.position);
+
+		if (playerInSight)
+			currentState = EnemyState.APPROACH;
+		else
+			currentState = EnemyState.PATROL;
+	}
+
+	void Approach()
+	{
+		if (!playerInSight)
+			currentState = EnemyState.INVESTIGATE;
+		else
+		{
+			if (navMeshAgent.hasPath && navMeshAgent.remainingDistance <= attackRange)
 				currentState = EnemyState.ATTACK;
-			else
-				navMeshAgent.SetDestination (Camera.main.transform.position);
+			
+			SetNavPosition (lastPlayerPos);
 		}
 	}
 
@@ -220,5 +266,16 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 		Debug.DrawRay (ray.origin, ray.direction * rayRange, inRange ? Color.green : Color.red);
 
 		return inRange;
+	}
+
+	void SetNavPosition (Vector3 pos)
+	{
+		NavMeshPath path = new NavMeshPath();
+		navMeshAgent.CalculatePath (pos, path);
+
+		if (path.status == NavMeshPathStatus.PathPartial)
+			pos = path.corners[path.corners.Length -1];
+
+		navMeshAgent.SetDestination (pos);
 	}
 }

@@ -184,13 +184,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   rayOrigin: {fileID: 885903676976263648}
-  rayRange: 10
+  rayRange: 15
   attackRange: 2
   attackDelay: 2
   navMeshAgent: {fileID: 6449499810407692335}
   patrollingRoute: {fileID: 0}
   idleDuration: 2
   idleChance: 0.5
+  waypointAccuracy: 0.25
   maxHealth: 5
 --- !u!95 &885903676390774889
 Animator:
