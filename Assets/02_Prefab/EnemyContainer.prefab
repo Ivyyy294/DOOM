@@ -213,8 +213,11 @@ MonoBehaviour:
   waypointAccuracy: 0.25
   idleDuration: 1
   idleChance: 1
+  despawnDelay: 2
+  aggroLossDelay: 5
   maxHealth: 5
   currentHealth: 0
+  lastPlayerPos: {x: 0, y: 0, z: 0}
 --- !u!1 &885903676976263647
 GameObject:
   m_ObjectHideFlags: 0

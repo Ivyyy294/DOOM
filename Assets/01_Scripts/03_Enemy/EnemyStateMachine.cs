@@ -119,7 +119,7 @@ public class ApproachState : EnemyState
 	public void Update (EnemyStateMachine enemy)
 	{
 		if (!enemy.playerInSight)
-			enemy.SetState (new IdleState());
+			enemy.SetState (enemy.investigate);
 		else
 		{
 			float distance = Vector3.Distance (enemy.transform.position, Camera.main.transform.position);
@@ -136,7 +136,7 @@ public class AttackState : EnemyState
 {
 	float attackDelayTimer;
 
-	public void Enter (EnemyStateMachine enemy) {attackDelayTimer = 0f;}
+	public void Enter (EnemyStateMachine enemy) {}
 
 	public void Update (EnemyStateMachine enemy)
 	{
@@ -144,7 +144,7 @@ public class AttackState : EnemyState
 			enemy.navMeshAgent.ResetPath();
 
 		if (!enemy.playerInSight)
-			enemy.SetState (EnemyStateMachine.idle);
+			enemy.SetState (enemy.investigate);
 		else
 		{
 			float distance = Vector3.Distance (enemy.transform.position, Camera.main.transform.position);
@@ -161,6 +161,27 @@ public class AttackState : EnemyState
 					attackDelayTimer = enemy.attackDelay;
 				}
 			}
+		}
+	}
+}
+
+public class Investigate: EnemyState
+{
+	float timer;
+	public void Enter (EnemyStateMachine enemy){timer = 0f; }
+	public void Update (EnemyStateMachine enemy)
+	{
+		if (enemy.playerInSight)
+			enemy.SetState (EnemyStateMachine.approach);
+		else
+		{
+			if (timer <= enemy.aggroLossDelay)
+			{
+				enemy.navMeshAgent.SetDestination (enemy.lastPlayerPos);
+				timer += Time.deltaTime;
+			}
+			else
+				enemy.SetState (EnemyStateMachine.idle);
 		}
 	}
 }
@@ -185,6 +206,7 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	public float idleDuration = 1f;
 	public float idleChance = 0.25f;
 	public float despawnDelay = 2f;
+	public float aggroLossDelay;
 
 	public EnemyState currentState;
 	public static IdleState idle = new IdleState();
@@ -197,9 +219,11 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	public DeadState dead = new DeadState();
 	public PatrolePauseState patrolePause = new PatrolePauseState();
 	public AttackState attack = new AttackState();
+	public Investigate investigate = new Investigate();
 
 	public float maxHealth;
 	public float currentHealth;
+	public Vector3 lastPlayerPos;
 
 	public void SetState (EnemyState state)
 	{
@@ -228,6 +252,10 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
     void Update()
     {
         playerInSight = IsPlayerInSight();
+
+		if (playerInSight)
+			lastPlayerPos = Camera.main.transform.position;
+
 		currentState.Update (this);
     }
 
