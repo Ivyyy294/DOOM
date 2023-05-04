@@ -79,8 +79,8 @@ GameObject:
   - component: {fileID: 885903676390774885}
   - component: {fileID: 885903676390774886}
   - component: {fileID: 885903676390774887}
-  - component: {fileID: 885903676390774888}
   - component: {fileID: 885903676390774889}
+  - component: {fileID: 237891820850808873}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -170,29 +170,6 @@ CapsuleCollider:
   m_Height: 0.984375
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &885903676390774888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 885903676390774884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a35c108a659028d48b1c4b85854a19b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  rayOrigin: {fileID: 885903676976263648}
-  rayRange: 15
-  attackRange: 3
-  attackDelay: 2
-  navMeshAgent: {fileID: 6449499810407692335}
-  patrollingRoute: {fileID: 0}
-  idleDuration: 2
-  idleChance: 0.5
-  waypointAccuracy: 0.25
-  maxHealth: 5
 --- !u!95 &885903676390774889
 Animator:
   serializedVersion: 4
@@ -213,6 +190,31 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &237891820850808873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885903676390774884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0697f92efe0f9f46a53eac507d64e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInSight: 0
+  animator: {fileID: 885903676390774889}
+  attackRange: 3
+  attackDelay: 2
+  rayOrigin: {fileID: 885903676976263648}
+  rayRange: 25
+  navMeshAgent: {fileID: 6449499810407692335}
+  patrollingRoute: {fileID: 0}
+  waypointAccuracy: 0.25
+  idleDuration: 1
+  idleChance: 1
+  maxHealth: 5
+  currentHealth: 0
 --- !u!1 &885903676976263647
 GameObject:
   m_ObjectHideFlags: 0
