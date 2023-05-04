@@ -231,7 +231,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 			if (navMeshAgent.hasPath && navMeshAgent.remainingDistance <= attackRange)
 				currentState = EnemyState.ATTACK;
 			
-			SetNavPosition (lastPlayerPos);
+			navMeshAgent.SetDestination (lastPlayerPos);
 		}
 	}
 
@@ -271,14 +271,14 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 		return inRange;
 	}
 
-	void SetNavPosition (Vector3 pos)
-	{
-		NavMeshPath path = new NavMeshPath();
-		navMeshAgent.CalculatePath (pos, path);
+	//void SetNavPosition(Vector3 pos)
+	//{
+	//	NavMeshPath path = new NavMeshPath();
+	//	navMeshAgent.CalculatePath(pos, path);
 
-		if (path.status == NavMeshPathStatus.PathPartial)
-			pos = path.corners[path.corners.Length -1];
+	//	if (path.status == NavMeshPathStatus.PathPartial)
+	//		pos = path.corners[path.corners.Length - 1];
 
-		navMeshAgent.SetDestination (pos);
-	}
+	//	navMeshAgent.SetDestination(pos);
+	//}
 }

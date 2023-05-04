@@ -2014,6 +2014,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.426
       objectReference: {fileID: 0}
+    - target: {fileID: 8857616600520224649, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: gravity
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8857616600520224649, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: baseSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8857616600520224649, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: jumpHeight
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8857616600520224649, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: sprintSpeed
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8857616600520224654, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
       propertyPath: m_RootOrder
       value: 0
