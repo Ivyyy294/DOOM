@@ -189,6 +189,8 @@ MonoBehaviour:
   attackDelay: 2
   navMeshAgent: {fileID: 6449499810407692335}
   patrollingRoute: {fileID: 0}
+  idleDuration: 2
+  idleChance: 0.5
   maxHealth: 5
 --- !u!95 &885903676390774889
 Animator:

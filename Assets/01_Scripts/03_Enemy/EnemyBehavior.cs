@@ -33,6 +33,8 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	[Header ("AI Settings")]
 	[SerializeField] NavMeshAgent navMeshAgent;
 	[SerializeField] PatrollingRoute patrollingRoute;
+	[SerializeField] float idleDuration = 1f;
+	[SerializeField] float idleChance = 0.25f;
 
 	//Private Values
 	private Animator animator;
@@ -41,6 +43,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	float currentHealth;
 	public float maxHealth;
 	int currentWaypoint = 0;
+	float idleTimer = 0f;
 
 	public void ApplyDamage (float dmg)
 	{
@@ -69,6 +72,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 		currentHealth = maxHealth;
 		currentWaypoint = 0;
 		animator = GetComponent<Animator>();
+		idleTimer = idleDuration;
 	}
 
 	// Update is called once per frame
@@ -117,10 +121,16 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 			{
 				currentWaypoint++;
 
-				if (currentWaypoint >= patrollingRoute.waypoints.Length)
-					currentWaypoint = 0;
-
+				if (UnityEngine.Random.value <= idleChance)
+				{
+					currentState = EnemyState.IDLE;
+					return;
+				}
 			}
+
+			if (currentWaypoint >= patrollingRoute.waypoints.Length)
+				currentWaypoint = 0;
+
 			navMeshAgent.SetDestination (patrollingRoute.waypoints[currentWaypoint].position);
 		}
 	}
@@ -143,23 +153,28 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 
 	void Idle()
 	{
+		navMeshAgent.SetDestination (transform.position);
+
 		if (playerInSight)
 			currentState = EnemyState.APPROACH;
 		else
 		{
-			//currentWaypoint = 0;
-			currentState = EnemyState.PATROL;
+			if (idleTimer >= idleDuration)
+			{
+				idleTimer = 0f;
+
+				if (patrollingRoute != null)
+					currentState = EnemyState.PATROL;
+			}
+			else
+				idleTimer += Time.deltaTime;
 		}
-			
 	}
 
 	void Approach()
 	{
 		if (!playerInSight)
-		{
-			navMeshAgent.SetDestination (transform.position);
 			currentState = EnemyState.IDLE;
-		}
 		else
 		{
 			float distance = Vector3.Distance (transform.position, Camera.main.transform.position);
