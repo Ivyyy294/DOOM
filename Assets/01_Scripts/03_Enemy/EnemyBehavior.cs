@@ -75,6 +75,9 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 		currentHealth = maxHealth;
 		animator = GetComponent<Animator>();
 		idleTimer = idleDuration;
+
+		//Start at nearest point
+		patrollingRoute?.SetNearestWaypoint (transform);
 	}
 
 	// Update is called once per frame

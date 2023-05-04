@@ -80,4 +80,13 @@ public class PatrollingRoute : MonoBehaviour
 			currentWaypoint = target;
 		}
 	}
+
+	private void Update()
+	{
+		for (int i = 0; i < waypoints.Length -1; ++i)
+			Debug.DrawLine (waypoints[i].position, waypoints[i+1].position, Color.green);
+
+		if (mode == Mode.LOOP)
+			Debug.DrawLine (waypoints[0].position, waypoints[waypoints.Length-1].position, Color.green);
+	}
 }
