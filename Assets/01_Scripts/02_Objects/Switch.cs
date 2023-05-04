@@ -62,6 +62,9 @@ public class Switch : MonoBehaviour , InteractableObject
 	{
 		isLocked = val;
 		SetMaterial();
+
+		if (isLocked)
+			SetActiveState (false);
 	}
 
 	// Start is called before the first frame update

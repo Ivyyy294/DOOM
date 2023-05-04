@@ -230,7 +230,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 		{
 			if (navMeshAgent.hasPath && navMeshAgent.remainingDistance <= attackRange)
 				currentState = EnemyState.ATTACK;
-			
+
 			navMeshAgent.SetDestination (lastPlayerPos);
 		}
 	}
