@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/06_Scenes/Level1.unity
     guid: 9b6a338fc45063b40aedfd250b963674
+  - enabled: 1
+    path: Assets/06_Scenes/StatsScreen.unity
+    guid: d76dcf7b2f86cd348846a560041d658b
   m_configObjects: {}

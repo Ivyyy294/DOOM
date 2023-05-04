@@ -78,6 +78,7 @@ public class TakeDamageState : EnemyState
 	public void Update (EnemyStateMachine enemy)
 	{
 		enemy.animator?.SetTrigger("TakeDamage");
+		PlayerStats.Me().hits++;
 
 		if (enemy.currentHealth <= 0f)
 			enemy.SetState (EnemyStateMachine.dying);

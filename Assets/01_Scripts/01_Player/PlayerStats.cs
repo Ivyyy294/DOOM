@@ -8,15 +8,27 @@ public class PlayerStats : MonoBehaviour
 	public static PlayerStats Me() { return me;}
 
 	public int keysFound;
-	public int bullets;
+	public int shotsFired;
+	public int hits;
 	public int enemiesKilled;
 	public int deathCounts;
 	public int secretsFound;
+
+	public int maxEnemy;
+	public int maxKeys;
+	public int maxSecrets;
+
 
     // Start is called before the first frame update
     void Start()
     {
         if (me == null)
+		{
 			me = this;
+			DontDestroyOnLoad (gameObject);
+
+			maxEnemy = FindObjectsOfType <EnemyStateMachine>().Length;
+			maxKeys = FindObjectsOfType <SwitchKey>().Length;
+		}
     }
 }

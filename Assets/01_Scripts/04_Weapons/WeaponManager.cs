@@ -117,7 +117,7 @@ public class WeaponManager : MonoBehaviour
 			{
 				currentWeapon.currentAmmo--;
 				SetAmmoCounterText();
-				PlayerStats.Me().bullets++;
+				PlayerStats.Me().shotsFired++;
 			}
 
 			PlaySoundEffect (currentWeapon.weapon.shootSound);
