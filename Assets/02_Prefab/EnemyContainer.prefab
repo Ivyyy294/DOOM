@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 885903675832553434}
   - component: {fileID: 885903675832553435}
+  - component: {fileID: 6449499810407692335}
   m_Layer: 0
   m_Name: EnemyContainer
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 885903675832553433}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 885903676390774885}
@@ -45,6 +46,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a3606ec24d7884298460e8cba35a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &6449499810407692335
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885903675832553433}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &885903676390774884
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,7 +97,7 @@ Transform:
   m_GameObject: {fileID: 885903676390774884}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 885903676976263648}
@@ -143,7 +166,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.4
+  m_Radius: 0.25
   m_Height: 0.984375
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
@@ -162,7 +185,9 @@ MonoBehaviour:
   currentState: 0
   rayOrigin: {fileID: 885903676976263648}
   rayRange: 10
+  attackRange: 2
   attackDelay: 2
+  navMeshAgent: {fileID: 6449499810407692335}
   maxHealth: 2
 --- !u!95 &885903676390774889
 Animator:

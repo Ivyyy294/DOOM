@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Assertions;
+using  UnityEngine.AI;
 
 public class EnemyBehavior : MonoBehaviour , Damageable
 {
@@ -26,13 +27,19 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	[SerializeField] float rayRange = 25f;
 
 	[Header ("Attack Settings")]
+	[SerializeField] float attackRange = 1f;
 	[SerializeField] float attackDelay = 2f;
+
+	[Header ("AI Settings")]
+	[SerializeField] NavMeshAgent navMeshAgent;
+	[SerializeField] PatrollingRoute patrollingRoute;
 
 	//Private Values
 	bool playerInSight = false;
 	float attackDelayTimer = 0f;
 	float currentHealth;
 	public float maxHealth;
+	int currentWaypoint = 0;
 
 	public void ApplyDamage (float dmg)
 	{
@@ -59,6 +66,7 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	void Start()
 	{
 		currentHealth = maxHealth;
+		currentWaypoint = 0;
 	}
 
 	// Update is called once per frame
@@ -72,6 +80,10 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 				Idle();
 				break;
 			case EnemyState.APPROACH:
+				Approach();
+				break;
+			case EnemyState.PATROL:
+				Patrol();
 				break;
 			case EnemyState.ATTACK:
 				Attack();
@@ -86,6 +98,28 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 				break;
 		}
     }
+
+	private void Patrol()
+	{
+		if (playerInSight)
+		{
+			currentState = EnemyState.APPROACH;
+			return;
+		}
+
+		if (patrollingRoute != null)
+		{
+			if (navMeshAgent.hasPath && navMeshAgent.remainingDistance < 0.5f)
+			{
+				currentWaypoint++;
+
+				if (currentWaypoint >= patrollingRoute.waypoints.Length)
+					currentWaypoint = 0;
+
+			}
+			navMeshAgent.SetDestination (patrollingRoute.waypoints[currentWaypoint].position);
+		}
+	}
 
 	void Attack()
 	{
@@ -106,11 +140,36 @@ public class EnemyBehavior : MonoBehaviour , Damageable
 	void Idle()
 	{
 		if (playerInSight)
-			currentState = EnemyState.ATTACK;
+			currentState = EnemyState.APPROACH;
+		else
+		{
+			//currentWaypoint = 0;
+			currentState = EnemyState.PATROL;
+		}
+			
+	}
+
+	void Approach()
+	{
+		if (!playerInSight)
+		{
+			navMeshAgent.SetDestination (transform.position);
+			currentState = EnemyState.IDLE;
+		}
+		else
+		{
+			float distance = Vector3.Distance (transform.position, Camera.main.transform.position);
+
+			if (distance <= attackRange)
+				currentState = EnemyState.ATTACK;
+			else
+				navMeshAgent.SetDestination (Camera.main.transform.position);
+		}
 	}
 
 	void Dying()
 	{
+		navMeshAgent.isStopped = true;
 		GetComponent<Animator>()?.SetTrigger("Die");
 		Dead();
 	}

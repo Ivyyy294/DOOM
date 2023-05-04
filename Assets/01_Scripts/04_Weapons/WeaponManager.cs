@@ -87,7 +87,7 @@ public class WeaponManager : MonoBehaviour
 			{
 				currentState = State.RELOADING;
 				reloadTimer = 0f;
-				audioSource?.PlayOneShot (currentWeapon.weapon.reloadSound);
+				PlaySoundEffect (currentWeapon.weapon.reloadSound);
 			}
 		}
 
@@ -120,7 +120,7 @@ public class WeaponManager : MonoBehaviour
 				PlayerStats.Me().bullets++;
 			}
 
-			audioSource?.PlayOneShot (currentWeapon.weapon.shootSound);
+			PlaySoundEffect (currentWeapon.weapon.shootSound);
 			currentState = State.SHOOTING;
 			shootTimer = 0f;
 
@@ -318,5 +318,11 @@ public class WeaponManager : MonoBehaviour
 	{
 		if (index < txtWIndex.Length)
 			txtWIndex[index].color = active ? wActive : wInactive;
+	}
+
+	void PlaySoundEffect(AudioClip clip)
+	{
+		if (clip != null && audioSource != null)
+			audioSource.PlayOneShot (clip);
 	}
 }

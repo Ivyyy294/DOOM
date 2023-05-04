@@ -16,7 +16,7 @@ MonoBehaviour:
   dmg: 5
   clipSize: 2
   ammoTyp: 1
-  range: 10
+  range: 15
   rangeMod:
     serializedVersion: 2
     m_Curve:
