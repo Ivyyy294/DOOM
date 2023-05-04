@@ -207,7 +207,7 @@ MonoBehaviour:
   attackRange: 3
   attackDelay: 2
   rayOrigin: {fileID: 885903676976263648}
-  rayRange: 15
+  rayRange: 20
   navMeshAgent: {fileID: 6449499810407692335}
   patrollingRoute: {fileID: 0}
   waypointAccuracy: 0.25

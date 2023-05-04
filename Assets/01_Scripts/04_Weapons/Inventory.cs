@@ -16,6 +16,9 @@ public class Inventory : MonoBehaviour
 		public TextMeshProUGUI txtMaxAmmo;
 	}
 
+	private int armor;
+	private int health;
+	[SerializeField] TextMeshProUGUI txtArmor;
 	[SerializeField] AmmoContainer[] ammoContainers;
 
     // Start is called before the first frame update
@@ -25,6 +28,9 @@ public class Inventory : MonoBehaviour
 		{
 			if (i.txtMaxAmmo != null)
 				i.txtMaxAmmo.text = i.maxCount.ToString();
+
+			if (txtArmor != null)
+				txtArmor.text = armor.ToString() + "%";
 		}
     }
 
@@ -51,5 +57,11 @@ public class Inventory : MonoBehaviour
 		}
 
 		return 0;
+	}
+
+	public void AddArmor (int val)
+	{
+		armor = Mathf.Min (100, armor + val);
+		txtArmor.text = armor.ToString()  + "%";
 	}
 }

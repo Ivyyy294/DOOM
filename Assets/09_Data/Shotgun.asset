@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   displayName: Shotgun
-  dmg: 6
+  dmg: 5
   clipSize: 2
   ammoTyp: 1
   range: 15
