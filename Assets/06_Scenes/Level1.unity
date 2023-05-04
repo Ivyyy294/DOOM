@@ -362,6 +362,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8135133657977412569, guid: 8b09beec7a35d634ca060356a72ca525, type: 3}
+      propertyPath: m_Volume
+      value: 0.517
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b09beec7a35d634ca060356a72ca525, type: 3}
 --- !u!4 &12398318 stripped
@@ -5773,7 +5777,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keysFound: 0
-  bullets: 0
+  shotsFired: 0
+  hits: 0
   enemiesKilled: 0
   deathCounts: 0
   secretsFound: 0
