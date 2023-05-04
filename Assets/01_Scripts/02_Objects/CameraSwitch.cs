@@ -7,8 +7,9 @@ using UnityEngine.Events;
 public class CameraSwitch : MonoBehaviour, InteractableObject
 {
 	[SerializeField] float speed;
-	[SerializeField] float maxAngleLeft;
-	[SerializeField] float maxAngleRight;
+	[SerializeField] Quaternion maxAngle;
+	[SerializeField] Quaternion minAngle;
+	//[SerializeField] float maxAngleRight;
 	[SerializeField] UnityEvent OnInteract;
 	[SerializeField] bool moveBack = false;
 
@@ -47,7 +48,10 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 		if (currentState == State.IDLE)
 			Idle();
 		else if (currentState == State.TRACKING)
+		{
+			resetPos = transform.localRotation;
 			Tracking();
+		}
 		else
 			Reset();
     }
@@ -77,9 +81,9 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 	void Idle()
 	{
 		if (!moveBack)
-			MoveRight(speed);
+			MoveMax(speed);
 		else
-			MoveLeft(speed);
+			MoveMin(speed);
 
         if (Search(rayOrigin.forward))
 		{
@@ -88,21 +92,19 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 		}
 	}
 
-	void MoveRight(float speed)
+	void MoveMax(float speed)
 	{
-		Quaternion tmp = Quaternion.Euler (transform.eulerAngles.x, resetPos.eulerAngles.y + maxAngleRight, 0f);
-		Rotate (tmp);
+		Rotate (maxAngle);
 
-		if (transform.localRotation == tmp)
+		if (transform.localRotation == maxAngle)
 			moveBack = true;
 	}
 
-	void MoveLeft(float speed)
+	void MoveMin(float speed)
 	{
-		Quaternion tmp = Quaternion.Euler (transform.eulerAngles.x, resetPos.eulerAngles.y -maxAngleLeft, 0f);
-		Rotate (tmp);
+		Rotate (minAngle);
 
-		if (transform.localRotation == tmp)
+		if (transform.localRotation == minAngle)
 			moveBack = false;
 	}
 
