@@ -46,11 +46,11 @@ public class StatsController : MonoBehaviour
 
 	float CalculateScore()
 	{
-		float tmp = (PlayerStats.Me().maxEnemy / PlayerStats.Me().enemiesKilled)
-			+ (PlayerStats.Me().maxKeys / PlayerStats.Me().keysFound)
-			+ (PlayerStats.Me().maxSecrets / PlayerStats.Me().secretsFound)
-			+ (PlayerStats.Me().shotsFired / PlayerStats.Me().hits)
-			+ (PlayerStats.Me().maxItems / PlayerStats.Me().items);
+		float tmp = (PlayerStats.Me().enemiesKilled / PlayerStats.Me().maxEnemy)
+				  + (PlayerStats.Me().keysFound / PlayerStats.Me().maxKeys)
+				  + (PlayerStats.Me().secretsFound / PlayerStats.Me().maxSecrets)
+				  + (PlayerStats.Me().hits / PlayerStats.Me().shotsFired)
+				  + (PlayerStats.Me().items / PlayerStats.Me().maxItems);
 		
 		return tmp / anz;
 	}
