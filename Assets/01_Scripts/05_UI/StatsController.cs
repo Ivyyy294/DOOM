@@ -41,7 +41,7 @@ public class StatsController : MonoBehaviour
 		itemsIst.text = PlayerStats.Me().items.ToString();
 		itemsSoll.text = PlayerStats.Me().maxItems.ToString();
 
-		score.text = CalculateScore().ToString ("0.00");
+		score.text = CalculateScore().ToString ("0.00") + "%";
     }
 
 	float CalculateScore()
@@ -52,6 +52,6 @@ public class StatsController : MonoBehaviour
 				  + (PlayerStats.Me().hits / PlayerStats.Me().shotsFired)
 				  + (PlayerStats.Me().items / PlayerStats.Me().maxItems);
 		
-		return tmp / anz;
+		return (tmp / anz) * 100f;
 	}
 }

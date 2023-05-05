@@ -28,6 +28,11 @@ public class CameraSwitch : MonoBehaviour, InteractableObject
 	float range;
 	State currentState = State.IDLE;
 
+	public void TriggerTracking()
+	{
+		currentState = State.TRACKING;
+	}
+
 	public void Interact()
 	{
 		if (currentState == State.TRACKING)
