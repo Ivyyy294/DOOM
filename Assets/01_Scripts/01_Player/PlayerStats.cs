@@ -32,6 +32,7 @@ public class PlayerStats : MonoBehaviour
 			maxEnemy = FindObjectsOfType <EnemyStateMachine>().Length;
 			maxKeys = FindObjectsOfType <SwitchKey>().Length;
 			maxItems = FindObjectsOfType <Collectable>().Length;
+			maxSecrets = FindObjectsOfType <Secret>().Length;
 		}
     }
 }

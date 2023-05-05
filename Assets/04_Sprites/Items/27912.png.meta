@@ -108,7 +108,7 @@ TextureImporter:
       name: 27912_0
       rect:
         serializedVersion: 2
-        x: 61
+        x: 112
         y: 104
         width: 16
         height: 15
@@ -176,7 +176,7 @@ TextureImporter:
         width: 14
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -184,6 +184,27 @@ TextureImporter:
       bones: []
       spriteID: 1d697d58bdac4b1429d01c7c658d76a6
       internalID: -629311558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 27912_4
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 1
+        width: 13
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7ce2fe1d1f384147860a54ee7d7bc72
+      internalID: -945108951
       vertices: []
       indices: 
       edges: []
@@ -200,6 +221,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       27912_2: 365818753
+      27912_4: -945108951
       27912_3: -629311558
       27912_0: 1197854880
       27912_1: -2051701382
