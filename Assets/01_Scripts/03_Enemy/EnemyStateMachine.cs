@@ -13,7 +13,7 @@ public class IdleState : EnemyState
 {
 	public void Enter (EnemyStateMachine enemy)
 	{
-		enemy.patrollingRoute?.SetNearestWaypoint (enemy.transform);
+		enemy.patrollController.SetNearestWaypoint (enemy.transform);
 		enemy.navMeshAgent.ResetPath();
 	}
 
@@ -36,13 +36,13 @@ public class PatroleState : EnemyState
 		{
 			if (enemy.navMeshAgent.hasPath && enemy.navMeshAgent.remainingDistance < enemy.waypointAccuracy)
 			{
-				enemy.patrollingRoute.Next();
+				enemy.patrollController.Next();
 
 				if (UnityEngine.Random.value <= enemy.idleChance)
 					enemy.SetState (enemy.patrolePause);
 			}
 
-			enemy.navMeshAgent.SetDestination (enemy.patrollingRoute.GetCurrentWaypoint());
+			enemy.navMeshAgent.SetDestination (enemy.patrollController.GetCurrentWaypoint());
 		}
 	}
 }
@@ -223,6 +223,7 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	public AttackState attack = new AttackState();
 	public Investigate investigate = new Investigate();
 
+	public PatrollController patrollController;
 	public float maxHealth;
 	public float currentHealth;
 	public Vector3 lastPlayerPos;
@@ -248,6 +249,8 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
     {
 		currentState = new IdleState();
 		currentHealth = maxHealth;
+		patrollController = new PatrollController();
+		patrollController.patrollingRoute = patrollingRoute;
     }
 
     // Update is called once per frame
