@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8307033679245792415}
   - component: {fileID: 8307033679245792387}
   - component: {fileID: 3595286234039820926}
+  - component: {fileID: 6750011253590954043}
   m_Layer: 0
   m_Name: Armor
   m_TagString: Untagged
@@ -142,3 +143,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a3606ec24d7884298460e8cba35a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &6750011253590954043
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8307033679245792412}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 057720ba3f14ee140963de30fa663054, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

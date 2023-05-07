@@ -103,14 +103,29 @@ public class DyingState : EnemyState
 public class DeadState : EnemyState
 {
 	float timer = 0f;
-	public void Enter (EnemyStateMachine enemy) {timer = 0f;}
+	bool spriteChanged;
+
+	public void Enter (EnemyStateMachine enemy)
+	{
+		timer = 0f;
+		spriteChanged = false;
+		enemy.GetComponent<Collider>().enabled = false;
+	}
 
 	public void Update (EnemyStateMachine enemy)
 	{
 		if (timer <= enemy.despawnDelay)
 			timer += Time.deltaTime;
-		else
-			enemy.gameObject.SetActive(false);
+		else if (!spriteChanged)
+		{
+			if (enemy.deadSprites != null)
+			{
+				enemy.animator.enabled = false;
+				int index = Random.Range (0, enemy.deadSprites.Length);
+				enemy.GetComponent<SpriteRenderer>().sprite = enemy.deadSprites[index];
+				spriteChanged = true;
+			}
+		}
 	}
 }
 
@@ -209,6 +224,7 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	public float idleChance = 0.25f;
 	public float despawnDelay = 2f;
 	public float aggroLossDelay;
+	public Sprite[] deadSprites;
 
 	public EnemyState currentState;
 	public static IdleState idle = new IdleState();
@@ -251,6 +267,7 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 		currentHealth = maxHealth;
 		patrollController = new PatrollController();
 		patrollController.patrollingRoute = patrollingRoute;
+		patrollController.SetNearestWaypoint (transform);
     }
 
     // Update is called once per frame

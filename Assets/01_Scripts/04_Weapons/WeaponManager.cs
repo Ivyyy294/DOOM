@@ -81,7 +81,7 @@ public class WeaponManager : MonoBehaviour
 			else
 				currentWeapon.currentAmmo = currentWeapon.weapon.clipSize;
 			
-			txtAmmoCounter.text = currentWeapon.currentAmmo.ToString();
+			SetAmmoCounterText();
 
 			if (currentWeapon.currentAmmo > 0)
 			{
