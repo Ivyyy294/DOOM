@@ -15,6 +15,7 @@ public abstract class SaveableObject : MonoBehaviour
 	[SerializeField] string uniqueId;
 
 	abstract public string GetSerializedData ();
+	//ToDo change to payload
 	abstract public void LoadObject (string data);
 
 	public string GetUniqueId() { return uniqueId; }

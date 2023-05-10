@@ -30,6 +30,7 @@ public class SavePlayer : SaveableObject
 		mouseLook.SetRotationX (float.Parse(data[3]));
 		mouseLook.SetRotationY (float.Parse(data[4]));
 
+		//ToDo implement in payload
 		string[] tmp = new string [data.Length - 5];
 		System.Array.Copy (data, 5, tmp, 0, tmp.Length);
 		weaponManager.LoadObject (tmp);

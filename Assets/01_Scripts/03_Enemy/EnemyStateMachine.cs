@@ -202,6 +202,18 @@ public class Investigate: EnemyState
 	}
 }
 
+public class ResetState: EnemyState
+{
+	public void Enter (EnemyStateMachine enemy) {}
+	public void Update (EnemyStateMachine enemy)
+	{
+		enemy.animator.enabled = true;
+		enemy.animator?.SetTrigger("idle");
+		enemy.GetComponent<Collider>().enabled = true;
+		enemy.SetState (EnemyStateMachine.idle);
+	}
+}
+
 public class EnemyStateMachine : MonoBehaviour, Damageable
 {
 	public bool playerInSight;
@@ -231,6 +243,7 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	public static ApproachState approach = new ApproachState();
 	public static PatroleState patrole = new PatroleState();
 	public static TakeDamageState takeDamage = new TakeDamageState();
+	public static ResetState reset = new ResetState();
 	
 	//Non static
 	public DeadState dead = new DeadState();
@@ -242,25 +255,6 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	public float maxHealth;
 	public float currentHealth;
 	public Vector3 lastPlayerPos;
-
-	public string GetSerializedData()
-	{
-		return transform.position.x + ";" + transform.position.y + ";" + transform.position.z
-			+ ";" + currentHealth;
-	}
-
-	public void LoadObject(string data)
-	{
-		string[] list = data.Split(';');
-
-		transform.position = new Vector3(float.Parse(list[0]), float.Parse(list[1]), float.Parse(list[2]));
-		currentHealth = float.Parse(list[3]);
-
-		if (currentHealth <= 0)
-			SetState(dead);
-		else
-			SetState(idle);
-	}
 
 	public void SetState (EnemyState state)
 	{
