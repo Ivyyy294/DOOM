@@ -63,10 +63,10 @@ public class WeaponManager : MonoBehaviour, ISaveableObject
 
 	public void LoadObject(string[] data)
 	{
-		SetCurrentWeaponIndex (int.Parse(data[0]));
-
 		for (int i = 0; i < weaponContainers.Count; ++i)
 			weaponContainers[i].currentAmmo = int.Parse(data[i + 1]);
+
+		SetCurrentWeaponIndex (int.Parse(data[0]));
 	}
 
 	public void Idle ()
@@ -184,6 +184,7 @@ public class WeaponManager : MonoBehaviour, ISaveableObject
 	void SetCurrentWeaponIndex (int val)
 	{
 		SwitchWeapon (val);
+		SetAmmoCounterText();
 		weaponSprite.transform.localPosition = Vector3.right * currentWeapon.weapon.xOffset;
 	}
 
