@@ -16,7 +16,7 @@ public class WeaponContainer
 	}
 }
 
-public class WeaponManager : MonoBehaviour
+public class WeaponManager : MonoBehaviour, ISaveableObject
 {
 	[SerializeField] List <Weapon> weapons;
 	[SerializeField] int sampleRate = 1;
@@ -49,8 +49,25 @@ public class WeaponManager : MonoBehaviour
 	private AudioSource audioSource;
 	private Inventory inventory;
 	private int newWeaponIndex;
-	
+
 	//Public
+	public string GetSerializedData()
+	{
+		string data = currentWeaponIndex.ToString();
+
+		for (int i = 0; i < weaponContainers.Count; ++i)
+			data += ";" + weaponContainers[i].currentAmmo.ToString();
+
+		return data;
+	}
+
+	public void LoadObject(string[] data)
+	{
+		SetCurrentWeaponIndex (int.Parse(data[0]));
+
+		for (int i = 0; i < weaponContainers.Count; ++i)
+			weaponContainers[i].currentAmmo = int.Parse(data[i + 1]);
+	}
 
 	public void Idle ()
 	{
@@ -111,15 +128,17 @@ public class WeaponManager : MonoBehaviour
 
 	public void Shoot()
 	{
-		if ((currentWeapon.weapon.clipSize == 0 || currentWeapon.currentAmmo > 0) && currentState == State.IDLE)
+		bool hasAmmo = currentWeapon.weapon.clipSize > 0;
+
+		if ((!hasAmmo || currentWeapon.currentAmmo > 0) && currentState == State.IDLE)
 		{
-			if (currentWeapon.weapon.clipSize > 0)
+			if (hasAmmo)
 			{
+				PlayerStats.Me().shotsFired++;
 				currentWeapon.currentAmmo--;
 				SetAmmoCounterText();
 			}
 			
-			PlayerStats.Me().shotsFired++;
 
 			PlaySoundEffect (currentWeapon.weapon.shootSound);
 			currentState = State.SHOOTING;
@@ -135,8 +154,13 @@ public class WeaponManager : MonoBehaviour
 				float dmgMod = currentWeapon.weapon.rangeMod.Evaluate (hit.distance / currentWeapon.weapon.range);
 				Damageable tmp = hit.transform.gameObject.GetComponent<Damageable>();
 				tmp?.ApplyDamage (currentWeapon.weapon.dmg * dmgMod);
+
+				if (hasAmmo)
+					PlayerStats.Me().hits++;
 			}
 		}
+		else
+			PlaySoundEffect (currentWeapon.weapon.emptySound);
 
 		if (currentState == State.SHOOTING)
 		{
@@ -157,6 +181,11 @@ public class WeaponManager : MonoBehaviour
 	}
 
 	//Private
+	void SetCurrentWeaponIndex (int val)
+	{
+		SwitchWeapon (val);
+		weaponSprite.transform.localPosition = Vector3.right * currentWeapon.weapon.xOffset;
+	}
 
     // Start is called before the first frame update
     void Start()
@@ -194,12 +223,12 @@ public class WeaponManager : MonoBehaviour
 	private void InitWeapons()
 	{
 		weaponContainers = new List<WeaponContainer>();
+
 		foreach (Weapon i in weapons)
 			weaponContainers.Add (new WeaponContainer (i));
 
 		currentWeaponIndex = -1;
-		SwitchWeapon (0);
-		weaponSprite.transform.localPosition = Vector3.right * currentWeapon.weapon.xOffset;
+		SetCurrentWeaponIndex (0);
 	}
 
 	private void CheckSwitchWeaponInput()

@@ -26,6 +26,11 @@ public class PlayerInteraction : MonoBehaviour
 			if (!Interact())
 				weaponManager?.Shoot();
 		}
+
+		if (Input.GetKeyDown (KeyCode.K))
+			SaveGameManager.Me().SaveGameState();
+		else if (Input.GetKeyDown (KeyCode.L))
+			SaveGameManager.Me().LoadGameState();
     }
 
 	bool Interact()

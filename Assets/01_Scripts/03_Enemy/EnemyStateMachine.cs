@@ -78,7 +78,6 @@ public class TakeDamageState : EnemyState
 	public void Update (EnemyStateMachine enemy)
 	{
 		enemy.animator?.SetTrigger("TakeDamage");
-		PlayerStats.Me().hits++;
 
 		if (enemy.currentHealth <= 0f)
 			enemy.SetState (EnemyStateMachine.dying);
@@ -243,6 +242,25 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	public float maxHealth;
 	public float currentHealth;
 	public Vector3 lastPlayerPos;
+
+	public string GetSerializedData()
+	{
+		return transform.position.x + ";" + transform.position.y + ";" + transform.position.z
+			+ ";" + currentHealth;
+	}
+
+	public void LoadObject(string data)
+	{
+		string[] list = data.Split(';');
+
+		transform.position = new Vector3(float.Parse(list[0]), float.Parse(list[1]), float.Parse(list[2]));
+		currentHealth = float.Parse(list[3]);
+
+		if (currentHealth <= 0)
+			SetState(dead);
+		else
+			SetState(idle);
+	}
 
 	public void SetState (EnemyState state)
 	{

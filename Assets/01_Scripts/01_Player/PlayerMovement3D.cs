@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class PlayerMovement3D : MonoBehaviour
 {
@@ -22,12 +23,13 @@ public class PlayerMovement3D : MonoBehaviour
 	private float currentSpeed;
 	private int jumpCounter = 0;
 	private AudioSource audioSource;
-	
-	//Timer
 
-	//[SerializeField] AnimationCurve accelerationCurve;
-	//[SerializeField] AnimationCurve deaccelerationCurve;
-	//[SerializeField] AnimationCurve jumpCurve;
+	public void SetPosition (Vector3 newPos)
+	{
+		characterController.enabled = false;
+		transform.position = newPos;
+		characterController.enabled = true;
+	}
 
     // Start is called before the first frame update
     void Start()

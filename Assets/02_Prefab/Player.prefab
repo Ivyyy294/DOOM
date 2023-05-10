@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 5393089973647689886}
   - component: {fileID: 3066227044284349524}
   - component: {fileID: 4836272473042389110}
+  - component: {fileID: 7568225432452329872}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -377,6 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88583648d0dbed54997a8edd27396095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  txtArmor: {fileID: 0}
   ammoContainers: []
 --- !u!114 &4836272473042389110
 MonoBehaviour:
@@ -398,3 +400,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7568225432452329872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8857616600520224690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ecc392e98f68384783e7388a395ec78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: 18e5dbf9-8091-4755-95b3-332451a37d57
+  player: {fileID: 8857616600520224649}
+  mouseLook: {fileID: 8857616600520224655}
+  weaponManager: {fileID: 5393089973647689886}

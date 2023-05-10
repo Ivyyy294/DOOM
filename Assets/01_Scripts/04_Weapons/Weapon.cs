@@ -28,4 +28,5 @@ public class Weapon : ScriptableObject
 	[Header ("Sounds")]
 	public AudioClip shootSound;
 	public AudioClip reloadSound;
+	public AudioClip emptySound;
 }

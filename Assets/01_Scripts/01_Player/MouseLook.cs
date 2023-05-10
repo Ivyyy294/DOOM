@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class MouseLook : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class MouseLook : MonoBehaviour
 
 	[Range (0.1f, 2f)]
 	[SerializeField] float mouseSensitivity = 1f;
+
+	public float GetRotationX() { return verticalRotation;}
+	public float GetRotationY() { return transform.rotation.eulerAngles.y;}
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +40,17 @@ public class MouseLook : MonoBehaviour
 		verticalRotation += Input.GetAxis ("Mouse Y")  * mouseSensitivity;
 		verticalRotation = Mathf.Clamp (verticalRotation, -maxVerticalAngle, maxVerticalAngle);
 
-		cameraTrans.localRotation = Quaternion.Euler (new Vector3 (-verticalRotation, 0f, 0f));
+		SetRotationX (verticalRotation);
 		//cameraTrans.Rotate (Vector3.right, -mouseY, Space.Self);
+	}
+
+	public void SetRotationX (float val)
+	{
+		cameraTrans.localRotation = Quaternion.Euler (new Vector3 (-val, 0f, 0f));
+	}
+
+	public void SetRotationY (float val)
+	{
+		transform.rotation = Quaternion.Euler (0f, val, 0f);
 	}
 }
