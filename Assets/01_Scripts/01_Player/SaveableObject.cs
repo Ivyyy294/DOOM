@@ -12,12 +12,12 @@ using UnityEditor;
 public abstract class SaveableObject : MonoBehaviour
 {
 	public static Dictionary <string, SaveableObject> allGuids = new Dictionary <string, SaveableObject>();
-	[SerializeField] string uniqueId;
+	[SerializeField] protected string uniqueId;
 
-	abstract public string GetSerializedData ();
-	//ToDo change to payload
-	abstract public void LoadObject (string data);
+	abstract public Payload GetPayload ();
+	abstract public void LoadObject (Payload data);
 
+	public string GetSerializedData()	{return GetPayload().GetSerializedData();}
 	public string GetUniqueId() { return uniqueId; }
 
 	#if UNITY_EDITOR

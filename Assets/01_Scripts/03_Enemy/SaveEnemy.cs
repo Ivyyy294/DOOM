@@ -6,18 +6,23 @@ public class SaveEnemy : SaveableObject
 {
 	[SerializeField] EnemyStateMachine enemy;
 
-	public override string GetSerializedData()
+	public override Payload GetPayload()
 	{
-		return transform.position.x + ";" + transform.position.y + ";" + transform.position.z
-			+ ";" + enemy.currentHealth;
+		Payload p = new Payload(uniqueId);
+
+		p.Add ("posX", transform.position.x);
+		p.Add ("posY", transform.position.y);
+		p.Add ("posZ", transform.position.z);
+
+		p.Add ("hp", enemy.currentHealth);
+
+		return p;
 	}
 
-	public override void LoadObject(string data)
+	public override void LoadObject(Payload data)
 	{
-		string[] list = data.Split(';');
-
-		transform.position = new Vector3(float.Parse(list[0]), float.Parse(list[1]), float.Parse(list[2]));
-		enemy.currentHealth = float.Parse(list[3]);
+		transform.position = new Vector3(float.Parse(data.data["posX"]), float.Parse(data.data["posY"]), float.Parse(data.data["posZ"]));
+		enemy.currentHealth = float.Parse(data.data["hp"]);
 
 		if (enemy.currentHealth <= 0)
 			enemy.SetState(EnemyStateMachine.dying);

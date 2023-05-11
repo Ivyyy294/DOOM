@@ -16,7 +16,7 @@ public class WeaponContainer
 	}
 }
 
-public class WeaponManager : MonoBehaviour, ISaveableObject
+public class WeaponManager : MonoBehaviour
 {
 	[SerializeField] List <Weapon> weapons;
 	[SerializeField] int sampleRate = 1;
@@ -39,34 +39,24 @@ public class WeaponManager : MonoBehaviour, ISaveableObject
 		SWITCH_WEAPON_UP,
 	}
 
+	public int currentWeaponIndex;
+	public List <WeaponContainer> weaponContainers;
+
 	private float animationSpeed;
 	private State currentState;
-	private List <WeaponContainer> weaponContainers;
 	private WeaponContainer currentWeapon;
 	private float reloadTimer;
 	private float shootTimer;
-	private int currentWeaponIndex;
 	private AudioSource audioSource;
 	private Inventory inventory;
 	private int newWeaponIndex;
 
 	//Public
-	public string GetSerializedData()
+	public void SetCurrentWeaponIndex (int val)
 	{
-		string data = currentWeaponIndex.ToString();
-
-		for (int i = 0; i < weaponContainers.Count; ++i)
-			data += ";" + weaponContainers[i].currentAmmo.ToString();
-
-		return data;
-	}
-
-	public void LoadObject(string[] data)
-	{
-		for (int i = 0; i < weaponContainers.Count; ++i)
-			weaponContainers[i].currentAmmo = int.Parse(data[i + 1]);
-
-		SetCurrentWeaponIndex (int.Parse(data[0]));
+		SwitchWeapon (val);
+		SetAmmoCounterText();
+		weaponSprite.transform.localPosition = Vector3.right * currentWeapon.weapon.xOffset;
 	}
 
 	public void Idle ()
@@ -181,13 +171,6 @@ public class WeaponManager : MonoBehaviour, ISaveableObject
 	}
 
 	//Private
-	void SetCurrentWeaponIndex (int val)
-	{
-		SwitchWeapon (val);
-		SetAmmoCounterText();
-		weaponSprite.transform.localPosition = Vector3.right * currentWeapon.weapon.xOffset;
-	}
-
     // Start is called before the first frame update
     void Start()
     {

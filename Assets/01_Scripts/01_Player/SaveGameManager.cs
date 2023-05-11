@@ -2,26 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
- using System.Linq;
+//using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
-public interface ISaveableObject
-{
-	public string GetSerializedData ();
-	public void LoadObject (string[] data);
-}
-
-class Payload
+public class Payload
 {
 	public string id;
-	public string data;
+	public Dictionary <string, string> data = new Dictionary <string, string>();
+
+	public Payload (string uniqueId) {id = uniqueId;}
+
+	public void Add (string key, string val) {data.Add (key, val);}
+	public void Add (string key, float val) {data.Add (key, val.ToString());}
+	public void Add (string key, int val) {data.Add (key, val.ToString());}
+
+	public string GetSerializedData()
+	{
+		return JsonConvert.SerializeObject (this);
+	}
 
 	public static Payload GetData (string line)
 	{
-		Payload val = new Payload();
-		string[] tmp = line.Split("</id>");
-		val.id = tmp[0];
-		val.data = tmp[1];
-
+		Payload val = JsonConvert.DeserializeObject <Payload> (line);
 		return val;
 	}
 }
@@ -40,7 +44,7 @@ public class SaveGameManager
 	}
 
 	private string filePath;
-	private Dictionary <string, string> ObjectDataList;
+	private Dictionary <string, Payload> ObjectDataList;
 
 	public SaveGameManager()
 	{
@@ -55,7 +59,7 @@ public class SaveGameManager
 		var list = Object.FindObjectsOfType<SaveableObject>();
 
 		foreach (SaveableObject i in list)
-			writer.WriteLine (i.GetUniqueId() + "</id>" + i.GetSerializedData());
+			writer.WriteLine (i.GetSerializedData());
 
 		writer.Close();
 		Debug.Log ("Save to " + filePath);
@@ -78,13 +82,13 @@ public class SaveGameManager
 
 	void LoadObjectDataList()
 	{
-		ObjectDataList = new Dictionary<string, string>();
+		ObjectDataList = new Dictionary<string, Payload>();
 		StreamReader reader = new StreamReader (filePath);
 
 		for (string line = reader.ReadLine(); line != null; line = reader.ReadLine())
 		{
 			Payload payload = Payload.GetData (line);
-			ObjectDataList[payload.id] = payload.data;
+			ObjectDataList[payload.id] = payload;
 		}
 
 		reader.Close();

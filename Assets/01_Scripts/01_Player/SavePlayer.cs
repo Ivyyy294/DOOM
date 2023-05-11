@@ -8,31 +8,40 @@ public class SavePlayer : SaveableObject
 	[SerializeField] MouseLook mouseLook;
 	[SerializeField] WeaponManager weaponManager;
 
-	public override string GetSerializedData()
+	public override Payload GetPayload()
 	{
-		return transform.position.x
-			+ ";" + transform.position.y
-			+ ";" + transform.position.z
-			+ ";" + mouseLook.GetRotationX()
-			+ ";" + mouseLook.GetRotationY()
-			+ ";" + weaponManager.GetSerializedData();
+		Payload p = new Payload(uniqueId);
+		//Position
+		p.Add ("posX", transform.position.x);
+		p.Add ("posY", transform.position.y);
+		p.Add ("posZ", transform.position.z);
+
+		//Rotation
+		p.Add ("rotX", mouseLook.GetRotationX());
+		p.Add ("rotY", mouseLook.GetRotationY());
+
+		//WeaponManager
+		p.Add ("currentWeapon", weaponManager.currentWeaponIndex);
+		for (int i = 0; i < weaponManager.weaponContainers.Count; ++i)
+			p.Add ("w" + i, weaponManager.weaponContainers[i].currentAmmo.ToString());
+
+		return p;
 	}
 
-	public override void LoadObject(string val)
+	public override void LoadObject(Payload val)
 	{
-		string[] data = val.Split(';');
 		Vector3 loadedPos = new Vector3();
-		loadedPos.x = float.Parse(data[0]);
-		loadedPos.y = float.Parse(data[1]);
-		loadedPos.z = float.Parse(data[2]);
+		loadedPos.x = float.Parse(val.data["posX"]);
+		loadedPos.y = float.Parse(val.data["posY"]);
+		loadedPos.z = float.Parse(val.data["posZ"]);
 		player.SetPosition(loadedPos);
 
-		mouseLook.SetRotationX (float.Parse(data[3]));
-		mouseLook.SetRotationY (float.Parse(data[4]));
+		mouseLook.SetRotationX (float.Parse(val.data["rotX"]));
+		mouseLook.SetRotationY (float.Parse(val.data["rotY"]));
+		
+		for (int i = 0; i < weaponManager.weaponContainers.Count; ++i)
+			weaponManager.weaponContainers[i].currentAmmo = int.Parse(val.data["w" + i]);
 
-		//ToDo implement in payload
-		string[] tmp = new string [data.Length - 5];
-		System.Array.Copy (data, 5, tmp, 0, tmp.Length);
-		weaponManager.LoadObject (tmp);
+		weaponManager.SetCurrentWeaponIndex (int.Parse(val.data["currentWeapon"]));
 	}
 }
