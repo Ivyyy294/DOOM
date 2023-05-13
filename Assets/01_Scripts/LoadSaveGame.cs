@@ -6,12 +6,24 @@ public class LoadSaveGame : MonoBehaviour
 {
 	bool loaded = false;
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	private void Start()
+	{
+		loaded = false;
+	}
+
+	void Update()
     {
-        if (PlayerStats.Me().loadGameOnStart && !loaded)
+		if (!loaded)
 		{
-			SaveGameManager.Me().LoadGameState();
+			if (PlayerStats.Me().loadGameOnStart)
+			{
+				PlayerStats.Me().Reset();
+				SaveGameManager.Me().LoadGameState();
+			}
+			else
+				PlayerStats.Me().Init();
+			
 			loaded = true;
 		}
     }

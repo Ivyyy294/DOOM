@@ -92,40 +92,22 @@ public class DyingState : EnemyState
 
 	public void Update (EnemyStateMachine enemy)
 	{
-		enemy.navMeshAgent.isStopped = true;
 		enemy.animator?.SetTrigger("Die");
 		PlayerStats.Me().enemiesKilled++;
-		enemy.SetState (enemy.dead);
+		enemy.SetState (EnemyStateMachine.dead);
 	}
 }
 
 public class DeadState : EnemyState
 {
-	float timer = 0f;
-	bool spriteChanged;
-
 	public void Enter (EnemyStateMachine enemy)
 	{
 		enemy.navMeshAgent.isStopped = true;
-		timer = 0f;
-		spriteChanged = false;
 		enemy.GetComponent<Collider>().enabled = false;
 	}
 
 	public void Update (EnemyStateMachine enemy)
 	{
-		if (timer <= enemy.despawnDelay)
-			timer += Time.deltaTime;
-		else if (!spriteChanged)
-		{
-			if (enemy.deadSprites != null)
-			{
-				enemy.animator.enabled = false;
-				int index = Random.Range (0, enemy.deadSprites.Length);
-				enemy.GetComponent<SpriteRenderer>().sprite = enemy.deadSprites[index];
-				spriteChanged = true;
-			}
-		}
 	}
 }
 
@@ -236,7 +218,6 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	public float idleChance = 0.25f;
 	public float despawnDelay = 2f;
 	public float aggroLossDelay;
-	public Sprite[] deadSprites;
 
 	public EnemyState currentState;
 	public static IdleState idle = new IdleState();
@@ -245,9 +226,9 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	public static PatroleState patrole = new PatroleState();
 	public static TakeDamageState takeDamage = new TakeDamageState();
 	public static ResetState reset = new ResetState();
+	public static DeadState dead = new DeadState();
 	
 	//Non static
-	public DeadState dead = new DeadState();
 	public PatrolePauseState patrolePause = new PatrolePauseState();
 	public AttackState attack = new AttackState();
 	public Investigate investigate = new Investigate();
