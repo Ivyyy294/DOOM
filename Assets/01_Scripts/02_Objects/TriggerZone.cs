@@ -8,16 +8,17 @@ public class TriggerZone : MonoBehaviour
 {
 	[SerializeField] UnityEvent onTriggerEnter;
 	[SerializeField] UnityEvent onTriggerExit;
+	[SerializeField] List <string> tagList;
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (onTriggerEnter != null && other.CompareTag ("Player"))
+		if (onTriggerEnter != null && tagList.Contains (other.tag))
 			onTriggerEnter.Invoke();
 	}
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (onTriggerExit != null && other.CompareTag ("Player"))
+		if (onTriggerExit != null && tagList.Contains (other.tag))
 			onTriggerExit.Invoke();
 	}
 }

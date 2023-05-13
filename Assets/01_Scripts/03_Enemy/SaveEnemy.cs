@@ -25,7 +25,7 @@ public class SaveEnemy : SaveableObject
 		enemy.currentHealth = float.Parse(data.data["hp"]);
 
 		if (enemy.currentHealth <= 0)
-			enemy.SetState(EnemyStateMachine.dying);
+			enemy.SetState(enemy.dead);
 		else
 			enemy.SetState(EnemyStateMachine.reset);
 	}

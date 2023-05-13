@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-//using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
 public class Payload
@@ -56,10 +53,8 @@ public class SaveGameManager
 	{
 		StreamWriter writer = new StreamWriter (filePath);
 
-		var list = Object.FindObjectsOfType<SaveableObject>();
-
-		foreach (SaveableObject i in list)
-			writer.WriteLine (i.GetSerializedData());
+		foreach (var i in SaveableObject.allGuids)
+			writer.WriteLine (i.Value.GetSerializedData());
 
 		writer.Close();
 		Debug.Log ("Save to " + filePath);
@@ -69,12 +64,10 @@ public class SaveGameManager
 	{
 		LoadObjectDataList();
 		
-		var list = Object.FindObjectsOfType<SaveableObject>();
-
-		foreach (SaveableObject i in list)
+		foreach (var i in SaveableObject.allGuids)
 		{
-			if (ObjectDataList.ContainsKey (i.GetUniqueId()))
-				i.LoadObject(ObjectDataList[i.GetUniqueId()]);
+			if (ObjectDataList.ContainsKey (i.Key))
+				i.Value.LoadObject(ObjectDataList[i.Key]);
 		}
 
 		Debug.Log ("Load");

@@ -143,10 +143,14 @@ public class WeaponManager : MonoBehaviour
 			{
 				float dmgMod = currentWeapon.weapon.rangeMod.Evaluate (hit.distance / currentWeapon.weapon.range);
 				Damageable tmp = hit.transform.gameObject.GetComponent<Damageable>();
-				tmp?.ApplyDamage (currentWeapon.weapon.dmg * dmgMod);
 
-				if (hasAmmo)
-					PlayerStats.Me().hits++;
+				if (tmp != null)
+				{
+					tmp.ApplyDamage (currentWeapon.weapon.dmg * dmgMod);
+
+					if (hasAmmo)
+						PlayerStats.Me().hits++;
+				}
 			}
 		}
 		else

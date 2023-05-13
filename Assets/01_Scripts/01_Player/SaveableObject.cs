@@ -11,15 +11,22 @@ using UnityEditor;
 [ExecuteInEditMode]
 public abstract class SaveableObject : MonoBehaviour
 {
+	//list of all active ids
 	public static Dictionary <string, SaveableObject> allGuids = new Dictionary <string, SaveableObject>();
+
+	//unique stable id
+	[HideInInspector]
 	[SerializeField] protected string uniqueId;
 
+	//Private
 	abstract public Payload GetPayload ();
 	abstract public void LoadObject (Payload data);
 
 	public string GetSerializedData()	{return GetPayload().GetSerializedData();}
 	public string GetUniqueId() { return uniqueId; }
 
+	//Only runs in Edit mode
+	//makes sure every object has a valid uniqueId
 	#if UNITY_EDITOR
 	void Update()
 	{
@@ -50,5 +57,12 @@ public abstract class SaveableObject : MonoBehaviour
 	void OnDestroy(){
          allGuids.Remove(uniqueId);
      }
-	#endif
+#endif
+
+	//Add Object to Guid list
+	private void Start()
+	{
+		if (!allGuids.ContainsKey (uniqueId))
+			allGuids.Add(uniqueId, this);
+	}
 }

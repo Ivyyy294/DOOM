@@ -106,6 +106,7 @@ public class DeadState : EnemyState
 
 	public void Enter (EnemyStateMachine enemy)
 	{
+		enemy.navMeshAgent.isStopped = true;
 		timer = 0f;
 		spriteChanged = false;
 		enemy.GetComponent<Collider>().enabled = false;

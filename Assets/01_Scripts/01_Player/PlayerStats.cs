@@ -15,24 +15,41 @@ public class PlayerStats : MonoBehaviour
 	public int secretsFound;
 	public int items;
 
+	//Dynamic values
 	public int maxEnemy;
 	public int maxKeys;
 	public int maxSecrets;
 	public int maxItems;
 
+	public bool loadGameOnStart = false;
 
-    // Start is called before the first frame update
-    void Start()
+	public void Reset()
+	{
+		keysFound = 0;
+		shotsFired = 0;
+		hits = 0;
+		enemiesKilled = 0;
+		deathCounts = 0;
+		secretsFound = 0;
+		items = 0;
+		loadGameOnStart = false;
+
+		maxEnemy = FindObjectsOfType <EnemyStateMachine>().Length;
+		maxKeys = FindObjectsOfType <SwitchKey>().Length;
+		maxItems = FindObjectsOfType <Collectable>().Length;
+		maxSecrets = FindObjectsOfType <Secret>().Length;		
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
         if (me == null)
 		{
 			me = this;
 			DontDestroyOnLoad (gameObject);
-
-			maxEnemy = FindObjectsOfType <EnemyStateMachine>().Length;
-			maxKeys = FindObjectsOfType <SwitchKey>().Length;
-			maxItems = FindObjectsOfType <Collectable>().Length;
-			maxSecrets = FindObjectsOfType <Secret>().Length;
+			Reset();
 		}
+		else
+			Destroy (gameObject);
     }
 }

@@ -29,7 +29,7 @@ public class PlayerInteraction : MonoBehaviour
 
 		if (Input.GetKeyDown (KeyCode.K))
 			SaveGameManager.Me().SaveGameState();
-		else if (Input.GetKeyDown (KeyCode.L))
+		if (Input.GetKeyDown (KeyCode.L))
 			SaveGameManager.Me().LoadGameState();
     }
 
