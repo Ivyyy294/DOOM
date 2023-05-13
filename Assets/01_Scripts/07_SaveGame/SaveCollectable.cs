@@ -7,7 +7,7 @@ public class SaveCollectable : SaveableObject
 	[SerializeField] GameObject obj;
 	override public Payload GetPayload ()
 	{
-		Payload p = new Payload(uniqueId);
+		Payload p = new Payload(UniqueId);
 		
 		if (obj != null)
 			p.Add ("active", obj.activeInHierarchy);

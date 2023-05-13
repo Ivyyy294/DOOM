@@ -11,7 +11,7 @@ public class SavePlayer : SaveableObject
 
 	public override Payload GetPayload()
 	{
-		Payload p = new Payload(uniqueId);
+		Payload p = new Payload(UniqueId);
 		//Position
 		p.Add ("posX", transform.position.x);
 		p.Add ("posY", transform.position.y);

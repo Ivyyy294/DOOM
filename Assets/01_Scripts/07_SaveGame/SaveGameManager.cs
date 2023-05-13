@@ -54,7 +54,7 @@ public class SaveGameManager
 	{
 		StreamWriter writer = new StreamWriter (filePath);
 
-		foreach (var i in SaveableObject.allGuids)
+		foreach (var i in SaveableObject.allSaveableObject)
 			writer.WriteLine (i.Value.GetSerializedData());
 
 		writer.Close();
@@ -65,7 +65,7 @@ public class SaveGameManager
 	{
 		LoadObjectDataList();
 		
-		foreach (var i in SaveableObject.allGuids)
+		foreach (var i in SaveableObject.allSaveableObject)
 		{
 			if (ObjectDataList.ContainsKey (i.Key))
 				i.Value.LoadObject(ObjectDataList[i.Key]);

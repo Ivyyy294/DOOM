@@ -8,7 +8,7 @@ public class SaveEnemy : SaveableObject
 
 	public override Payload GetPayload()
 	{
-		Payload p = new Payload(uniqueId);
+		Payload p = new Payload(UniqueId);
 
 		p.Add ("posX", transform.position.x);
 		p.Add ("posY", transform.position.y);

@@ -8,7 +8,7 @@ public class SaveSwitch : SaveableObject
 
 	override public Payload GetPayload ()
 	{
-		Payload p = new Payload (uniqueId);
+		Payload p = new Payload (UniqueId);
 		p.Add ("toggled", obj.IsToggled());
 		p.Add ("locked", obj.IsLocked());
 
