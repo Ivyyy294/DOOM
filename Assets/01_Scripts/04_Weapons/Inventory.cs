@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, Damageable
 {
 	[System.Serializable]
 	public struct AmmoContainer
@@ -17,13 +17,24 @@ public class Inventory : MonoBehaviour
 	}
 
 	private int armor;
-	private int health;
+	private float health;
 	[SerializeField] TextMeshProUGUI txtArmor;
+	[SerializeField] TextMeshProUGUI txtHealth;
 	[SerializeField] AmmoContainer[] ammoContainers;
+
+	public void ApplyDamage (float dmg)
+	{
+		float dmgReduction = 0.5f * ((float)armor / 100f);
+
+		health -= dmg * (1 - dmgReduction);
+		txtHealth.text = health.ToString("0") + "%";
+	}
 
     // Start is called before the first frame update
     void Start()
     {
+		health = 100;
+
         foreach (AmmoContainer i in ammoContainers)
 		{
 			if (i.txtMaxAmmo != null)

@@ -205,6 +205,7 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	[Header ("Attack Settings")]
 	public float attackRange;
 	public float attackDelay = 2f;
+	public float attackDmg;
 
 	[Header ("Spotting Setting")]
 	[SerializeField] Transform rayOrigin;
@@ -242,6 +243,17 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	{
 		currentState = state;
 		state.Enter(this);
+	}
+
+	public void HitPlayer()
+	{
+		if (playerInSight)
+		{
+			float distance = Vector3.Distance (transform.position, Camera.main.transform.position);
+
+			if (distance <= attackRange)
+				Camera.main.transform.parent.gameObject.GetComponent<Damageable>().ApplyDamage(attackDmg);
+		}
 	}
 
 	public void ApplyDamage (float dmg)

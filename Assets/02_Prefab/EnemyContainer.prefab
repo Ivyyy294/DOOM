@@ -221,6 +221,7 @@ MonoBehaviour:
   animator: {fileID: 885903676390774889}
   attackRange: 3
   attackDelay: 2
+  attackDmg: 20
   rayOrigin: {fileID: 885903676976263648}
   rayRange: 20
   navMeshAgent: {fileID: 6449499810407692335}
@@ -230,11 +231,6 @@ MonoBehaviour:
   idleChance: 1
   despawnDelay: 2
   aggroLossDelay: 5
-  deadSprites:
-  - {fileID: -590503404, guid: 0eaa8043af14cd84380f62d7c64fa82b, type: 3}
-  - {fileID: -200608287, guid: 0eaa8043af14cd84380f62d7c64fa82b, type: 3}
-  - {fileID: -1632934922, guid: 0eaa8043af14cd84380f62d7c64fa82b, type: 3}
-  - {fileID: -553704379, guid: 0eaa8043af14cd84380f62d7c64fa82b, type: 3}
   maxHealth: 6
   currentHealth: 0
   lastPlayerPos: {x: 0, y: 0, z: 0}
