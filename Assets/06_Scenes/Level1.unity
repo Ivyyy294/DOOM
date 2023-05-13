@@ -1835,6 +1835,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 951233693}
     m_Modifications:
+    - target: {fileID: 4606165817054574027, guid: a761303a134344a438671b4e3f8b1b39, type: 3}
+      propertyPath: uniqueId
+      value: 41592c83-46d3-451e-b38b-9a808bbe76a3
+      objectReference: {fileID: 0}
     - target: {fileID: 8307033679245792384, guid: a761303a134344a438671b4e3f8b1b39, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -3787,6 +3791,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 951233693}
     m_Modifications:
+    - target: {fileID: 4606165817054574027, guid: a761303a134344a438671b4e3f8b1b39, type: 3}
+      propertyPath: uniqueId
+      value: ceb89120-07cb-4294-a658-eb8f67fda831
+      objectReference: {fileID: 0}
     - target: {fileID: 8307033679245792384, guid: a761303a134344a438671b4e3f8b1b39, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -5000,6 +5008,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 951233693}
     m_Modifications:
+    - target: {fileID: 4606165817054574027, guid: a761303a134344a438671b4e3f8b1b39, type: 3}
+      propertyPath: uniqueId
+      value: b7038bb9-4b42-45ea-9077-d80ec8eda781
+      objectReference: {fileID: 0}
     - target: {fileID: 8307033679245792384, guid: a761303a134344a438671b4e3f8b1b39, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -10840,6 +10852,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 951233693}
     m_Modifications:
+    - target: {fileID: 4606165817054574027, guid: a761303a134344a438671b4e3f8b1b39, type: 3}
+      propertyPath: uniqueId
+      value: ed8b4679-3bde-41f6-8fc3-9c7f2d08fb3e
+      objectReference: {fileID: 0}
     - target: {fileID: 8307033679245792384, guid: a761303a134344a438671b4e3f8b1b39, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -11056,6 +11072,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 701183963494107312, guid: cee58c0aae4a88043907583315c4b729, type: 3}
+      propertyPath: uniqueId
+      value: 527899ee-cabf-49a1-ad52-2392e4f629a5
+      objectReference: {fileID: 0}
     - target: {fileID: 4135347133831590496, guid: cee58c0aae4a88043907583315c4b729, type: 3}
       propertyPath: OnCollected.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -11111,6 +11131,14 @@ PrefabInstance:
     - target: {fileID: 4135347133831590554, guid: cee58c0aae4a88043907583315c4b729, type: 3}
       propertyPath: m_Name
       value: SwitchKey
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041862936786701522, guid: cee58c0aae4a88043907583315c4b729, type: 3}
+      propertyPath: uniqueId
+      value: 93ba6bb4-49eb-4320-9d66-76d53ec33529
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586054499265240033, guid: cee58c0aae4a88043907583315c4b729, type: 3}
+      propertyPath: uniqueId
+      value: d06d310b-a2a2-4246-a118-29441bd1d8a7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cee58c0aae4a88043907583315c4b729, type: 3}
@@ -11197,6 +11225,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 951233693}
     m_Modifications:
+    - target: {fileID: 4606165817054574027, guid: a761303a134344a438671b4e3f8b1b39, type: 3}
+      propertyPath: uniqueId
+      value: 0eba154f-e24d-4e74-b0e2-e07d354b3cfd
+      objectReference: {fileID: 0}
     - target: {fileID: 8307033679245792384, guid: a761303a134344a438671b4e3f8b1b39, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -11439,6 +11471,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 677614356}
     m_Modifications:
+    - target: {fileID: 2784133130299257821, guid: cd7039818a8d63f4bbce2ffd130a1057, type: 3}
+      propertyPath: uniqueId
+      value: 6bb3a955-d0d8-4b7a-aa01-2c86fc373891
+      objectReference: {fileID: 0}
     - target: {fileID: 6650154717737010881, guid: cd7039818a8d63f4bbce2ffd130a1057, type: 3}
       propertyPath: m_Name
       value: Shells

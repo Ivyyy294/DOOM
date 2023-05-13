@@ -35,7 +35,7 @@ public abstract class SaveableObject : MonoBehaviour
 			return;
 
 		// if we are not part of a scene then we are a prefab so do not attempt to set the id
-		if  (gameObject.scene.name == null)
+		if  (!IsSceneValid())
 			return;
 
 		bool hasValidValue = uniqueId != null && uniqueId.Length > 0;
@@ -55,6 +55,7 @@ public abstract class SaveableObject : MonoBehaviour
 	}
 
 	void OnDestroy(){
+		if (IsSceneValid() && allGuids.ContainsKey (uniqueId))
          allGuids.Remove(uniqueId);
      }
 #endif
@@ -62,7 +63,13 @@ public abstract class SaveableObject : MonoBehaviour
 	//Add Object to Guid list
 	private void Start()
 	{
-		if (!allGuids.ContainsKey (uniqueId))
+		//only add id if we are part of a scene
+		if (IsSceneValid() && !allGuids.ContainsKey (uniqueId))
 			allGuids.Add(uniqueId, this);
+	}
+
+	private bool IsSceneValid()
+	{
+		return gameObject.scene.name != null && gameObject.scene.buildIndex > -1;
 	}
 }

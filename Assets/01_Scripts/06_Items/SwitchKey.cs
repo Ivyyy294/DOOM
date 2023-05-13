@@ -8,11 +8,18 @@ public class SwitchKey : MonoBehaviour
 	[SerializeField] UnityEvent OnCollected;
 	[SerializeField] AudioClip audioCollected;
 	private AudioSource audioSource;
-	private bool collected = false;
+	float timer = 0f;
+	bool collected;
 
 	private void Start()
 	{
 		audioSource = GetComponent <AudioSource>();
+	}
+
+	private void OnEnable()
+	{
+		collected = false;
+		timer = 0f;
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -27,8 +34,17 @@ public class SwitchKey : MonoBehaviour
 				OnCollected.Invoke();
 
 			audioSource?.PlayOneShot (audioCollected);
+		}
+	}
 
-			Destroy (gameObject, 0.5f);
+	private void Update()
+	{
+		if (collected)
+		{
+			if (timer <= 0.5f)
+				timer += Time.deltaTime;
+			else
+				gameObject.SetActive (false);
 		}
 	}
 }

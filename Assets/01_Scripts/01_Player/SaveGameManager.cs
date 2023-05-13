@@ -14,6 +14,7 @@ public class Payload
 	public void Add (string key, string val) {data.Add (key, val);}
 	public void Add (string key, float val) {data.Add (key, val.ToString());}
 	public void Add (string key, int val) {data.Add (key, val.ToString());}
+	public void Add (string key, bool val) {data.Add (key, val.ToString());}
 
 	public string GetSerializedData()
 	{

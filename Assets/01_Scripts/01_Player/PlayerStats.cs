@@ -28,7 +28,7 @@ public class PlayerStats : MonoBehaviour
 		maxEnemy = FindObjectsOfType <EnemyStateMachine>().Length;
 		maxKeys = FindObjectsOfType <SwitchKey>().Length;
 		maxItems = FindObjectsOfType <Collectable>().Length;
-		maxSecrets = FindObjectsOfType <Secret>().Length;		
+		maxSecrets = FindObjectsOfType <Secret>().Length;
 	}
 
 	public void Reset()
@@ -41,7 +41,6 @@ public class PlayerStats : MonoBehaviour
 		secretsFound = 0;
 		items = 0;
 		loadGameOnStart = false;
-		Init();
 	}
 
 	// Start is called before the first frame update
