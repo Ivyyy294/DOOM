@@ -39,6 +39,9 @@ public class SavePlayer : SaveableObject
 		p.Add ("hp", inventory.health);
 		p.Add ("armor", inventory.armor);
 
+		for (int i = 0; i < inventory.ammoContainers.Length; ++i)
+			p.Add ("ammo" + i.ToString(), inventory.ammoContainers[i].count);
+
 		return p;
 	}
 
@@ -73,6 +76,9 @@ public class SavePlayer : SaveableObject
 
 		inventory.health = float.Parse (val.data["hp"]);
 		inventory.armor = int.Parse (val.data["armor"]);
+
+		for (int i = 0; i < inventory.ammoContainers.Length; ++i)
+			inventory.ammoContainers[i].count = int.Parse (val.data ["ammo" + i.ToString()]);
 	}
 }
 

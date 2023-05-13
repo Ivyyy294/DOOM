@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour, Damageable
 	public float health = 100;
 	[SerializeField] TextMeshProUGUI txtArmor;
 	[SerializeField] TextMeshProUGUI txtHealth;
-	[SerializeField] AmmoContainer[] ammoContainers;
+	public AmmoContainer[] ammoContainers;
 
 	public void ApplyDamage (float dmg)
 	{
