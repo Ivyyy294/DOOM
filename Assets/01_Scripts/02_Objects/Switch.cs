@@ -23,6 +23,9 @@ public class Switch : MonoBehaviour , InteractableObject
 	private AudioSource audioSource;
 
 	//Public
+	public bool IsLocked() {return isLocked;}
+	public bool IsToggled() {return isToggled;}
+
 	public void Lock () { SetLockState (true);}
 	public void Unlock () { SetLockState (false);}
 	
