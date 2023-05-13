@@ -55,16 +55,15 @@ public abstract class SaveableObject : MonoBehaviour
 	}
 
 	void OnDestroy(){
-		if (IsSceneValid() && allGuids.ContainsKey (uniqueId))
-         allGuids.Remove(uniqueId);
+		if (allGuids.ContainsKey (uniqueId))
+			allGuids.Remove(uniqueId);
      }
 #endif
 
 	//Add Object to Guid list
 	private void Start()
 	{
-		//only add id if we are part of a scene
-		if (IsSceneValid() && !allGuids.ContainsKey (uniqueId))
+		if (IsSceneValid())
 			allGuids.Add(uniqueId, this);
 	}
 

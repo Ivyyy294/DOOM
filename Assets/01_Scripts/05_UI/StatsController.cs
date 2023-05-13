@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class StatsController : MonoBehaviour
 {
@@ -23,9 +24,16 @@ public class StatsController : MonoBehaviour
 	[SerializeField] TextMeshProUGUI score;
 	[SerializeField] float anz;
 
+	public void GoToMenu ()
+	{
+		SceneManager.LoadScene (0);
+	}
+
     // Start is called before the first frame update
     void Start()
     {
+		Cursor.lockState = CursorLockMode.Confined;
+
         enemyIst.text = PlayerStats.Me().enemiesKilled.ToString();
 		enemySoll.text = PlayerStats.Me().maxEnemy.ToString();
 

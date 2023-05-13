@@ -3224,6 +3224,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.426
       objectReference: {fileID: 0}
+    - target: {fileID: 8857616599076238879, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8857616600520224649, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
       propertyPath: gravity
       value: 15
