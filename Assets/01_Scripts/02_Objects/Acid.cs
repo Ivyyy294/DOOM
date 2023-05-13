@@ -6,7 +6,7 @@ public class Acid : MonoBehaviour
 {
 	[SerializeField] float dmgPerSecond;
 
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerStay(Collider other)
 	{
 		Damageable obj = other.gameObject.GetComponent<Damageable>();
 		obj?.ApplyDamage (dmgPerSecond * Time.deltaTime);

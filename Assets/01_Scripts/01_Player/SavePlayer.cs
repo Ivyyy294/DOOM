@@ -7,6 +7,7 @@ public class SavePlayer : SaveableObject
 	[SerializeField] PlayerMovement3D player;
 	[SerializeField] MouseLook mouseLook;
 	[SerializeField] WeaponManager weaponManager;
+	[SerializeField] Inventory inventory;
 
 	public override Payload GetPayload()
 	{
@@ -33,6 +34,10 @@ public class SavePlayer : SaveableObject
 		p.Add ("deathCounts", PlayerStats.Me().deathCounts);
 		p.Add ("secretsFound", PlayerStats.Me().secretsFound);
 		p.Add ("items", PlayerStats.Me().items);
+
+		//Inventory
+		p.Add ("hp", inventory.health);
+		p.Add ("armor", inventory.armor);
 
 		return p;
 	}
@@ -65,6 +70,9 @@ public class SavePlayer : SaveableObject
 		PlayerStats.Me().deathCounts = int.Parse (val.data["deathCounts"]);
 		PlayerStats.Me().secretsFound = int.Parse (val.data["secretsFound"]);
 		PlayerStats.Me().items = int.Parse (val.data["items"]);
+
+		inventory.health = float.Parse (val.data["hp"]);
+		inventory.armor = int.Parse (val.data["armor"]);
 	}
 }
 

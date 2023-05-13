@@ -16,8 +16,8 @@ public class Inventory : MonoBehaviour, Damageable
 		public TextMeshProUGUI txtMaxAmmo;
 	}
 
-	private int armor;
-	private float health;
+	public int armor;
+	public float health = 100;
 	[SerializeField] TextMeshProUGUI txtArmor;
 	[SerializeField] TextMeshProUGUI txtHealth;
 	[SerializeField] AmmoContainer[] ammoContainers;
@@ -27,7 +27,6 @@ public class Inventory : MonoBehaviour, Damageable
 		float dmgReduction = 0.5f * ((float)armor / 100f);
 
 		health -= dmg * (1 - dmgReduction);
-		txtHealth.text = health.ToString("0") + "%";
 	}
 
     // Start is called before the first frame update
@@ -53,6 +52,9 @@ public class Inventory : MonoBehaviour, Damageable
 			if (i.txtAmmo != null)
 				i.txtAmmo.text = i.count.ToString();
 		}
+
+		txtHealth.text = health.ToString("0") + "%";
+		txtArmor.text = armor.ToString()  + "%";
     }
 
 	public int GetAmmoForReloading (Weapon.AmmoTyp ammoTyp, int count)
@@ -85,6 +87,5 @@ public class Inventory : MonoBehaviour, Damageable
 	public void AddArmor (int val)
 	{
 		armor = Mathf.Min (100, armor + val);
-		txtArmor.text = armor.ToString()  + "%";
 	}
 }

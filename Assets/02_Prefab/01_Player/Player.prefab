@@ -366,6 +366,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 0
   switchPos: {fileID: 0}
+  currentWeaponIndex: 0
 --- !u!114 &3066227044284349524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,7 +379,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88583648d0dbed54997a8edd27396095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  armor: 0
+  health: 100
   txtArmor: {fileID: 0}
+  txtHealth: {fileID: 0}
   ammoContainers: []
 --- !u!114 &4836272473042389110
 MonoBehaviour:
@@ -416,3 +420,4 @@ MonoBehaviour:
   player: {fileID: 8857616600520224649}
   mouseLook: {fileID: 8857616600520224655}
   weaponManager: {fileID: 5393089973647689886}
+  inventory: {fileID: 3066227044284349524}
