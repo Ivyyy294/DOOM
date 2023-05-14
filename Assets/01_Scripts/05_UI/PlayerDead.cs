@@ -6,29 +6,36 @@ using UnityEngine.SceneManagement;
 
 public class PlayerDead: MonoBehaviour
 {
-	[SerializeField] Image img;
+	[SerializeField] Inventory player;
+	[SerializeField] Image imgBlood;
 	[Range (0f, 1f)]
 	[SerializeField] float maxTaint;
+
+
+	[SerializeField] Image imgBlackOut;
 	[Range (0f, 1f)]
 	[SerializeField] float speedTaint;
-
-    // Start is called before the first frame update
-    void OnEnable()
-    {
-        Time.timeScale = 0f;
-		img.color = new Color (img.color.r, img.color.g, img.color.b, 0f);
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if (img.color.a < maxTaint)
-			img.color = new Color (img.color.r, img.color.g, img.color.b, img.color.a + (Time.unscaledDeltaTime * speedTaint));
+		if (player.health > 0f)
+		{
+			float alpha = maxTaint * ((100f - player.health) / 100f);
+			imgBlood.color = new Color (imgBlood.color.r, imgBlood.color.g, imgBlood.color.b, alpha);
+		}
 		else
 		{
-			Time.timeScale = 1f;
-			SceneManager.LoadScene (2);
-		}
+			Time.timeScale = 0f;
+			imgBlackOut.gameObject.SetActive (true);
 
+			if (imgBlackOut.color.a >= 1f)
+			{
+				Time.timeScale = 1f;
+				SceneManager.LoadScene (2);
+			}
+			else
+				imgBlackOut.color = new Color (imgBlackOut.color.r, imgBlackOut.color.g, imgBlackOut.color.b, imgBlackOut.color.a + (Time.unscaledDeltaTime * speedTaint));
+		}
     }
 }
