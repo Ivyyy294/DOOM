@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Inventory : MonoBehaviour, Damageable
@@ -20,6 +21,10 @@ public class Inventory : MonoBehaviour, Damageable
 	public float health = 100;
 	[SerializeField] TextMeshProUGUI txtArmor;
 	[SerializeField] TextMeshProUGUI txtHealth;
+	[SerializeField] Image imgFace;
+	[SerializeField] Sprite[] faces;
+	[SerializeField] GameObject uiDead;
+
 	public AmmoContainer[] ammoContainers;
 
 	public void ApplyDamage (float dmg)
@@ -27,6 +32,9 @@ public class Inventory : MonoBehaviour, Damageable
 		float dmgReduction = 0.5f * ((float)armor / 100f);
 
 		health -= dmg * (1 - dmgReduction);
+
+		if (health <= 0f)
+			uiDead?.SetActive (true);
 	}
 
     // Start is called before the first frame update
@@ -51,6 +59,17 @@ public class Inventory : MonoBehaviour, Damageable
 		{
 			if (i.txtAmmo != null)
 				i.txtAmmo.text = i.count.ToString();
+		}
+
+		float tmp = 100f / faces.Length;
+
+		for (int i = 0; i < faces.Length; ++i)
+		{
+			if (health > 100f - tmp * (i + 1))
+			{
+				imgFace.sprite = faces[i];
+				break;
+			}
 		}
 
 		txtHealth.text = health.ToString("0") + "%";
