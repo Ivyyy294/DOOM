@@ -188,23 +188,26 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (currentState)
+		if (Time.timeScale > 0f)
 		{
-			case State.IDLE:
-				Idle();
-				break;
-			case State.SHOOTING:
-				Shoot();
-				break;
-			case State.RELOADING:
-				Reload();
-				break;
-			case State.SWITCH_WEAPON_DOWN:
-				MoveWeaponDown();
-				break;
-			case State.SWITCH_WEAPON_UP:
-				MoveWeaponUp();
-				break;
+			switch (currentState)
+			{
+				case State.IDLE:
+					Idle();
+					break;
+				case State.SHOOTING:
+					Shoot();
+					break;
+				case State.RELOADING:
+					Reload();
+					break;
+				case State.SWITCH_WEAPON_DOWN:
+					MoveWeaponDown();
+					break;
+				case State.SWITCH_WEAPON_UP:
+					MoveWeaponUp();
+					break;
+			}
 		}
     }
 

@@ -7,6 +7,7 @@ public class PlayerInteraction : MonoBehaviour
 	[SerializeField] float range;
 	[SerializeField] KeyCode interactKey;
 	[SerializeField] WeaponManager weaponManager;
+	[SerializeField] PauseMenu pauseMenu;
 
 	private Transform cameraTrans;
 
@@ -20,11 +21,17 @@ public class PlayerInteraction : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-		if (Input.GetKeyDown (interactKey))
+		if (Time.timeScale > 0f)
 		{
-			//Shoot if no interaction is possible
-			if (!Interact())
-				weaponManager?.Shoot();
+			if (Input.GetKeyDown (interactKey))
+			{
+				//Shoot if no interaction is possible
+				if (!Interact())
+					weaponManager?.Shoot();
+			}
+
+			if (Input.GetKeyDown (KeyCode.Escape))
+				pauseMenu.gameObject.SetActive (true);
 		}
     }
 

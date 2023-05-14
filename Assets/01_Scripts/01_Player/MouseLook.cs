@@ -25,8 +25,11 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		MoveHorizontal();
-		MoveVertical();
+		if (Time.timeScale > 0f)
+		{
+			MoveHorizontal();
+			MoveVertical();
+		}
     }
 
 	void MoveHorizontal() 

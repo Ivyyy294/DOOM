@@ -41,7 +41,8 @@ public class PlayerMovement3D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		characterController.Move (GetHorizontalMovement() + (GetVerticalMovement() * Time.deltaTime));
+		if (Time.timeScale > 0f)
+			characterController.Move (GetHorizontalMovement() + (GetVerticalMovement() * Time.deltaTime));
     }
 
 	Vector3 GetHorizontalMovement()
