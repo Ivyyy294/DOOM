@@ -8,8 +8,8 @@ public class PlayerDead: MonoBehaviour
 {
 	[SerializeField] Inventory player;
 	[SerializeField] Image imgBlood;
-	[Range (0f, 1f)]
-	[SerializeField] float maxTaint;
+
+	[SerializeField] AnimationCurve tintCurve;
 
 
 	[SerializeField] Image imgBlackOut;
@@ -21,7 +21,7 @@ public class PlayerDead: MonoBehaviour
     {
 		if (player.health > 0f)
 		{
-			float alpha = maxTaint * ((100f - player.health) / 100f);
+			float alpha = tintCurve.Evaluate ((100f - player.health) / 100f);
 			imgBlood.color = new Color (imgBlood.color.r, imgBlood.color.g, imgBlood.color.b, alpha);
 		}
 		else

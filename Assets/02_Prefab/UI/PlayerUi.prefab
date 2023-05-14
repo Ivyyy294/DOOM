@@ -1585,7 +1585,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4199523746846606496}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2180,7 +2180,7 @@ RectTransform:
   - {fileID: 5178955437216526841}
   - {fileID: 5178955435897035568}
   m_Father: {fileID: 4199523746846606496}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2201,7 +2201,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   imgBlood: {fileID: 5178955437216526840}
-  maxTaint: 0.1
+  tintCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.5
+      inSlope: 1.170523
+      outSlope: 1.170523
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.15253061
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   imgBlackOut: {fileID: 5178955435897035575}
   speedTaint: 0.35
 --- !u!1 &5178955436984713970
@@ -3350,10 +3373,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5178955436973707138}
+  - {fileID: 5178955436460370767}
   - {fileID: 5178955436743957016}
   - {fileID: 5178955436410412311}
-  - {fileID: 5178955436460370767}
+  - {fileID: 5178955436973707138}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
