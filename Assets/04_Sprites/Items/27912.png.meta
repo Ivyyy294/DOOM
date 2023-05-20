@@ -272,6 +272,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ShotgunItem
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 200
+        width: 54
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73eac27086a8da949ae97d0841ff830b
+      internalID: 1559409922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlasmaRifleItem
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 198
+        width: 54
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcec2ed8c3a1b7540adc2f2df9906135
+      internalID: 1313330722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -283,9 +325,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      PlasmaRifleItem: 1313330722
       27912_5: -1244729438
       27912_2: 365818753
       27912_7: 1397260611
+      ShotgunItem: 1559409922
       27912_4: -945108951
       27912_3: -629311558
       27912_6: 484897234

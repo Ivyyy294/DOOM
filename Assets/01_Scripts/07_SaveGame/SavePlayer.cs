@@ -24,7 +24,10 @@ public class SavePlayer : SaveableObject
 		//WeaponManager
 		p.Add ("currentWeapon", weaponManager.currentWeaponIndex);
 		for (int i = 0; i < weaponManager.weaponContainers.Count; ++i)
-			p.Add ("w" + i, weaponManager.weaponContainers[i].currentAmmo.ToString());
+		{
+			p.Add ("wAmmo" + i, weaponManager.weaponContainers[i].currentAmmo.ToString());
+			p.Add ("wActive" + i, weaponManager.weaponContainers[i].active.ToString());
+		}
 
 		//Player stats
 		p.Add ("keyFound", PlayerStats.Me().keysFound);
@@ -60,7 +63,10 @@ public class SavePlayer : SaveableObject
 		
 		//WeaponManager
 		for (int i = 0; i < weaponManager.weaponContainers.Count; ++i)
-			weaponManager.weaponContainers[i].currentAmmo = int.Parse(val.data["w" + i]);
+		{
+			weaponManager.weaponContainers[i].currentAmmo = int.Parse(val.data["wAmmo" + i]);
+			weaponManager.weaponContainers[i].active = bool.Parse(val.data["wActive" + i]);
+		}
 
 		weaponManager.SetCurrentWeaponIndex (int.Parse(val.data["currentWeapon"]));
 

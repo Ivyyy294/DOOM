@@ -4,21 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+[System.Serializable]
 public class WeaponContainer
 {
 	public Weapon weapon;
 	public int currentAmmo;
-
-	public WeaponContainer (Weapon w)
-	{
-		weapon = w;
-		currentAmmo = weapon.clipSize;
-	}
+	public bool active;
 }
 
 public class WeaponManager : MonoBehaviour
 {
-	[SerializeField] List <Weapon> weapons;
+	public List <WeaponContainer> weaponContainers;
 	[SerializeField] int sampleRate = 1;
 	[SerializeField] float switchWeaonDelay;
 
@@ -40,7 +36,6 @@ public class WeaponManager : MonoBehaviour
 	}
 
 	public int currentWeaponIndex;
-	public List <WeaponContainer> weaponContainers;
 
 	private float animationSpeed;
 	private State currentState;
@@ -52,6 +47,15 @@ public class WeaponManager : MonoBehaviour
 	private int newWeaponIndex;
 
 	//Public
+	public void UnlockWeapon (Weapon w)
+	{
+		for (int i = 0; i < weaponContainers.Count; ++i)
+		{
+			if (weaponContainers[i].weapon == w)
+				weaponContainers[i].active = true;
+		}
+	}
+
 	public void SetCurrentWeaponIndex (int val)
 	{
 		SwitchWeapon (val);
@@ -213,11 +217,6 @@ public class WeaponManager : MonoBehaviour
 
 	private void InitWeapons()
 	{
-		weaponContainers = new List<WeaponContainer>();
-
-		foreach (Weapon i in weapons)
-			weaponContainers.Add (new WeaponContainer (i));
-
 		currentWeaponIndex = -1;
 		SetCurrentWeaponIndex (0);
 	}
@@ -234,14 +233,9 @@ public class WeaponManager : MonoBehaviour
 				int newIndex = currentWeaponIndex;
 
 				if (mouseDelta < 0f)
-					newIndex++;
+					newIndex = GetNextValidWeapon (newIndex, 1);
 				else
-					--newIndex;
-
-				if (newIndex < 0)
-					newIndex = weaponContainers.Count -1;
-				else if (newIndex >= weaponContainers.Count)
-					newIndex = 0;
+					newIndex = GetNextValidWeapon (newIndex, -1);
 
 				if (currentWeaponIndex != newIndex)
 				{
@@ -257,7 +251,7 @@ public class WeaponManager : MonoBehaviour
 
 					if (Input.GetKeyDown ((KeyCode) keycode))
 					{
-						if (currentWeaponIndex != i)
+						if (currentWeaponIndex != i && WeaponAvailable(i))
 						{
 							newWeaponIndex = i;
 							currentState = State.SWITCH_WEAPON_DOWN;
@@ -309,6 +303,30 @@ public class WeaponManager : MonoBehaviour
 		}
 		else
 			weaponSprite.rectTransform.anchoredPosition = targetPos;
+	}
+
+	private int GetNextValidWeapon (int startIndex, int sign)
+	{
+		sign = (int)Mathf.Sign (sign);
+		int newIndex = startIndex;
+
+		do
+		{
+			newIndex += sign;
+
+			if (newIndex < 0)
+				newIndex = weaponContainers.Count -1;
+			else if (newIndex >= weaponContainers.Count)
+				newIndex = 0;
+		}
+		while (!WeaponAvailable (newIndex));
+
+		return newIndex;
+	}
+
+	private bool WeaponAvailable (int weapon)
+	{
+		return weapon < weaponContainers.Count && weaponContainers[weapon].active;
 	}
 
 	private void SwitchWeapon (int newWeapon)
