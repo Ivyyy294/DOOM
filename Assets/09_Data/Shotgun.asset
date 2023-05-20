@@ -69,3 +69,4 @@ MonoBehaviour:
   xOffset: -35
   shootSound: {fileID: 8300000, guid: f095083cf51f0234fbeab1dc0c8bd237, type: 3}
   reloadSound: {fileID: 8300000, guid: 960c3f7e13fcf324682c30a905baf128, type: 3}
+  emptySound: {fileID: 8300000, guid: c2671442a6c84bd4db9741f935697f6c, type: 3}

@@ -55,4 +55,5 @@ MonoBehaviour:
   - {fileID: 575987099, guid: cbb8b0cdb747daa4b885dfeedcf6e0a4, type: 3}
   xOffset: 0
   shootSound: {fileID: 8300000, guid: 24d00516f256ed74089fe8008eb4e070, type: 3}
-  reloadSound: {fileID: 0}
+  reloadSound: {fileID: 8300000, guid: 0cf84b13c7f4ffe4b80bd4df7ab8c8cd, type: 3}
+  emptySound: {fileID: 8300000, guid: c2671442a6c84bd4db9741f935697f6c, type: 3}

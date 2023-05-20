@@ -22,7 +22,8 @@ public class StatsController : MonoBehaviour
 	[SerializeField] TextMeshProUGUI itemsSoll;
 
 	[SerializeField] TextMeshProUGUI score;
-	[SerializeField] float anz;
+
+	private float anz;
 
 	public void GoToMenu ()
 	{
@@ -32,6 +33,7 @@ public class StatsController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		anz = 0f;
 		Cursor.lockState = CursorLockMode.Confined;
 
         enemyIst.text = PlayerStats.Me().enemiesKilled.ToString();
@@ -65,6 +67,7 @@ public class StatsController : MonoBehaviour
 
 	float CalculateScore (float ist, float soll)
 	{
-		return ist / soll;
+		++anz;
+		return  soll != 0f ? ist / soll : 0f;
 	}
 }

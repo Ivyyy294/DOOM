@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   displayName: Pistol
-  clipSize: 6
   dmg: 1
+  clipSize: 6
+  ammoTyp: 0
   range: 50
   rangeMod:
     serializedVersion: 2
@@ -52,3 +53,4 @@ MonoBehaviour:
   xOffset: 50
   shootSound: {fileID: 8300000, guid: 735626b01c6ca3d4280f0627e56c63fb, type: 3}
   reloadSound: {fileID: 8300000, guid: 0cf84b13c7f4ffe4b80bd4df7ab8c8cd, type: 3}
+  emptySound: {fileID: 8300000, guid: c2671442a6c84bd4db9741f935697f6c, type: 3}

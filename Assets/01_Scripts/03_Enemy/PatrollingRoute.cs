@@ -74,18 +74,6 @@ public class PatrollingRoute : MonoBehaviour
 	public Transform[] waypoints;
 	public Mode mode;
 
-	private void Update()
-	{
-		if (waypoints != null)
-		{
-			for (int i = 0; i < waypoints.Length -1; ++i)
-				Debug.DrawLine (waypoints[i].position, waypoints[i+1].position, Color.green);
-
-			if (mode == Mode.LOOP)
-				Debug.DrawLine (waypoints[0].position, waypoints[waypoints.Length-1].position, Color.green);
-		}
-	}
-
 	public int GetNearestWaypoint (Transform pos)
 	{
 		int target = 0;
@@ -108,5 +96,17 @@ public class PatrollingRoute : MonoBehaviour
 		}
 
 		return target;
+	}
+
+	private void OnDrawGizmos()
+	{
+		if (waypoints != null)
+		{
+			for (int i = 0; i < waypoints.Length -1; ++i)
+				Debug.DrawLine (waypoints[i].position, waypoints[i+1].position, Color.green);
+
+			if (mode == Mode.LOOP)
+				Debug.DrawLine (waypoints[0].position, waypoints[waypoints.Length-1].position, Color.green);
+		}
 	}
 }
