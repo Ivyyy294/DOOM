@@ -27,7 +27,7 @@ public class StatsController : MonoBehaviour
 
 	public void GoToMenu ()
 	{
-		SceneManager.LoadScene (0);
+		SceneManager.LoadScene (1);
 	}
 
     // Start is called before the first frame update

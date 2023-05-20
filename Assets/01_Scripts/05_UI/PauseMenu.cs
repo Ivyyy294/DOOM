@@ -19,7 +19,7 @@ public class PauseMenu : MonoBehaviour
 	public void Abort()
 	{
 		Time.timeScale = 1f;
-		SceneManager.LoadScene (2);
+		SceneManager.LoadScene (3);
 	}
 
 	public void Quit()

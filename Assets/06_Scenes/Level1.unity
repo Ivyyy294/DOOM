@@ -1780,7 +1780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5289480844968617272, guid: 38de6eb9c4805ce4fbb4ab981e933fb5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.09
+      value: -5.32
       objectReference: {fileID: 0}
     - target: {fileID: 5289480844968617272, guid: 38de6eb9c4805ce4fbb4ab981e933fb5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6254,12 +6254,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5289480844968617272, guid: 38de6eb9c4805ce4fbb4ab981e933fb5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 9.9774
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289480844968617272, guid: 38de6eb9c4805ce4fbb4ab981e933fb5, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5289480844968617272, guid: 38de6eb9c4805ce4fbb4ab981e933fb5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35.27
+      value: -37.59
       objectReference: {fileID: 0}
     - target: {fileID: 5289480844968617272, guid: 38de6eb9c4805ce4fbb4ab981e933fb5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6267,7 +6271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5289480844968617272, guid: 38de6eb9c4805ce4fbb4ab981e933fb5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -28.94
+      value: -27.46
       objectReference: {fileID: 0}
     - target: {fileID: 5289480844968617272, guid: 38de6eb9c4805ce4fbb4ab981e933fb5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12659,6 +12663,58 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3177759901904348053, guid: eaf577748114036489ee6e140521d65a, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3177759902418112772, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204572842669001088, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_text
+      value: '[Abort...]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204572842669001088, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_fontSize
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204572842669001088, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204572842669001088, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204572842673701806, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_text
+      value: '[Continue...]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204572842673701806, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_fontSize
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204572842673701806, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204572842673701806, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204572842899130096, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_text
+      value: '[Quit Game...]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204572842899130096, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_fontSize
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204572842899130096, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204572842899130096, guid: eaf577748114036489ee6e140521d65a, type: 3}
+      propertyPath: m_enableAutoSizing
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7131096363449035160, guid: eaf577748114036489ee6e140521d65a, type: 3}

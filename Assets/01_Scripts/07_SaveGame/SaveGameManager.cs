@@ -32,7 +32,10 @@ public class SaveGameManager
 {
 	//Instance
 	private static SaveGameManager me;
+	private string filePath;
+	private Dictionary <string, Payload> ObjectDataList;
 	
+	//Public
 	public static SaveGameManager Me()
 	{
 		if (me == null)
@@ -41,13 +44,9 @@ public class SaveGameManager
 		return me;
 	}
 
-	private string filePath;
-	private Dictionary <string, Payload> ObjectDataList;
-
-	public SaveGameManager()
+	public bool SaveGameAvailable()
 	{
-		filePath = Application.persistentDataPath + "/savefile.txt";
-		Debug.Log ("Will save to " + filePath);
+		return File.Exists (filePath);
 	}
 
 	public void SaveGameState()
@@ -73,6 +72,14 @@ public class SaveGameManager
 
 		Debug.Log ("Load");
 	}
+
+	//Private
+	private SaveGameManager()
+	{
+		filePath = Application.persistentDataPath + "/savefile.txt";
+		Debug.Log ("Will save to " + filePath);
+	}
+
 
 	void LoadObjectDataList()
 	{

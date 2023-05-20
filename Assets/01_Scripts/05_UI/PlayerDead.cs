@@ -32,7 +32,7 @@ public class PlayerDead: MonoBehaviour
 			if (imgBlackOut.color.a >= 1f)
 			{
 				Time.timeScale = 1f;
-				SceneManager.LoadScene (2);
+				SceneManager.LoadScene (3);
 			}
 			else
 				imgBlackOut.color = new Color (imgBlackOut.color.r, imgBlackOut.color.g, imgBlackOut.color.b, imgBlackOut.color.a + (Time.unscaledDeltaTime * speedTaint));

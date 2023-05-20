@@ -7,6 +7,6 @@ public class GameOver : MonoBehaviour
 {
     public void Interact()
 	{
-		SceneManager.LoadScene (2);
+		SceneManager.LoadScene (3);
 	}
 }
