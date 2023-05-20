@@ -153,7 +153,7 @@ public class WeaponManager : MonoBehaviour
 				}
 			}
 		}
-		else
+		else if (hasAmmo && currentState == State.IDLE && currentWeapon.currentAmmo <= 0)
 			PlaySoundEffect (currentWeapon.weapon.emptySound);
 
 		if (currentState == State.SHOOTING)
