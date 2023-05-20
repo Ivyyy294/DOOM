@@ -34,7 +34,10 @@ public class Inventory : MonoBehaviour, Damageable
 		health -= dmg * (1 - dmgReduction);
 
 		if (health <= 0f)
+		{
+			health = 0f;
 			uiDead?.SetActive (true);
+		}
 	}
 
     // Start is called before the first frame update

@@ -16,13 +16,13 @@ public class LoadSaveGame : MonoBehaviour
     {
 		if (!loaded)
 		{
+			bool loadGame = PlayerStats.Me().loadGameOnStart;
+
 			PlayerStats.Me().Init();
+			PlayerStats.Me().Reset();
 			
-			if (PlayerStats.Me().loadGameOnStart)
-			{
-				PlayerStats.Me().Reset();
+			if (loadGame)
 				SaveGameManager.Me().LoadGameState();
-			}
 			
 			loaded = true;
 		}
