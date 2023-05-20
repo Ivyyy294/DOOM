@@ -2877,6 +2877,38 @@ PrefabInstance:
       propertyPath: txtWIndex.Array.data[5]
       value: 
       objectReference: {fileID: 2116184826}
+    - target: {fileID: 5393089973647689886, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: weaponContainers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393089973647689886, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: weaponContainers.Array.data[0].active
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393089973647689886, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: weaponContainers.Array.data[0].weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 59d19a2800c12ec45a1561e0f0b66fe6, type: 2}
+    - target: {fileID: 5393089973647689886, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: weaponContainers.Array.data[1].active
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393089973647689886, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: weaponContainers.Array.data[1].weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 5281fc58ef55b6f42b4a5415ccf17f65, type: 2}
+    - target: {fileID: 5393089973647689886, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: weaponContainers.Array.data[2].weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: ce60a46033a1e814baee9504df257ee4, type: 2}
+    - target: {fileID: 5393089973647689886, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: weaponContainers.Array.data[3].weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: c14eaf9159833e646ad44cd917432614, type: 2}
+    - target: {fileID: 5393089973647689886, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
+      propertyPath: weaponContainers.Array.data[1].currentAmmo
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6631462284046581689, guid: e97c4627f23f8664599a5ad83e04d824, type: 3}
       propertyPath: pauseMenu
       value: 
