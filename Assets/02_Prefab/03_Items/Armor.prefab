@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3595286234039820926}
   - component: {fileID: 6750011253590954043}
   - component: {fileID: 4606165817054574027}
+  - component: {fileID: 859586166293732038}
   m_Layer: 0
   m_Name: Armor
   m_TagString: Untagged
@@ -131,6 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768e48bc8506e084b9a43b6e8d065383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: fd85947c25cb338428a651e0e80924b0, type: 3}
   value: 20
 --- !u!114 &3595286234039820926
 MonoBehaviour:
@@ -176,5 +178,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a8ef5094b12fc4fa1a17e393f75299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueId: 04256b97-8243-45d1-8ecb-df0adca7e8a9
   obj: {fileID: 8307033679245792412}
+--- !u!114 &859586166293732038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8307033679245792412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd5dd0dcac60c344a4bfefa6d2e1dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: be56c359-cc15-4e01-bf9a-a0230d62ebf3

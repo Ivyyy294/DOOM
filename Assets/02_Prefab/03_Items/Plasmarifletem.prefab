@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5dd0dcac60c344a4bfefa6d2e1dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueId: 53cfb107-a46d-4eb3-af6f-bf54fab5bbe7
+  uniqueId: a9bdb73c-3f9b-4a25-8dbd-ae52bf390d85
 --- !u!114 &632293775223987907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,4 +169,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c847f1383a687943a5a7f4f2c6b635a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: fd85947c25cb338428a651e0e80924b0, type: 3}
   weapon: {fileID: 11400000, guid: c14eaf9159833e646ad44cd917432614, type: 2}

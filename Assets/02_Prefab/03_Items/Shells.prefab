@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2226922962827030563}
   - component: {fileID: 1396227516219452026}
   - component: {fileID: 2784133130299257821}
+  - component: {fileID: 8313202922849277214}
   m_Layer: 0
   m_Name: Shells
   m_TagString: Untagged
@@ -142,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5793ea38800a3c4c8ef017b5c8d0ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: fd85947c25cb338428a651e0e80924b0, type: 3}
   value: 4
   typ: 1
 --- !u!114 &2784133130299257821
@@ -156,5 +158,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a8ef5094b12fc4fa1a17e393f75299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueId: 75dacce6-7932-4a23-a630-02b3ff61c23f
   obj: {fileID: 6650154717737010881}
+--- !u!114 &8313202922849277214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650154717737010881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd5dd0dcac60c344a4bfefa6d2e1dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: 
