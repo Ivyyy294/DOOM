@@ -750,7 +750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPos: {fileID: 1456194045}
-  speed: 128
+  speed: 256
 --- !u!1 &908903601
 GameObject:
   m_ObjectHideFlags: 0
