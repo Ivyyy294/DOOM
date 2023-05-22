@@ -27,9 +27,9 @@ public class SaveEnemy : SaveableObject
 		if (enemy.currentHealth <= 0)
 		{
 			enemy.animator.SetTrigger ("Dead");
-			enemy.SetState(EnemyStateMachine.dead);
+			enemy.AddState(EnemyStateMachine.dead);
 		}
 		else
-			enemy.SetState(EnemyStateMachine.reset);
+			enemy.AddState(EnemyStateMachine.reset);
 	}
 }

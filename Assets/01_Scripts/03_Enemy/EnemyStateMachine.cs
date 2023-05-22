@@ -19,7 +19,7 @@ public class IdleState : EnemyState
 
 	public void Update (EnemyStateMachine enemy)
 	{
-		enemy.SetState (EnemyStateMachine.patrole);
+		enemy.AddState (EnemyStateMachine.patrole);
 	}
 }
 
@@ -30,7 +30,7 @@ public class PatroleState : EnemyState
 	public void Update (EnemyStateMachine enemy)
 	{
 		if (enemy.playerInSight)
-			enemy.SetState (EnemyStateMachine.approach);
+			enemy.AddState (EnemyStateMachine.approach);
 
 		if (enemy.patrollingRoute != null)
 		{
@@ -39,7 +39,7 @@ public class PatroleState : EnemyState
 				enemy.patrollController.Next();
 
 				if (UnityEngine.Random.value <= enemy.idleChance)
-					enemy.SetState (enemy.patrolePause);
+					enemy.AddState (enemy.patrolePause);
 			}
 
 			enemy.navMeshAgent.SetDestination (enemy.patrollController.GetCurrentWaypoint());
@@ -60,11 +60,11 @@ public class PatrolePauseState : EnemyState
 	public void Update (EnemyStateMachine enemy)
 	{
 		if (enemy.playerInSight)
-			enemy.SetState (EnemyStateMachine.approach);
+			enemy.AddState (EnemyStateMachine.approach);
 		else
 		{
 			if (timer >= enemy.idleDuration)
-				enemy.SetState (EnemyStateMachine.patrole);
+				enemy.PopState();
 			else
 				timer += Time.deltaTime;
 		}
@@ -80,9 +80,9 @@ public class TakeDamageState : EnemyState
 		enemy.animator?.SetTrigger("TakeDamage");
 
 		if (enemy.currentHealth <= 0f)
-			enemy.SetState (EnemyStateMachine.dying);
+			enemy.AddState (EnemyStateMachine.dying);
 		else
-			enemy.SetState (EnemyStateMachine.idle);
+			enemy.PopState ();
 	}
 }
 
@@ -94,7 +94,7 @@ public class DyingState : EnemyState
 	{
 		enemy.animator?.SetTrigger("Die");
 		PlayerStats.Me().enemiesKilled++;
-		enemy.SetState (EnemyStateMachine.dead);
+		enemy.AddState (EnemyStateMachine.dead);
 	}
 }
 
@@ -118,13 +118,13 @@ public class ApproachState : EnemyState
 	public void Update (EnemyStateMachine enemy)
 	{
 		if (!enemy.playerInSight)
-			enemy.SetState (enemy.investigate);
+			enemy.AddState (enemy.investigate);
 		else
 		{
 			float distance = Vector3.Distance (enemy.transform.position, Camera.main.transform.position);
 
 			if (distance <= enemy.attackRange)
-				enemy.SetState (enemy.attack);
+				enemy.AddState (enemy.attack);
 
 			enemy.navMeshAgent.SetDestination (Camera.main.transform.position);
 		}
@@ -143,13 +143,13 @@ public class AttackState : EnemyState
 			enemy.navMeshAgent.ResetPath();
 
 		if (!enemy.playerInSight)
-			enemy.SetState (enemy.investigate);
+			enemy.AddState (enemy.investigate);
 		else
 		{
 			float distance = Vector3.Distance (enemy.transform.position, Camera.main.transform.position);
 
 			if (distance > enemy.attackRange)
-				enemy.SetState (EnemyStateMachine.approach);
+				enemy.AddState (EnemyStateMachine.approach);
 			else
 			{
 				attackDelayTimer -= Time.deltaTime;
@@ -171,7 +171,7 @@ public class Investigate: EnemyState
 	public void Update (EnemyStateMachine enemy)
 	{
 		if (enemy.playerInSight)
-			enemy.SetState (EnemyStateMachine.approach);
+			enemy.AddState (EnemyStateMachine.approach);
 		else
 		{
 			if (timer <= enemy.aggroLossDelay)
@@ -180,7 +180,7 @@ public class Investigate: EnemyState
 				timer += Time.deltaTime;
 			}
 			else
-				enemy.SetState (EnemyStateMachine.idle);
+				enemy.AddState (EnemyStateMachine.idle);
 		}
 	}
 }
@@ -193,7 +193,7 @@ public class ResetState: EnemyState
 		enemy.animator.enabled = true;
 		enemy.animator?.SetTrigger("idle");
 		enemy.GetComponent<Collider>().enabled = true;
-		enemy.SetState (EnemyStateMachine.idle);
+		enemy.AddState (EnemyStateMachine.idle);
 	}
 }
 
@@ -220,7 +220,7 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	public float despawnDelay = 2f;
 	public float aggroLossDelay;
 
-	public EnemyState currentState;
+	public Stack <EnemyState> currentState = new Stack<EnemyState>();
 	public static IdleState idle = new IdleState();
 	public static DyingState dying = new DyingState();
 	public static ApproachState approach = new ApproachState();
@@ -239,10 +239,15 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 	public float currentHealth;
 	public Vector3 lastPlayerPos;
 
-	public void SetState (EnemyState state)
+	public void PopState()
 	{
-		currentState = state;
-		state.Enter(this);
+		EnemyState tmp = currentState.Pop();
+	}
+
+	public void AddState (EnemyState state)
+	{
+		currentState.Push (state);
+		currentState.Peek().Enter(this);
 	}
 
 	public void HitPlayer()
@@ -263,17 +268,17 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 			currentHealth -= dmg;
 			Debug.Log("AUTSCH!!! DMG: " + dmg.ToString("0.00"));
 
-			SetState (new TakeDamageState());
+			AddState (new TakeDamageState());
 		}
 	}
     // Start is called before the first frame update
     void Start()
     {
-		currentState = new IdleState();
 		currentHealth = maxHealth;
 		patrollController = new PatrollController();
 		patrollController.patrollingRoute = patrollingRoute;
 		patrollController.SetNearestWaypoint (transform);
+		AddState (idle);
     }
 
     // Update is called once per frame
@@ -284,7 +289,7 @@ public class EnemyStateMachine : MonoBehaviour, Damageable
 		if (playerInSight)
 			lastPlayerPos = Camera.main.transform.position;
 
-		currentState.Update (this);
+		currentState.Peek().Update (this);
     }
 
 
